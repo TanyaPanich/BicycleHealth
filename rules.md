@@ -14,3 +14,6 @@
 14. Separate modules to access database tables using knex under directory called 'database'
 15. In the routes, use the module in 14 to access database instead of calling knex directly, i.e. 'Separate Concerns'.
 16. Use Alicia's eslintrc file, make sure source file is correctly indented and linted.  It makes reading and maintaining code easier.
+17. JavaScript variable and function names: camel
+    JSON object:        camel
+    database table and column names: snake
