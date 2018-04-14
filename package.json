@@ -22,6 +22,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.1.0",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
   }
 }

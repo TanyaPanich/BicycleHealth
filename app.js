@@ -31,8 +31,7 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-  console.log(err)
-  // render the error page
+  // return error in JSON
   res.status(err.output.statusCode || 500)
   res.json(err.output.payload)
 })
