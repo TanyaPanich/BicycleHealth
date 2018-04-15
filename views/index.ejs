@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+  <% include ./head %>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <% include ./nav %>
+        <header>
+          <div>
+            <% include ./carousel %>
+          </div>
+          <div>
+            <% include ./partInfo %>
+          </div>
+          <div>
+            <% include ./footer %>
+          </div>
+  </div>
+  <!--end of container-->
+</body>
+
 </html>
