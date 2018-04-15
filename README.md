@@ -22,6 +22,13 @@ The app is deployed at https://bicycle-health-check.herokuapp.com/
     </ol>
   <li>
     When signing up without <b>Strava</b>
+    <ol type="a">
+      <li>Prompt to enter First Name, Last Name, Middle Initial, Password and Confirm Password</li>
+      <li>Prompt to add bicycle information.  User may add one or more bicycles. information</li>
+      <li>Prompt to add various parts user would like to track from the app and its estimated mileage since the last repair/replacement.  User may add one or more parts.</li>
+      <li>Prompt to add ride with mileage</li>
+      <li></li>
+    </ol>
   </li>
   <li>
     Once sign up is complete, the current user is saved in the <b>Local Storage</b>
