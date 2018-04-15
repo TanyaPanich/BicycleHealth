@@ -1,0 +1,11 @@
+#login-options {
+  height: 500px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-opt {
+  margin: 3rem 5rem;
+  flex: 1;
+}
