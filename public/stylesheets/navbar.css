@@ -1,0 +1,38 @@
+.navbar {
+  position: relative;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+#title {
+  font-size: 1.2rem;
+  color: white;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px !important;  /* 50% of your logo width */
+  display: block;
+}
+
+#dropdown {
+  margin-right: 0.1rem;
+  padding-right: 0;
+}
+
+.dropdown-menu {
+  left: -2rem;
+}
+
+@media(min-width:800px) {
+  #dropdown {
+    margin-right: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  #footerLeft {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  #footerRight {
+    margin-right: 0;
+    padding-right: 0;
+  }
+}

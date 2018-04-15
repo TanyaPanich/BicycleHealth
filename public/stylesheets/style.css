@@ -1,44 +1,15 @@
-.container{
+.container {
   width: 100%;
-  max-width: 980px;
-  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 body {
-  padding: 50px;
   font-family: 'Lato', sans-serif;
 }
 
 a {
   color: #f8f9fa;
-}
-
-.navbar {
-  position: relative;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-#title {
-  font-size: 1.2rem;
-  color: white;
-  position: absolute;
-  left: 50%;
-  margin-left: -50px !important;  /* 50% of your logo width */
-  display: block;
-}
-
-#dropdown {
-  margin-right: 0.1rem;
-  padding-right: 0;
-}
-
-.dropdown-menu {
-  left: -2rem;
-}
-
-.carousel {
-  margin: 1rem 0;
 }
 
 @media(min-width:800px){
@@ -47,16 +18,8 @@ a {
     margin-left: 10%;
     margin-right:10%;
   }
-  #dropdown {
-    margin-right: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  #footerLeft {
-    margin-left: 0;
-    padding-left: 0;
-  }
-  #footerRight {
-    margin-right: 0;
-    padding-right: 0;
+
+  body {
+    padding: 50px;
   }
 }

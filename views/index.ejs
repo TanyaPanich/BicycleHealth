@@ -3,23 +3,23 @@
 
 <head>
   <% include ./head %>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <link rel='stylesheet' href='/stylesheets/navbar.css'>
+    <link rel='stylesheet' href='/stylesheets/carousel.css'>
+    <link rel='stylesheet' href='/stylesheets/partInfo.css'>
+    <link rel='stylesheet' href='/stylesheets/footer.css'>
 </head>
 
 <body>
   <div class="container">
-    <header>
+
       <% include ./nav %>
-        <header>
-          <div>
-            <% include ./carousel %>
-          </div>
-          <div>
-            <% include ./partInfo %>
-          </div>
-          <div>
-            <% include ./footer %>
-          </div>
+
+      <% include ./carousel %>
+
+      <% include ./partInfo %>
+
+      <% include ./footer %>
   </div>
   <!--end of container-->
 </body>
