@@ -10,19 +10,19 @@ The app is deployed at https://bicycle-health-check.herokuapp.com/
 
 #### Sign Up
 1. Check to see if there is any user saved in Local Storage.  If there is no user saved, continue with the Sign Up process.  If there is a user saved, continue with the Login process below.
-1. When signing up with <b>Strava</b>
+2. When signing up with <b>Strava</b>
 <ol type="a">
   <li>Display Login for <b>Strava</b></li>
   <li>After a successful login to <b>Strava</b>, the account information is returned</li>
   <li>Create a record in users table</li>
   <li>When saving access_token, make sure to encrypt the data with <b>SECRET_KEY</b> and multiple salt rounds</li>
 </ol>
-1. When signing up without <b>Strava</b>
-1. Once sign up is complete, the current user is saved in the <b>Local Storage</b>
+3. When signing up without <b>Strava</b>
+4. Once sign up is complete, the current user is saved in the <b>Local Storage</b>
 
 #### Login
 1. Retrieve user information from the Local Storage and determine whether the user account is connected to <b>Strava</b> account.
-1. If the account is connected to  <b>Strava</b>:
+2. If the account is connected to  <b>Strava</b>:
 <ol type="a">
   <li>Retrieve access_token from users table</li>
   <li>Decrypt the access_token</li>
@@ -33,7 +33,7 @@ The app is deployed at https://bicycle-health-check.herokuapp.com/
   <li>Change part status indicator</li>
   <li>If there were no additional activities since the last login, just display the current status</li>
 </ol>
-1. If the account is not connected to <b>Strava</b>:
+3. If the account is not connected to <b>Strava</b>:
 <ol type="a">
   <li>Display the current status</li>
   <li>User may select to enter ride information by selecting <b>Enter Ride</b></li>
