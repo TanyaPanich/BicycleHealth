@@ -8,9 +8,4 @@ Keep your bicycle healthy!
 
 1. [User Stories](userStories.md)
 1. [Agreements](rules.md)
-
-## Wireframes
-1. First Time User Page
-<img width="346" alt="First Time User Page" src="https://wireframe.cc/d3PSJR">
-1. Home Page
-<img width="346" alt="Home Page" src="https://wireframe.cc/lly3zV">
+1. [Wireframes](wireframes.md)
