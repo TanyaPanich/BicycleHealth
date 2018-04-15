@@ -27,7 +27,6 @@ The app is deployed at https://bicycle-health-check.herokuapp.com/
       <li>Prompt to add bicycle information.  User may add one or more bicycles. information</li>
       <li>Prompt to add various parts user would like to track from the app and its estimated mileage since the last repair/replacement.  User may add one or more parts.</li>
       <li>Prompt to add ride with mileage</li>
-      <li></li>
     </ol>
   </li>
   <li>
