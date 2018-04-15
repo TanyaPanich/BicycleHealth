@@ -7,6 +7,7 @@ const port = process.env.PORT || '8000'
 const server = http.createServer()
 const path = require('path')
 const fs = require('fs')
+const boom = require('boom')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
@@ -37,7 +38,45 @@ const writeFileConfig = {
   encoding: 'utf8',
   flag: 'w'
 }
-// console.log(strava)
+console.log(strava)
+
+/* GET Strava Account Information */
+app.get('/strava/athlete/:id', (req, res, next) => {
+  stravaConfig.id = STRAVA_USER_ID
+
+  strava.athlete.get(stravaConfig, (error1, data) => {
+    if(error1) {
+      next(error1)
+    }
+    else {
+      fs.writeFile(`./strava/data/athlete.json`, JSON.stringify(data), writeFileConfig, (error2) => {
+        if (error2) {
+          next(error2)
+        }
+      })
+      res.json(data)
+    }
+  })
+})
+
+/* GET Strava Stats */
+app.get('/strava/stats/:id', (req, res, next) => {
+  stravaConfig.id = STRAVA_USER_ID
+
+  strava.athletes.stats(stravaConfig, (error1, data) => {
+    if(error1) {
+      next(error1)
+    }
+    else {
+      fs.writeFile(`./strava/data/stats.json`, JSON.stringify(data), writeFileConfig, (error2) => {
+        if (error2) {
+          next(error2)
+        }
+      })
+      res.json(data)
+    }
+  })
+})
 
 /* GET Strava Activities. */
 app.get('/strava/activities', (req, res, next) => {
