@@ -9,6 +9,7 @@ const stravaRouter = require('./routes/strava')
 const loginRouter = require('./routes/login')
 
 const app = express()
+app.disable('x-powered-by')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

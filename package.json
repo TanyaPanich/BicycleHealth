@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "mocha"
+    "test": "mocha",
+    "strava": "nodemon ./strava/app"
   },
   "dependencies": {
     "boom": "^7.2.0",
@@ -17,10 +18,12 @@
     "joi": "^13.1.2",
     "knex": "^0.14.6",
     "morgan": "~1.9.0",
-    "pg": "^7.4.1"
+    "pg": "^7.4.1",
+    "strava-v3": "^1.14.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "dotenv": "^5.0.1",
     "mocha": "^5.1.0",
     "nodemon": "^1.17.3",
     "supertest": "^3.0.0"
