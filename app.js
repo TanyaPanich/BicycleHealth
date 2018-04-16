@@ -7,6 +7,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const stravaRouter = require('./routes/strava')
 const loginSignupRouter = require('./routes/loginSignup')
+const homeRouter = require('./routes/homeRouter')
 
 const app = express()
 app.disable('x-powered-by')
@@ -24,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/login', loginSignupRouter)
 app.use('/strava', stravaRouter)
+app.use('/home', homeRouter)
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
