@@ -1,0 +1,10 @@
+#login-form {
+  margin: 2rem;
+}
+.col-form-label-lg {
+  padding-top: 0;
+}
+
+label {
+  margin-bottom: 0;
+}

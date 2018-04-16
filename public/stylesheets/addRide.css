@@ -1,0 +1,20 @@
+#add-ride-form {
+  margin: 2rem;
+}
+.col-form-label-lg {
+  padding-top: 0;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+#add-ride-title {
+  text-align: center;
+  margin: 1rem 2rem;
+}
+
+.add-ride-buttons {
+  text-align: center;
+  margin: 2rem;
+}

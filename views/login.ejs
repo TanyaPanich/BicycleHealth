@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ./head %>
+  <link rel='stylesheet' href='/stylesheets/login.css'>
+</head>
+
+<body>
+  <div class="container">
+    <% include ./nav %>
+    <form id="login-form">
+
+      <div class="form-group">
+        <label for="exampleInputEmail1" class="col-form-label-lg">Email address</label>
+        <input type="email" class="form-control" id="InputLoginEmail" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="col-form-label-lg">Password</label>
+        <input type="password" class="form-control" id="InputLoginPassword" placeholder="Password">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+  <!--end of container-->
+</body>
+
+</html>

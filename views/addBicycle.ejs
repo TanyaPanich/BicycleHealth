@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ./head %>
+  <link rel='stylesheet' href='/stylesheets/addBike.css'>
+</head>
+
+<body>
+  <div class="container">
+    <% include ./nav %>
+    <h4 id="add-bike-title">Add Bicycle</h4>
+    <form id="add-bike-form">
+      <div class="form-group">
+        <label for="Nickname" class="col-form-label-lg">Nickname</label>
+        <input type="text" class="form-control" placeholder="Nickname">
+      </div>
+      <div class="form-group col-form-label-lg">
+        <label for="input-type">Type</label>
+        <select id="type-of-bike" class="form-control">
+          <option selected>Choose...</option>
+          <option>...</option>
+          <option>...</option>
+          <option>...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="Brand" class="col-form-label-lg">Brand</label>
+        <input type="text" class="form-control" placeholder="Brand">
+      </div>
+      <div class="form-group">
+        <label for="Model" class="col-form-label-lg">Model</label>
+        <input type="text" class="form-control" placeholder="Model">
+      </div>
+      <button id="addAnotherBike" type="submit" class="btn btn-primary add-bike-buttons">Add another</button>
+      <button id="doneAddingBike" type="submit" class="btn btn-primary add-bike-buttons">All done</button>
+
+    </form>
+  </div>
+  <!--end of container-->
+</body>
+
+</html>
