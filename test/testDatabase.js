@@ -488,9 +488,24 @@ describe('database migration check', () => {
         /* eslint-enable */
 
         done()
-      }).catch((err) => {
-        done(err)
       })
+        .catch((err) => {
+          done(err)
+        })
+    })
+  })
+})
+
+describe('database seed check', () => {
+  describe('teams table', () => {
+    it('teams table', (done) => {
+      knex(teamsTable).then((rows) => {
+        assert.isAbove(rows.length, 0, 'There is a default team')
+        done()
+      })
+        .catch((err) => {
+          done(err)
+        })
     })
   })
 })
