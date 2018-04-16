@@ -14,7 +14,28 @@ label {
   margin: 1rem 2rem;
 }
 
-.add-ride-buttons {
-  text-align: center;
-  margin: 2rem;
+#done-adding-ride {
+  width: 10rem;
+}
+
+#button-ride-done {
+  display: flex;
+  justify-content: space-around;
+}
+
+#buttons-ride-add-delete {
+  display: flex;
+  justify-content: space-around;
+}
+
+#add-another-ride {
+  flex: 1;
+}
+
+#delete-ride {
+  flex: 1;
+}
+
+.ride-buttons {
+  margin: 0.5rem;
 }

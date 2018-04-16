@@ -1,0 +1,26 @@
+#profile-form {
+  margin: 2rem;
+}
+
+.col-form-label-lg {
+  padding-top: 0;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+#profile-title {
+  text-align: center;
+  margin: 1rem 2rem;
+}
+
+#buttons-profile {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-buttons {
+  margin: 0.5rem;
+  flex: 1;
+}

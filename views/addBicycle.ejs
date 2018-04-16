@@ -9,11 +9,16 @@
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="add-bike-title">Add Bicycle</h4>
+    <h4 id="add-bike-title">Add/Edit Bicycle</h4>
     <form id="add-bike-form">
-      <div class="form-group">
-        <label for="Nickname" class="col-form-label-lg">Nickname</label>
-        <input type="text" class="form-control" placeholder="Nickname">
+      <div class="form-group col-form-label-lg">
+        <label for="input-type">Nickname</label>
+        <select id="type-of-bike" class="form-control">
+          <option selected>Choose...</option>
+          <option>...</option>
+          <option>...</option>
+          <option>...</option>
+        </select>
       </div>
       <div class="form-group col-form-label-lg">
         <label for="input-type">Type</label>
@@ -29,11 +34,17 @@
         <input type="text" class="form-control" placeholder="Brand">
       </div>
       <div class="form-group">
-        <label for="Model" class="col-form-label-lg">Model</label>
+        <label for="model" class="col-form-label-lg">Model</label>
         <input type="text" class="form-control" placeholder="Model">
       </div>
-      <button id="addAnotherBike" type="submit" class="btn btn-primary add-bike-buttons">Add another</button>
-      <button id="doneAddingBike" type="submit" class="btn btn-primary add-bike-buttons">All done</button>
+      
+      <div id="button-bike-done">
+        <button id="done-adding-bike" type="submit" class="btn btn-primary bike-buttons">Done</button>
+      </div>
+      <div id="buttons-bike-add-delete">
+        <button id="add-another-bike" type="submit" class="btn btn-primary bike-buttons" disabled>Add another</button>
+        <button id="delete-bike" type="button" class="btn btn-outline-danger bike-buttons" disabled>Delete</button>
+      </div>
 
     </form>
   </div>

@@ -14,7 +14,28 @@ label {
   margin: 1rem 2rem;
 }
 
-.add-part-buttons {
-  text-align: center;
-  margin: 2rem;
+#done-adding-part {
+  width: 10rem;
+}
+
+#button-part-done {
+  display: flex;
+  justify-content: space-around;
+}
+
+#buttons-part-add-delete {
+  display: flex;
+  justify-content: space-around;
+}
+
+#add-another-part {
+  flex: 1;
+}
+
+#delete-part {
+  flex: 1;
+}
+
+.part-buttons {
+  margin: 0.5rem;
 }

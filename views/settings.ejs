@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ./head %>
+  <link rel='stylesheet' href='/stylesheets/settings.css'>
+</head>
+
+<body>
+  <div class="container">
+    <% include ./nav %>
+    <h4 id="settings-title">Settings</h4>
+    <form id="settings-form">
+      <div class="form-group col-form-label-lg">
+        <label for="input-type">Default bicycle</label>
+        <select id="nickname-of-bike" class="form-control">
+          <option selected>Choose...</option>
+          <option>...</option>
+          <option>...</option>
+          <option>...</option>
+        </select>
+      </div>
+      <div id="km-miles-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="options" id="miles" autocomplete="off" checked> Miles
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="km" autocomplete="off"> Kilometers
+        </label>
+      </div>
+
+      <div id="buttons-settings">
+        <button id="edit-settings" type="submit" class="btn btn-primary settings-buttons">Edit</button>
+        <button id="done-settings" type="submit" class="btn btn-primary settings-buttons" disabled>Done</button>
+      </div>
+
+    </form>
+  </div>
+  <!--end of container-->
+</body>
+
+</html>

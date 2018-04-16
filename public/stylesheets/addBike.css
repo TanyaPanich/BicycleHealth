@@ -1,6 +1,7 @@
 #add-bike-form {
   margin: 2rem;
 }
+
 .col-form-label-lg {
   padding-top: 0;
 }
@@ -14,7 +15,28 @@ label {
   margin: 1rem 2rem;
 }
 
-.add-bike-buttons {
-  text-align: center;
-  margin: 2rem;
+#done-adding-bike {
+  width: 10rem;
+}
+
+#button-bike-done {
+  display: flex;
+  justify-content: space-around;
+}
+
+#buttons-bike-add-delete {
+  display: flex;
+  justify-content: space-around;
+}
+
+#add-another-bike {
+  flex: 1;
+}
+
+#delete-bike {
+  flex: 1;
+}
+
+.bike-buttons {
+  margin: 0.5rem;
 }
