@@ -5,10 +5,16 @@ The app is deployed at https://bicycle-health-check.herokuapp.com/
 
 The User Stories for the app are at https://trello.com/b/V2FaCV20
 
+## Project Document
+
+1. [User Stories](docs/userStories.md)
+1. [Agreements](docs/rules.md)
+1. [Wireframes](docs/wireframes.md)
+
 ## ERD
 <img width="1439" alt="ERD" src="https://github.com/TanyaPanich/BicycleHealth/blob/master/docs/images/ERD%20diagram.png">
 
-### User Workflows
+## User Workflows
 
 #### Sign Up
 <ol type="1">
@@ -25,10 +31,7 @@ The User Stories for the app are at https://trello.com/b/V2FaCV20
   <li>
     When signing up without <b>Strava</b>
     <ol type="a">
-      <li>Prompt to enter First Name, Last Name, Middle Initial, Password and Confirm Password</li>
-      <li>Prompt to add bicycle information.  User may add one or more bicycles. information</li>
-      <li>Prompt to add various parts user would like to track from the app and its estimated mileage since the last repair/replacement.  User may add one or more parts.</li>
-      <li>Prompt to add ride with mileage</li>
+      <li>Prompt to enter First Name, Last Name, Email Address, Password and Confirm Password</li>
     </ol>
   </li>
   <li>
@@ -63,14 +66,23 @@ The User Stories for the app are at https://trello.com/b/V2FaCV20
   </li>
 </ol>
 
+#### Setup Bicycles for Tracking
+1. User selects Add Bicycle option from the menu
+  <ol>
+    <li>Prompt to add bicycle information</li>
+    <li>User may add one or more bicycles</li>
+  </ol>
+2. User selects Add Part option from the menu
+  <ol>
+    <li>Prompt to add various parts user would like to track from the app and its estimated mileage since the last repair/replacement</li>
+    <li>User may add one or more parts</li>
+  </ol>
+3. User selects Add Ride option from the menu
+  <ol>
+    <li>Prompt to add ride with mileage</li>
+  </ol>
+
 #### Repair / Replace Parts
 1. User selects the part repaired or replaced by touching a part and selecting <b>Repair / Replace</b> button.
 1. Prompt user with the part information.
 1. The mileage on the part is reset.
-
-
-## Project Document
-
-1. [User Stories](docs/userStories.md)
-1. [Agreements](docs/rules.md)
-1. [Wireframes](docs/wireframes.md)
