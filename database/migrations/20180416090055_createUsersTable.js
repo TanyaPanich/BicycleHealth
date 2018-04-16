@@ -27,5 +27,5 @@ exports.up = (knex, Promise) => {
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable(usersTable)
+  return knex.schema.dropTableIfExists(usersTable)
 }

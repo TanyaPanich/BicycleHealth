@@ -18,5 +18,5 @@ exports.up = (knex, Promise) => {
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable(conditionsTable)
+  return knex.schema.dropTableIfExists(conditionsTable)
 }
