@@ -39,7 +39,7 @@ const insert = (req, res, next) => {
     }).catch(err => {
         next(err)
     })
-})
+
 
   function isEmailExist(email, next) {
     knex('users')
