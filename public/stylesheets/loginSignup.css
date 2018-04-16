@@ -1,12 +1,16 @@
+#motto {
+  text-align: center;
+  margin: 1rem 2rem;
+}
 #login-options {
-  height: 500px;
+  height: 400px;
   text-align: center;
   display: flex;
   flex-direction: column;
 }
 
 .login-opt {
-  margin: 3rem 5rem;
+  margin: 2rem 5rem;
   flex: 1;
 }
 
