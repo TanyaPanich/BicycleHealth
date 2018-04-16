@@ -8,7 +8,7 @@ module.exports = {
       directory: path.join(__dirname, 'database', 'migrations')
     },
     seeds: {
-      directory: path.join(__dirname, 'database', 'seeds')
+      directory: path.join(__dirname, 'database', 'seeds_dev')
     },
     connection: 'postgres://localhost/bike_health_dev'
   },
@@ -19,7 +19,7 @@ module.exports = {
       directory: path.join(__dirname, 'database', 'migrations')
     },
     seeds: {
-      directory: path.join(__dirname, 'database', 'seeds')
+      directory: path.join(__dirname, 'database', 'seeds_dev')
     },
     connection: 'postgres://localhost/bike_health_test'
   },
