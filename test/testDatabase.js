@@ -509,4 +509,17 @@ describe('database seed check', () => {
         })
     })
   })
+  describe('users table', () => {
+    it('two users in the table', (done) => {
+      knex(usersTable).then((rows) => {
+        assert.equal(rows.length, 2, 'There are 2 users')
+        assert.equal(rows[0].first_name, 'Jane', `The first name of the first user is 'Jane'`)
+        assert.equal(rows[1].first_name, 'John', `The first name of the first user is 'John'`)
+        done()
+      })
+        .catch((err) => {
+          done(err)
+        })
+    })
+  })
 })

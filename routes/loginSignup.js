@@ -5,10 +5,10 @@ const loginSignup = (req, res, next) => {
   res.render('loginSignup', { title: 'Bicycle health' })
 }
 
-const goToSignupPage = (req, res, next) => {
-  //res.render('loginSignup', { title: 'Bicycle health' })
-}
-
+// const goToSignupPage = (req, res, next) => {
+//   //res.render('loginSignup', { title: 'Bicycle health' })
+// }
+//
 const signup = (req, res, next) => {
   res.render('signup', { title: 'Bicycle health' })
 }
@@ -18,7 +18,7 @@ const login = (req, res, next) => {
 }
 
 router.get('/', loginSignup)
-router.post('/', goToSignupPage)
+// router.post('/', goToSignupPage)
 router.get('/signup', signup)
 router.get('/login', login)
 
