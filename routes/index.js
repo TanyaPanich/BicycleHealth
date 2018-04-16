@@ -4,7 +4,7 @@ const router = express.Router()
 /* GET home page. */
 
 const index = (req, res, next) => {
-  res.render('index', { title: 'Bicycle health' })
+  res.render('loginSignup', { title: 'Bicycle health' })
 }
 
 const addBicycle = (req, res, next) => {
