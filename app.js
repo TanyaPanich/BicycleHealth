@@ -25,7 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/login', loginSignupRouter)
 app.use('/strava', stravaRouter)
+<<<<<<< HEAD
 //app.use('/home', homeRouter)
+=======
+app.use('/home', homeRouter)
+>>>>>>> phaser game in home.js
 
 
 // catch 404 and forward to error handler
