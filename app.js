@@ -7,7 +7,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const stravaRouter = require('./routes/strava')
 const loginSignupRouter = require('./routes/loginSignup')
-//const homeRouter = require('./routes/home')
+// const homeRouter = require('./routes/home')
 
 const app = express()
 app.disable('x-powered-by')
@@ -25,11 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/login', loginSignupRouter)
 app.use('/strava', stravaRouter)
-<<<<<<< HEAD
-//app.use('/home', homeRouter)
-=======
-app.use('/home', homeRouter)
->>>>>>> phaser game in home.js
+// app.use('/home', homeRouter)
 
 
 // catch 404 and forward to error handler
