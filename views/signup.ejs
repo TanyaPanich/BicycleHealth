@@ -9,27 +9,32 @@
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="signup-title">Enter the Following:</h4>
+    <h4 id="signup-title">Enter the Following</h4>
     <form id="signup-form">
       <div class="form-group">
         <label for="first-name" class="col-form-label-lg">First name</label>
-        <input type="text" class="form-control" placeholder="First name">
+        <input id="firstName" type="text" class="form-control" placeholder="First name">
+        <p id="firstNameStatus"></p>
       </div>
       <div class="form-group">
         <label for="last-name" class="col-form-label-lg">Last name</label>
-        <input type="text" class="form-control" placeholder="Last name">
+        <input id="lastName" type="text" class="form-control" placeholder="Last name">
+        <p id="lastNameStatus"></p>
       </div>
       <div class="form-group">
         <label for="InputEmail1" class="col-form-label-lg">Email address</label>
-        <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <input id="email" type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <p id="emailStatus"></p>
       </div>
       <div class="form-group">
         <label for="InputPassword1" class="col-form-label-lg">Password</label>
-        <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+        <input id="password1" type="password" class="form-control" id="InputPassword1" placeholder="Password">
+        <p id="password1Status"></p>
       </div>
       <div class="form-group">
         <label for="InputPassword2" class="col-form-label-lg">Confirm Password</label>
-        <input type="password" class="form-control" id="InputPassword2" placeholder="Password">
+        <input id="password2" type="password" class="form-control" id="InputPassword2" placeholder="Password">
+        <p id="password2Status"></p>
       </div>
       <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
