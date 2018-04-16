@@ -6,7 +6,7 @@ const loginSignup = (req, res, next) => {
 }
 
 const goToSignupPage = (req, res, next) => {
-  // res.render('loginSignup', { title: 'Bicycle health' })
+  //res.render('loginSignup', { title: 'Bicycle health' })
 }
 
 const signup = (req, res, next) => {
