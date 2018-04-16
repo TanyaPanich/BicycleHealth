@@ -8,13 +8,18 @@ const { conditionsTable, ridesTable } = require('../utils')
 
 exports.up = (knex, Promise) => {
   return knex.schema.createTable(conditionsTable, (table) => {
-    table.increments()
+    table.uuid('id')
     table.varchar('type', 20).notNullable()
     table.varchar('condition', 20).notNullable()
-    table.integer('ride_id').notNullable()
+    table.uuid('ride_id').notNullable()
     table.foreign('ride_id').references('id').inTable(ridesTable).onDelete('cascade')
     table.timestamps(true, true)
   })
+    .then(() => {
+      return knex.schema.alterTable(conditionsTable, (table) => {
+        table.unique('id')
+      })
+    })
 }
 
 exports.down = (knex, Promise) => {

@@ -6,9 +6,9 @@ const { bikesTable, partsTable } = require('../utils')
 
 exports.up = (knex, Promise) => {
   return knex.schema.createTable(partsTable, (table) => {
-    table.increments()
+    table.uuid('id')
     table.varchar('name', 255).notNullable()
-    table.integer('bike_id').notNullable()
+    table.uuid('bike_id').notNullable()
     table.foreign('bike_id').references('id').inTable(bikesTable).onDelete('cascade')
     table.varchar('brand', 255).notNullable().defaultTo('')
     table.varchar('model', 255).notNullable().defaultTo('')
@@ -17,6 +17,11 @@ exports.up = (knex, Promise) => {
     table.varchar('unit', 20).notNullable()
     table.timestamps(true, true)
   })
+    .then(() => {
+      return knex.schema.alterTable(partsTable, (table) => {
+        table.unique('id')
+      })
+    })
 }
 
 exports.down = (knex, Promise) => {
