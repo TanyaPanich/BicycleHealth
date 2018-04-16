@@ -498,9 +498,10 @@ describe('database migration check', () => {
 
 describe('database seed check', () => {
   describe('teams table', () => {
-    it('teams table', (done) => {
+    it('default team', (done) => {
       knex(teamsTable).then((rows) => {
         assert.isAbove(rows.length, 0, 'There is a default team')
+        assert.equal(rows[0].name, 'Default', `The default team name is 'Default'`)
         done()
       })
         .catch((err) => {
