@@ -1,0 +1,50 @@
+{
+  "provider": "strava",
+  "id": 16419594,
+  "displayName": "Sukmi Ledru",
+  "name": {
+    "familyName": "Ledru",
+    "givenName": "Sukmi"
+  },
+  "photos": [{
+    "value": "https://graph.facebook.com/10208918359972968/picture?height=256&width=256"
+  }, {
+    "value": "https://graph.facebook.com/10208918359972968/picture?height=256&width=256"
+  }],
+  "emails": [{
+    "value": "slledru@msn.com"
+  }],
+  "token": "840fcdff7f83d6d9ca8bb44608cfe7686850e1c4",
+  "_raw": "{\"id\":16419594,\"username\":\"sukmi_ledru\",\"resource_state\":3,\"firstname\":\"Sukmi\",\"lastname\":\"Ledru\",\"city\":null,\"state\":null,\"country\":null,\"sex\":null,\"premium\":false,\"created_at\":\"2016-07-19T13:25:54Z\",\"updated_at\":\"2016-07-19T13:29:13Z\",\"badge_type_id\":0,\"profile_medium\":\"https://graph.facebook.com/10208918359972968/picture?height=256\\u0026width=256\",\"profile\":\"https://graph.facebook.com/10208918359972968/picture?height=256\\u0026width=256\",\"friend\":null,\"follower\":null,\"email\":\"slledru@msn.com\",\"follower_count\":0,\"friend_count\":0,\"mutual_friend_count\":0,\"athlete_type\":0,\"date_preference\":\"%m/%d/%Y\",\"measurement_preference\":\"feet\",\"clubs\":[],\"ftp\":null,\"weight\":null,\"bikes\":[],\"shoes\":[]}",
+  "_json": {
+    "id": 16419594,
+    "username": "sukmi_ledru",
+    "resource_state": 3,
+    "firstname": "Sukmi",
+    "lastname": "Ledru",
+    "city": null,
+    "state": null,
+    "country": null,
+    "sex": null,
+    "premium": false,
+    "created_at": "2016-07-19T13:25:54Z",
+    "updated_at": "2016-07-19T13:29:13Z",
+    "badge_type_id": 0,
+    "profile_medium": "https://graph.facebook.com/10208918359972968/picture?height=256&width=256",
+    "profile": "https://graph.facebook.com/10208918359972968/picture?height=256&width=256",
+    "friend": null,
+    "follower": null,
+    "email": "slledru@msn.com",
+    "follower_count": 0,
+    "friend_count": 0,
+    "mutual_friend_count": 0,
+    "athlete_type": 0,
+    "date_preference": "%m/%d/%Y",
+    "measurement_preference": "feet",
+    "clubs": [],
+    "ftp": null,
+    "weight": null,
+    "bikes": [],
+    "shoes": []
+  }
+}
