@@ -13,7 +13,7 @@
     <form id="add-ride-form">
       <div class="form-group">
         <label for="date" class="col-form-label-lg">Date</label>
-        <input type="text" class="form-control" placeholder="00/00/00">
+        <input type="text" class="form-control" placeholder="01/01/00">
       </div>
       <div class="form-group col-form-label-lg">
         <label for="input-type">Bicycle used</label>
@@ -46,8 +46,13 @@
           <option>...</option>
         </select>
       </div>
-      <button id="addAnotherRide" type="submit" class="btn btn-primary add-ride-buttons">Add another</button>
-      <button id="doneAddingRide" type="submit" class="btn btn-primary add-ride-buttons">All done</button>
+      <div id="button-ride-done">
+        <button id="done-adding-ride" type="submit" class="btn btn-primary ride-buttons">Done</button>
+      </div>
+      <div id="buttons-ride-add-delete">
+        <button id="add-another-ride" type="submit" class="btn btn-primary ride-buttons" disabled>Add another</button>
+        <button id="delete-ride" type="button" class="btn btn-outline-danger ride-buttons" disabled>Delete</button>
+      </div>
 
     </form>
   </div>

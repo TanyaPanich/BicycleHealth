@@ -3,3 +3,14 @@
   padding: 0;
   background-color: #343a40;
 }
+
+@media(min-width:800px) {
+  #footerLeft {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  #footerRight {
+    margin-right: 0;
+    padding-right: 0;
+  }
+}

@@ -14,25 +14,18 @@
 }
 
 #dropdown {
-  margin-right: 0.1rem;
-  padding-right: 0;
+  margin-left: 0.1rem;
+  padding-left: 1rem;
 }
 
 .dropdown-menu {
-  left: -2rem;
+  font-size: 1.2rem;
+  line-height: 3rem;
 }
 
 @media(min-width:800px) {
   #dropdown {
-    margin-right: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  #footerLeft {
-    margin-left: 0;
-    padding-left: 0;
-  }
-  #footerRight {
-    margin-right: 0;
-    padding-right: 0;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
   }
 }

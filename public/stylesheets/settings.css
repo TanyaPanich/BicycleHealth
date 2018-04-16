@@ -1,0 +1,39 @@
+#settings-form {
+  margin: 2rem;
+}
+
+.col-form-label-lg {
+  padding-top: 0;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+#settings-title {
+  text-align: center;
+  margin: 1rem 2rem;
+}
+
+#buttons-settings {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.settings-buttons {
+  margin: 0.5rem;
+  flex: 1;
+}
+
+#km-miles-buttons{
+  display: flex;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+}
+
+#miles {
+  flex: 1;
+}
+
+#km {
+  flex: 1;
+}

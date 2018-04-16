@@ -9,3 +9,11 @@
   margin: 3rem 5rem;
   flex: 1;
 }
+
+@media(min-width:800px) {
+  #login-options{
+    max-width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+}

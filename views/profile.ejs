@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ./head %>
+  <link rel='stylesheet' href='/stylesheets/profile.css'>
+</head>
+
+<body>
+  <div class="container">
+    <% include ./nav %>
+    <h4 id="profile-title">Your profile</h4>
+    <form id="profile-form">
+      <div class="form-group">
+        <label for="first-name" class="col-form-label-lg">First name</label>
+        <input type="text" class="form-control" placeholder="First name">
+      </div>
+      <div class="form-group">
+        <label for="last-name" class="col-form-label-lg">Last name</label>
+        <input type="text" class="form-control" placeholder="Last name">
+      </div>
+      <div class="form-group">
+        <label for="profileEmail1" class="col-form-label-lg">Email address</label>
+        <input type="email" class="form-control" id="profileEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="profilePassword1" class="col-form-label-lg">Password</label>
+        <input type="password" class="form-control" id="profilePassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="profilePassword2" class="col-form-label-lg">Confirm Password</label>
+        <input type="password" class="form-control" id="profilePassword2" placeholder="Password">
+      </div>
+      <div id="buttons-profile">
+        <button id="edit-profile" type="submit" class="btn btn-primary profile-buttons">Edit</button>
+        <button id="done-profile" type="submit" class="btn btn-primary profile-buttons" disabled>Done</button>
+      </div>
+    </form>
+  </div>
+  <!--end of container-->
+</body>
+
+</html>

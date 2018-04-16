@@ -1,19 +1,28 @@
 <nav class="navbar navbar-dark bg-dark">
-  <a id="brand" class="navbar-brand" href="#">
-    <img src="images/bike.png" width="50" height="50" alt="">
-  </a>
-  <a id="title" class="navbar-title" href="#">
-   <%= title %>
-  </a>
   <ul class="nav">
     <li class="nav-item dropdown">
       <a id="dropdown" class="nav-link dropdown-toggle dropdown-menu-right" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
       </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <div id="dropdown-nav-manu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item pull-right" href="#">Home</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item pull-right" href="#">Bicycle</a>
+        <a class="dropdown-item pull-right" href="#">Parts</a>
+        <a class="dropdown-item pull-right" href="#">Ride</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item pull-right" href="#">Settings</a>
+        <a class="dropdown-item pull-right" href="#">Profile</a>
         <a class="dropdown-item pull-right" href="#">History</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item pull-right" href="#">Log out</a>
       </div>
     </li>
   </ul>
+  <a id="title" class="navbar-title" href="#">
+   <%= title %>
+  </a>
+  <a id="brand" class="navbar-brand" href="#">
+    <img src="images/bike.png" width="50" height="50" alt="">
+  </a>
 </nav>

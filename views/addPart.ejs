@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="add-part-title">Add Bicycle Part</h4>
+    <h4 id="add-part-title">Add/Edit Bicycle Part</h4>
     <form id="add-part-form">
       <div class="form-group">
         <label for="Nickname" class="col-form-label-lg">Nickname</label>
@@ -31,8 +31,14 @@
         <label for="estimated-mileage" class="col-form-label-lg">Estimated Mileage</label>
         <input type="text" class="form-control" placeholder="Miles">
       </div>
-      <button id="addAnotherPart" type="submit" class="btn btn-primary add-part-buttons">Add another</button>
-      <button id="doneAddingPart" type="submit" class="btn btn-primary add-part-buttons">All done</button>
+      
+      <div id="button-part-done">
+        <button id="done-adding-part" type="submit" class="btn btn-primary part-buttons">Done</button>
+      </div>
+      <div id="buttons-part-add-delete">
+        <button id="add-another-part" type="submit" class="btn btn-primary part-buttons" disabled>Add another</button>
+        <button id="delete-part" type="button" class="btn btn-outline-danger part-buttons" disabled>Delete</button>
+      </div>
 
     </form>
   </div>
