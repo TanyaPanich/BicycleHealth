@@ -1,24 +1,14 @@
-//this game will have only 1 state
-var GameState = {
-<<<<<<< HEAD
-  //load the game public before the game starts
-  preload: function() {
-    this.load.image('background', 'public/images/background-gradient.svg')
-    this.load.image('arrow', 'public/images/arrow.png')
-    this.load.image('bike', 'public/images/bike-vector-full.png')
-    this.load.image('wheel', 'public/images/wheel.png')
-    this.load.image('brake', 'public/images/disc-brake-logo.png')
-=======
-  //load the game assets before the game starts
+// this game will have only 1 state
+let GameState = {
+  // load the game assets before the game starts
   preload: function() {
     this.load.image('background', 'assets/images/background-gradient.svg')
     this.load.image('arrow', 'assets/images/arrow.png')
     this.load.image('bike', 'assets/images/bike-vector-full.png')
     this.load.image('wheel', 'assets/images/wheel.png')
     this.load.image('brake', 'assets/images/disc-brake-logo.png')
->>>>>>> phaser game in home.js
   },
-  //executed after everything is loaded
+  // executed after everything is loaded
   create: function() {
 
     const calledOnce = false;
