@@ -26,12 +26,14 @@ The User Stories for the app are at https://trello.com/b/V2FaCV20
       <li>Display Login for <b>Strava</b></li>
       <li>After a successful login to <b>Strava</b>, the account information is returned</li>
       <li>Create a record in users table</li>
-      <li>When saving access_token, make sure to encrypt the data with <b>SECRET_KEY</b> and multiple salt rounds</li>
+      <li>When saving access_token, make sure to encrypt the data with <b>SECRET_KEY</b> </li>
+      <li>The access_type in users table will be set to 'strava'</li>
     </ol>
   <li>
     When signing up without <b>Strava</b>
     <ol type="a">
       <li>Prompt to enter First Name, Last Name, Email Address, Password and Confirm Password</li>
+      <li>The access_type in users table will be set to 'normal'</li>
     </ol>
   </li>
   <li>
