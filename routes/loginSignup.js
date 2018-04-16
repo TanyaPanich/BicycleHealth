@@ -13,10 +13,13 @@ const login = (req, res, next) => {
   res.render('login', { title: 'Bicycle health' })
 }
 
-router.get('/', loginSignup)
+const insertNewUser = (req, res, next) => {
 
-//router.post('/', goToSignupPage)
+}
+
+router.get('/', loginSignup)
 router.get('/signup', signup)
+router.post('/signup', insertNewUser)
 router.get('/login', login)
 
 module.exports = router
