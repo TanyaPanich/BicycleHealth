@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt')
 const boom = require('boom')
 const jwt = require('jsonwebtoken')
 const uuid = require('uuid/v4')
-//const { defaultTeamId } = require('../database/utils')
-//const TeamService = require('../database/services/teamService')
+const { defaultTeamId } = require('../database/utils')
+const TeamService = require('../database/services/teamService')
 
 
 const loginSignup = (req, res, next) => {
