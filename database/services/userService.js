@@ -28,24 +28,6 @@ class UserService {
       })
   }
 
-  getByEmailAndPassword(email, hashed_password) {
-    return knex(usersTable)
-      //.where({email: email, hashed_password: hashed_password})
-      .where('email', email)
-      .then((rows) => {
-        if (rows.length === 1) {
-          return rows[0]
-        }
-        if (rows.length > 1) {
-          throw boom.badImplementation(`Too many users for the email, ${email}`)
-        }
-        throw boom.notFound(`Email or password is wrong`)
-      })
-      .catch((err) => {
-        throw boom.badImplementation(`Error retrieving user by ${email}`)
-      })
-  }
-
   get(id) {
     return knex(usersTable)
       .where('id', id)

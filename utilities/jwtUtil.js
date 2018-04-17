@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 
 function handleResponse(op, email, httpRes, user) {
-  console.log('handleResponse')
   console.log(`${op} succeeded for user ${email}:`, user)
   const token = jwt.sign({
     'email': email
