@@ -19,8 +19,10 @@ const {
 
 const BikeService = require('../database/services/bikeService')
 const TeamService = require('../database/services/teamService')
+const RepairService = require('../database/services/repairService')
 
 const bikeService = new BikeService()
+const repairService = new RepairService()
 
 let defaultUserId = null
 const roadster = {
@@ -72,8 +74,8 @@ after(() => {
   knex.destroy()
 })
 
-describe('bikes table check', () => {
-  describe('insert bike', () => {
+describe('database service check', () => {
+  describe('bike table check', () => {
     it('add roadster', (done) => {
       roadster.user_id = defaultUserId
       insertBike(roadster)
@@ -118,6 +120,33 @@ describe('bikes table check', () => {
         .catch((err) => {
           console.log('error1', err)
           done(err)
+        })
+    })
+  })
+  describe('part table check', () => {
+
+  })
+  describe('ride table check', () => {
+
+  })
+  describe('condition table check', () => {
+
+  })
+  describe('repair table check', () => {
+    it('list repair history for a bike', (done) => {
+      addAllBikes()
+        .then(() => listBikes(defaultUserId))
+        .then((bikes) => {
+          assert.isAbove(bikes.length, 0, 'There are bicycles')
+          if (bikes.length > 0) {
+            return bikes[0].id
+          }
+          throw boom.notFound()
+        })
+        .then((bikeId) => repairService.listAll(bikeId))
+        .then((repairs) => {
+          assert.strictEqual(repairs.length, 0, 'No repair history')
+          done()
         })
     })
   })
