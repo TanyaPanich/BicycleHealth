@@ -2,16 +2,16 @@ var GameState = {
   //load the game assets before the game starts
   preload: function() {
     this.load.image('background', '../images/background-gradient.svg')
-    this.load.image('arrow', '../images/arrow.png')
-    this.load.image('bike', '../images/bike-vector-full.png')
-    this.load.image('wheel', '../images/wheel.png')
-    this.load.image('brake', '../images/disc-brake-logo.png')
+    this.load.image('Arrow', '../images/arrow.png')
+    this.load.image('Bike', '../images/bike-vector-full.png')
+    this.load.image('Wheel', '../images/wheel.png')
+    this.load.image('Brake', '../images/disc-brake-logo.png')
 
-    this.load.image('seat', '../images/seat.png')
-    this.load.image('chain', '../images/chain.png')
-    this.load.image('pedal', '../images/pedal.png')
-    this.load.image('handlebars', '../images/handlebars.png')
-    this.load.image('chainring', '../images/chainring.png')
+    this.load.image('Seat', '../images/seat.png')
+    this.load.image('Chain', '../images/chain.png')
+    this.load.image('Pedal', '../images/pedal.png')
+    this.load.image('Handlebars', '../images/handlebars.png')
+    this.load.image('Chainring', '../images/chainring.png')
   },
   //executed after everything is loaded
   create: function() {
@@ -24,7 +24,7 @@ var GameState = {
 
 
     //load bike
-    this.bike = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'bike')
+    this.bike = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'Bike')
     this.bike.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.bike.customParams = {
@@ -35,7 +35,7 @@ var GameState = {
     this.start(this.bike, 'input', this.bike)
 
     //load wheel
-    this.wheel = this.game.add.sprite(this.game.world.centerX + 183, this.game.world.centerY + 66, 'wheel')
+    this.wheel = this.game.add.sprite(this.game.world.centerX + 183, this.game.world.centerY + 66, 'Wheel')
     this.wheel.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.wheel.customParams = {
@@ -46,7 +46,7 @@ var GameState = {
     this.start(this.wheel, 'input', this.wheel)
 
     //load brake
-    this.brake = this.game.add.sprite(this.game.world.centerX - 184, this.game.world.centerY + 66, 'brake')
+    this.brake = this.game.add.sprite(this.game.world.centerX - 184, this.game.world.centerY + 66, 'Brake')
     this.brake.anchor.setTo(0.5)
     this.brake.scale.setTo(0.04)
     //stats will be pulled in from db and written here
@@ -58,7 +58,7 @@ var GameState = {
     this.start(this.brake, 'input', this.brake)
 
     //load handlebars
-    this.handlebars = this.game.add.sprite(this.game.world.centerX + 104, this.game.world.centerY - 154, 'handlebars')
+    this.handlebars = this.game.add.sprite(this.game.world.centerX + 104, this.game.world.centerY - 154, 'Handlebars')
     this.handlebars.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.handlebars.customParams = {
@@ -69,7 +69,7 @@ var GameState = {
     this.start(this.handlebars, 'input', this.handlebars)
 
     //load seat
-    this.seat = this.game.add.sprite(this.game.world.centerX - 104, this.game.world.centerY - 150, 'seat')
+    this.seat = this.game.add.sprite(this.game.world.centerX - 104, this.game.world.centerY - 150, 'Seat')
     this.seat.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.seat.customParams = {
@@ -80,7 +80,7 @@ var GameState = {
     this.start(this.seat, 'input', this.seat)
 
     //load chain
-    this.chain = this.game.add.sprite(this.game.world.centerX - 124, this.game.world.centerY + 84, 'chain')
+    this.chain = this.game.add.sprite(this.game.world.centerX - 124, this.game.world.centerY + 84, 'Chain')
     this.chain.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.chain.customParams = {
@@ -91,18 +91,18 @@ var GameState = {
     this.start(this.chain, 'input', this.chain)
 
     //load pedal
-    this.pedal = this.game.add.sprite(this.game.world.centerX - 6, this.game.world.centerY + 144, 'pedal')
+    this.pedal = this.game.add.sprite(this.game.world.centerX - 6, this.game.world.centerY + 144, 'Pedal')
     this.pedal.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.pedal.customParams = {
-      health: 11,
-      distance: 1500,
+      health: 111,
+      distance: 1555,
       lifespan: 15000
     }
     this.start(this.pedal, 'input', this.pedal)
 
     //load chainring
-    this.chainring = this.game.add.sprite(this.game.world.centerX - 36, this.game.world.centerY + 90, 'chainring')
+    this.chainring = this.game.add.sprite(this.game.world.centerX - 36, this.game.world.centerY + 90, 'Chainring')
     this.chainring.anchor.setTo(0.5)
     //stats will be pulled in from db and written here
     this.chainring.customParams = {
@@ -113,15 +113,15 @@ var GameState = {
     this.start(this.chainring, 'input', this.chainring)
 
     //adds back arrow
-    this.arrow = this.game.add.sprite(this.game.world.centerX - 330, this.game.world.centerY - 200, 'arrow')
-    this.arrow.anchor.setTo(0.5)
-    this.arrow.scale.x = -1
-    backText = game.add.text(0, 0, "Back!", this.arrow)
-    backText.anchor.set(0.5)
-    this.start(this.arrow, 'back', this.arrow)
+    // this.arrow = this.game.add.sprite(this.game.world.centerX - 330, this.game.world.centerY - 200, 'Arrow')
+    // this.arrow.anchor.setTo(0.5)
+    // this.arrow.scale.x = -1
+    // backText = game.add.text(0, 0, "Back!", this.arrow)
+    // backText.anchor.set(0.5)
+    // this.start(this.arrow, 'back', this.arrow)
 
     //adds fixed button
-    this.fixed = this.game.add.sprite(this.game.world.centerX + 330, this.game.world.centerY - 200, 'arrow')
+    this.fixed = this.game.add.sprite(this.game.world.centerX + 330, this.game.world.centerY - 200, 'Arrow')
     this.fixed.anchor.setTo(0.5)
     fixedText = game.add.text(0, 0, "Fixed!", this.fixed);
     fixedText.anchor.set(0.5)
@@ -132,8 +132,8 @@ var GameState = {
     //wheels spinnin'
     this.wheel.angle += .5
     //text sticks to arrow
-    backText.x = Math.floor(this.arrow.x + 8)
-    backText.y = Math.floor(this.arrow.y + 2)
+    // backText.x = Math.floor(this.arrow.x + 8)
+    // backText.y = Math.floor(this.arrow.y + 2)
 
     fixedText.x = Math.floor(this.fixed.x - 8)
     fixedText.y = Math.floor(this.fixed.y + 2)
@@ -161,7 +161,6 @@ var GameState = {
     // })
 
     localStorage.setItem('partObj', JSON.stringify(obj))
-
     this.getBikeStats()
 
   },
@@ -176,8 +175,8 @@ var GameState = {
         console.log(partObj.name)
         // //write new stats to db
         const parts = parent.document.getElementById('partHealth')
-        console.log(parts);
-        $(parts).text(`Distance since ${partObj.name} were changed: ` + partObj.distance) ` km`;
+        console.log(parts)
+        $(parts).html(`Displaying: <b>${partObj.name}</b> <br> Distance since ${partObj.name} changed: ${partObj.distance} km. <br> Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}`)
   },
 
   fixBikeStats: function() {
@@ -191,17 +190,18 @@ var GameState = {
     console.log(partObj.distance)
     console.log(partObj.lifespan)
     console.log(partObj.name)
+
     // //write new stats to db
-    const parts = parent.document.getElementById('partHealth')
-    console.log(parts);
-    $(parts).text(`Distance since ${partObj.name} were changed: ` + partObj.distance) ` km`;
+    // const parts = parent.document.getElementById('partHealth')
+    // console.log(parts+'!');
+    // $(parts).text(`Displaying: ${partObj.name} `+'\n'+` Distance since ${partObj.name} changed: ${partObj.distance} km. \n Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}`)
   },
 
-  back: function() {
-    hpLabel.destroy()
-    lifespanLabel.destroy()
-    distLabel.destroy()
-  },
+  // back: function() {
+  //   hpLabel.destroy()
+  //   lifespanLabel.destroy()
+  //   distLabel.destroy()
+  // },
 
   start: function(btn, string, activePart) {
     btn.inputEnabled = true;
