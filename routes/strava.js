@@ -8,9 +8,11 @@ const jwt = require('jsonwebtoken')
 const { initializeDefaultTeamId } = require('../database/utils')
 const UserService = require('../database/services/userService')
 const TeamService = require('../database/services/teamService')
+const StravaApiService = require('../utilities/stravaApi')
 require('dotenv').config()
 
 const router = express.Router()
+const api = new StravaApiService()
 
 const STRAVA_CLIENT_ID = process.env.STRAVA_CLIENT_ID
 const STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET
@@ -46,6 +48,8 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
   // asynchronous verification, for effect...
   const userService = new UserService()
   const teamService = new TeamService()
+
+  console.log(accessToken, profile.id)
   process.nextTick(() => {
     const firstName = profile.name.givenName
     const lastName = profile.name.familyName
@@ -53,23 +57,17 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
     const stravaUserId = profile.id
     const stravaAccessToken = accessToken // need to encrypt it using jsonwebtoken
 
-    const statConfig = {
-      access_token: accessToken,
-      id: stravaUserId
-    }
-    const stravaConfig = {
-      access_token: accessToken,
-      per_page: 50,
-      type: 'Ride',
-      id: stravaUserId
-    }
-    // strava.athletes.stats(stravaConfig, (error1, data) => {
-    // })
-    // strava.athlete.listActivities(stravaConfig, (error2, activities, limits) => {
-    // })
+
     return userService.getByEmail(profile.emails[0].value)
       .then((row) => {
         console.log('Already exists')
+        api.collectStravaInformation(stravaUserId, stravaAccessToken)
+          .then((results) => {
+            console.log('success 1 after collectStravaInformation')
+          })
+          .catch((err) => {
+            console.log('err 1 after collectStravaInformation')
+          })
         return done(null, profile)
       })
       .catch((err) => {
@@ -88,6 +86,13 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
         return userService.insert(user)
       })
       .then((row) => {
+        api.collectStravaInformation(stravaUserId, stravaAccessToken)
+          .then((results) => {
+            console.log('success 2 after collectStravaInformation')
+          })
+          .catch((err) => {
+            console.log('err 2 after collectStravaInformation')
+          })
         return done(null, profile)
       })
   })
