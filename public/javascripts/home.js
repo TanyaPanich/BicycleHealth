@@ -1,15 +1,16 @@
 var GameState = {
   //load the game assets before the game starts
   preload: function() {
-    this.load.image('background', 'assets/images/background-gradient.svg')
-    this.load.image('arrow', 'assets/images/arrow.png')
-    this.load.image('bike', 'assets/images/bike-vector-full.png')
-    this.load.image('wheel', 'assets/images/wheel.png')
-    this.load.image('brake', 'assets/images/disc-brake-logo.png')
+    this.load.image('background', '../public/images/background-gradient.svg')
+    this.load.image('arrow', '../public/images/arrow.png')
+    this.load.image('bike', '../public/images/bike-vector-full.png')
+    this.load.image('wheel', '../public/images/wheel.png')
+    this.load.image('brake', '../public/images/disc-brake-logo.png')
   },
   //executed after everything is loaded
   create: function() {
 
+    console.log('hello strava');
     // consider refactoring all these create statements
     // make a function that takes the x, y, and image name
     // and does the pixelPerfectClick, ect... in it.
@@ -68,6 +69,7 @@ var GameState = {
     this.arrow.anchor.setTo(0.5)
     this.arrow.scale.x = -1
     backText = game.add.text(0, 0, "Back!", this.arrow);
+    backText.addColor('#ffffff')
     backText.anchor.set(0.5);
     this.start(this.arrow, 'back', this.arrow)
 
