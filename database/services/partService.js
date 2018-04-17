@@ -14,10 +14,10 @@ const {
 class PartService {
   list(bikeId) {
     return knex(partsTable)
-      .where('bike_id', id)
+      .where('bike_id', bikeId)
       .catch((err) => {
         console.log('list: err', err)
-        throw boom.badImplementation(`Error retrieving parts by bicycle id, ${id}`)
+        throw boom.badImplementation(`Error retrieving parts by bicycle id, ${bikeId}`)
       })
   }
 
