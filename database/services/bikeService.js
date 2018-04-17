@@ -8,6 +8,7 @@ const {
 } = require('../utils')
 
 class BikeService {
+  // list bicycle list by user_id
   list(userId) {
     return knex(bikesTable)
       .where('user_id', userId)

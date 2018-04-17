@@ -7,6 +7,7 @@ const {
 } = require('../utils')
 
 class ConditionService {
+  // list condition list by ride_id
   list(rideId) {
     return knex(conditionsTable)
       .where('ride_id', rideId)
