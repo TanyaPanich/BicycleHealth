@@ -4,8 +4,7 @@ const passport = require('passport')
 const util = require('util')
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const path = require('path')
-const jwt = require('jsonwebtoken')
-const { initializeDefaultTeamId } = require('../database/utils')
+const jwt = require('../utilities/jwtUtil')
 const UserService = require('../database/services/userService')
 const TeamService = require('../database/services/teamService')
 const StravaApiService = require('../utilities/stravaApi')
@@ -49,7 +48,6 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
   const userService = new UserService()
   const teamService = new TeamService()
 
-  console.log(accessToken, profile.id)
   process.nextTick(() => {
     const firstName = profile.name.givenName
     const lastName = profile.name.familyName
@@ -57,10 +55,8 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
     const stravaUserId = profile.id
     const stravaAccessToken = accessToken // need to encrypt it using jsonwebtoken
 
-
     return userService.getByEmail(profile.emails[0].value)
-      .then((row) => {
-        console.log('Already exists')
+      .then((user) => {
         api.collectStravaInformation(stravaUserId, stravaAccessToken)
           .then((results) => {
             console.log('success 1 after collectStravaInformation')
@@ -68,61 +64,67 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
           .catch((err) => {
             console.log('err 1 after collectStravaInformation')
           })
-        done(null, profile)
+        return { user: user }
       })
       .catch((err) => {
-        console.log('user not found')
-        return teamService.getDefault()
+        return { team: teamService.getDefault() }
       })
-      .then((team) => {
-        console.log('team', team)
-        const user = {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          strava_user_id: stravaUserId,
-          strava_access_token: stravaAccessToken,
-          access_type: 'strava',
-          team_id: team.id
+      .then((data) => {
+        if (data.team) {
+          const user = {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            strava_user_id: stravaUserId,
+            strava_access_token: stravaAccessToken,
+            access_type: 'strava',
+            team_id: team.id
+          }
+          Promise.all([
+            userService.insert(user),
+            api.collectStravaInformation(stravaUserId, stravaAccessToken)
+          ])
+            .then((results) => {
+              console.log('success 2 after collectStravaInformation')
+              return done(null, user)
+            })
+            .catch((err) => {
+              console.log('err 2 after collectStravaInformation')
+            })
         }
-        Promise.all([
-          userService.insert(user),
-          api.collectStravaInformation(stravaUserId, stravaAccessToken)
-        ])
-          .then((results) => {
-            console.log('success 2 after collectStravaInformation')
-            return done(null, profile)
-          })
-          .catch((err) => {
-            console.log('err 2 after collectStravaInformation')
-          })
+        else if (data.user) {
+          done(null, data.user)
+        }
+        else {
+          done(boom.unAuthenticated(), null)
+        }
       })
   })
 }))
 
 router.get('/', (req, res, next) => {
-  console.log(res.headers)
   res.json({ title: 'I am here'})
 })
 
-// GET /login/strava
+// GET /strava/oauth
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Strava authentication will involve
 //   redirecting the user to strava.com.  After authorization, Strava
-//   will redirect the user back to this application at /auth/strava/callback
+//   will redirect the user back to this application at /strava/oauth/callback
 router.get('/oauth', passport.authenticate('strava', { scope: ['public'] }),
   (req, res) => {
     // The request will be redirected to Strava for authentication, so this
     // function will not be called.
   })
 
-// GET /login/strava/callback
+// GET /strava/oauth/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect: '/' }),
   (req, res) => {
+    jwt('strava', req.user.email, res, req.user)
     res.render('index', { title: 'Bicycle health' })
   })
 
