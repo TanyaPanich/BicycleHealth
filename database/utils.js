@@ -7,7 +7,13 @@ const ridesTable = 'rides'
 const repairsTable = 'repairs'
 const conditionsTable = 'conditions'
 
-const defaultTeamId = uuid()
+let defaultTeamId = null
+function initializeDefaultTeamId() {
+  if (defaultTeamId === null) {
+    defaultTeamId = uuid()
+  }
+  return defaultTeamId
+}
 
 const partsFields = [`${bikesTable}.id as bike_id`, `${bikesTable}.nick_name as bike_nick_name`,
   `${bikesTable}.type as bike_type`, `${bikesTable}.brand as bike_brand`,
@@ -19,7 +25,7 @@ const partsFields = [`${bikesTable}.id as bike_id`, `${bikesTable}.nick_name as 
   `${partsTable}.unit part_unit`]
 
 module.exports = {
-  defaultTeamId,
+  initializeDefaultTeamId,
   teamsTable,
   usersTable,
   bikesTable,

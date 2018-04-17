@@ -1,10 +1,11 @@
 const uuid = require('uuid/v4')
-const { usersTable, defaultTeamId } = require('../utils')
+const { usersTable, initializeDefaultTeamId } = require('../utils')
 
 exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
   const userUuid1 = uuid()
   const userUuid2 = uuid()
+  const defaultTeamId = initializeDefaultTeamId()
   return knex(usersTable).del()
     .then(() => {
       // Inserts seed entries

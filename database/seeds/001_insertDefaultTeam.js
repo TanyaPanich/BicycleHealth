@@ -1,6 +1,7 @@
-const { teamsTable, defaultTeamId } = require('../utils')
+const { teamsTable, initializeDefaultTeamId } = require('../utils')
 
 exports.seed = (knex, Promise) => {
+  const defaultTeamId = initializeDefaultTeamId()
   // Deletes ALL existing entries
   return knex(teamsTable).del()
     .then(() => {

@@ -21,6 +21,4 @@ class TeamService {
   }
 }
 
-module.exports = {
-
-}
+module.exports = TeamService
