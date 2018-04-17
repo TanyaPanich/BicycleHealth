@@ -39,6 +39,7 @@ app.use('/home', homeRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  
   next(boom.notFound())
 })
 
@@ -49,7 +50,7 @@ app.use((err, req, res, next) => {
   // for (x in err) {
   //   console.log("  key:",x, "val:", err[x])
   // }
-  console.log("output:",err.output)
+  console.log("output:", err)
   res.status(err.output.statusCode || 500)
   //res.status(404)//.json(err.output.payload)
 })
