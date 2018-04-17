@@ -25,7 +25,7 @@ class PartService {
     return knex(partsTable)
       .where('id', id)
       .then((rows) => {
-        if (rows.length === 0) {
+        if (rows.length === 1) {
           return rows[0]
         }
         if (rows.length > 1) {
@@ -91,7 +91,7 @@ class PartService {
       })
       .where('id', part.id)
       .then((rows) => {
-        if (rows.length === 0) {
+        if (rows.length === 1) {
           return rows[0]
         }
         if (rows.length > 1) {

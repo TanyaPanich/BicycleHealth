@@ -21,7 +21,7 @@ class BikeService {
     return knex(bikesTable)
       .where('id', id)
       .then((rows) => {
-        if (rows.length === 0) {
+        if (rows.length === 1) {
           return rows[0]
         }
         if (rows.length > 1) {
@@ -90,7 +90,7 @@ class BikeService {
       })
       .where('id', bike.id)
       .then((rows) => {
-        if (rows.length === 0) {
+        if (rows.length === 1) {
           return rows[0]
         }
         if (rows.length > 1) {
