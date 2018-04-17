@@ -56,7 +56,7 @@ $(document).ready(() => {
         // window.location.href = '/'
         console.log('did it come back??', data);
         if (data.message && data.message === 'Success') {
-          window.location.href = 'http://localhost:3000/home'
+          window.location.href = '/home'
         }
       })
       .fail(($xhr) => {

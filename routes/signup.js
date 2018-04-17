@@ -7,19 +7,19 @@ const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
 
 router.get('/', (req, res, next) => {
-  console.log("I on login/signup")
+  console.log('GET: signup')
   try {
     res.render('signup', {
       title: 'Bicycle health'
     })
   }
   catch (err) {
-    console.log('signup err', err);
+    console.log('signup err', err)
   }
 })
 
 router.post('/', (req, res, next) => {
-  console.log("post:", req.body)
+  console.log('POST: signup', req.body)
 
   const teamService = new TeamService()
   const userService = new UserService()
