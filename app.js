@@ -55,14 +55,14 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-  // return error in JSON
-  //console.log("ERROR:",Object.keys(err))
-  // for (x in err) {
-  //   console.log("  key:",x, "val:", err[x])
-  // }
-  console.log("output:", err)
-  res.status(err.output.statusCode || 500)
-  //res.status(404)//.json(err.output.payload)
+  if (err.output) {
+    res.status(err.output.statusCode || 500)
+    res.json(err.output.payload)
+  }
+  else {
+    res.status(err.statusCode || 500)
+    res.json(err)
+  }
 })
 
 module.exports = app

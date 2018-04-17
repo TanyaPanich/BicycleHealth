@@ -82,6 +82,7 @@ describe('database migration check', () => {
   describe('users table', () => {
     it('users table', (done) => {
       knex(usersTable).columnInfo().then((actual) => {
+        // console.log('actual', actual)
         const expected = {
           id: {
             type: 'uuid',
@@ -129,7 +130,7 @@ describe('database migration check', () => {
             type: 'character varying',
             maxLength: 20,
             nullable: false,
-            defaultValue: null
+            defaultValue: '\'normal\'::character varying'
           },
           team_id: {
             type: 'uuid',
@@ -488,10 +489,9 @@ describe('database migration check', () => {
         /* eslint-enable */
 
         done()
+      }).catch((err) => {
+        done(err)
       })
-        .catch((err) => {
-          done(err)
-        })
     })
   })
 })
@@ -503,10 +503,9 @@ describe('database seed check', () => {
         assert.isAbove(rows.length, 0, 'There is a default team')
         assert.equal(rows[0].name, 'Default', `The default team name is 'Default'`)
         done()
+      }).catch((err) => {
+        done(err)
       })
-        .catch((err) => {
-          done(err)
-        })
     })
   })
   describe('users table', () => {
@@ -516,10 +515,9 @@ describe('database seed check', () => {
         assert.equal(rows[0].first_name, 'Jane', `The first name of the first user is 'Jane'`)
         assert.equal(rows[1].first_name, 'John', `The first name of the first user is 'John'`)
         done()
+      }).catch((err) => {
+        done(err)
       })
-        .catch((err) => {
-          done(err)
-        })
     })
   })
 })
