@@ -13,7 +13,7 @@ class BikeService {
       .where('user_id', userId)
       .catch((err) => {
         console.log('list: err', err)
-        throw boom.badImplementation(`Error retrieving bicycles for the user, ${userId}`)
+        throw boom.badImplementation(`Error listing bicycles for the user, ${userId}`)
       })
   }
 
@@ -108,7 +108,7 @@ class BikeService {
     return knex(bikesTable)
       .where('id', id)
       .then((rows) => {
-        if (rows.length === 0) {
+        if (rows.length === 1) {
           return rows[0]
         }
         if (rows.length > 1) {
@@ -118,7 +118,7 @@ class BikeService {
       })
       .catch((err) => {
         console.log('delete: err', err)
-        throw boom.badImplementation(`Error retrieving bicycle with the id, ${id}`)
+        throw boom.badImplementation(`Error deleting bicycle with the id, ${id}`)
       })
   }
 
