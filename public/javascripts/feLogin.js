@@ -28,16 +28,17 @@ $(document).ready(() => {
       data: { email, password },
       type: 'POST',
       url: '/login'
-    };
+    }
 
     $.ajax(options)
       .done((data) => {
-        if (data.message && data.message === 'Success') {
-          window.location.href = '/home'
-        }
+        // Assume good
+
+        console.log('dataaa', data)
+        window.location.href = '/home'
       })
-      .fail(($xhr) => {
-        console.log('error happened', $xhr)
+      .fail((jqXHR, textStatus, errorThrown) => {
+        $('#passwordStatus').append('Wrong password or email')
       });
   })
 })

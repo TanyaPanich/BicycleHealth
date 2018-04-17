@@ -13,26 +13,21 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  //console.log('POST: login', req.body)
+  //console.log('POST: res.headers', res.headers)
   const userService = new UserService()
   userService.getByEmail(req.body.email)
     .then(user =>
-      bcrypt.compare(req.body.password, user.hashed_password,
-        (match) => {
-          if (!match) next(boom.unauthorized('invalid email or password'))
-          //res.render('index', { title: 'Bicycle health' })
-          jwt(
-            'login',
-            user.email,
-            res,
-            user
-          )
-         res.json({ message: 'Success' })
-        })
+      bcrypt.compare(req.body.password, user.hashed_password)
+      .then(match => {
+        if(match) {
+          jwt('login', user.email, res, user)
+        } else {
+          next(boom.unauthorized('invalid email or password'))
+        }
+      })
     )
     .catch(err => {
-      console.log('err while login', err)
-      next(err)
+      next(boom.unauthorized('invalid email or password'))
     })
 })
 
