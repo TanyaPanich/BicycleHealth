@@ -12,7 +12,7 @@ const {
 
 class UserService {
   getByEmail(email) {
-    return knex(userTable)
+    return knex(usersTable)
       .where('email', email)
       .then((rows) => {
         if (rows.length === 1) {
@@ -29,7 +29,7 @@ class UserService {
   }
 
   get(id) {
-    return knex(userTable)
+    return knex(usersTable)
       .where('id', id)
       .then((rows) => {
         if (rows.length === 1) {

@@ -4,6 +4,10 @@ const passport = require('passport')
 const util = require('util')
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const path = require('path')
+const jwt = require('jsonwebtoken')
+const { initializeDefaultTeamId } = require('../database/utils')
+const UserService = require('../database/services/userService')
+const TeamService = require('../database/services/teamService')
 require('dotenv').config()
 
 const router = express.Router()
@@ -40,11 +44,37 @@ passport.deserializeUser((obj, done) => {
 //   profile), and invoke a callback with a user object.
 passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, profile, done) => {
   // asynchronous verification, for effect...
+  const userService = new UserService()
+  const teamService = new TeamService()
   process.nextTick(() => {
-
-    return done(null, profile)
+    // return userService.getByEmail(profile.emails[0].value)
+    // this is for now to force creating new user record.
+    return userService.getByEmail('jen@email.com')
+      .then((row) => {
+        console.log('it cannot be here')
+        return done(null, profile)
+      })
+      .catch((err) => {
+        return teamService.getDefault()
+      })
+      .then((team) => {
+        const user = {
+          first_name: profile.name.givenName,
+          last_name: profile.name.familyName,
+          email: profile.emails[0].value,
+          strava_user_id: profile.id,
+          strava_access_token: accessToken,
+          access_type: 'strava',
+          team_id: team.id
+        }
+        return userService.insert(user)
+      })
+      .then((row) => {
+        return done(null, profile)
+      })
   })
 }))
+
 
 router.get('/', (req, res, next) => {
   console.log(res.headers)
