@@ -9,6 +9,15 @@ const conditionsTable = 'conditions'
 
 const defaultTeamId = uuid()
 
+const partsFields = [`${bikesTable}.id as bike_id`, `${bikesTable}.nick_name as bike_nick_name`,
+  `${bikesTable}.type as bike_type`, `${bikesTable}.brand as bike_brand`,
+  `${bikesTable}.model as bike_model`, `${bikesTable}.distance as bike_distance`,
+  `${bikesTable}.distance_unit as bike_distance_unit`, `${bikesTable}.user_id as bike_user_id`,
+  `${partsTable}.id as part_id`, `${partsTable}.name as part_name`,
+  `${partsTable}.brand as part_brand`, `${partsTable}.model as part_model`,
+  `${partsTable}.max_life_span as part_max_life_span`, `${partsTable}.distance as part_distance`,
+  `${partsTable}.unit part_unit`]
+
 module.exports = {
   defaultTeamId,
   teamsTable,
@@ -17,5 +26,6 @@ module.exports = {
   partsTable,
   ridesTable,
   repairsTable,
-  conditionsTable
+  conditionsTable,
+  partsFields
 }

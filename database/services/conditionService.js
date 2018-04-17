@@ -1,5 +1,6 @@
 const knex = require('../../knex')
 const boom = require('boom')
+const uuid = require('uuid/v4')
 const {
   usersTable,
   bikesTable,
