@@ -36,6 +36,24 @@ class BikeService {
       })
   }
 
+  getByStravaId(stravaId) {
+    return knex(bikesTable)
+      .where('strava_gear_id', stravaId)
+      .then((rows) => {
+        if (rows.length === 1) {
+          return rows[0]
+        }
+        if (rows.length > 1) {
+          throw boom.badImplementation(`Too many bicycles for the strava_gear_id, ${stravaId}`)
+        }
+        throw boom.notFound(`No bicycle found for the strava_gear_id, ${stravaId}`)
+      })
+      .catch((err) => {
+        console.log('get: err', err)
+        throw boom.badImplementation(`Error retrieving bicycle with the strava_gear_id, ${stravaId}`)
+      })
+  }
+
   getByName(name) {
     return knex(bikesTable)
       .where('nick_name', name)
