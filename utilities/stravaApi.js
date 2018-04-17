@@ -86,6 +86,7 @@ class StravaApiService {
           const bikes = json.bikes.map((bike) => this.convertBike(bike, json.measurement_preference))
           resolve({
             bikes: bikes,
+            email: json.email,
             unit: json.measurement_preference
           })
         }
