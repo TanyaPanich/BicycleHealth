@@ -4,7 +4,7 @@
   background-color: #343a40;
 }
 
-@media(min-width:800px) {
+@media(min-width:1000px) {
   #footerLeft {
     margin-left: 0;
     padding-left: 0;

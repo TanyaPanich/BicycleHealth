@@ -16,10 +16,10 @@
 
 }
 
-@media(min-width:800px) {
-  #login-options{
-    max-width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+@media(min-width:1000px) {
+  #login-options {
+    max-width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
   }
 }

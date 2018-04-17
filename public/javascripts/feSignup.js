@@ -1,5 +1,10 @@
 $('#signup-form').submit((event) => {
   event.preventDefault()
+  $('#firstNameStatus').empty()
+  $('#lastNameStatus').empty()
+  $('#emailStatus').empty()
+  $('#password1Status').empty()
+  $('#password2Status').empty()
 
   const firstName = $('#firstName').val().trim()
   const lastName = $('#lastName').val().trim()
@@ -32,26 +37,22 @@ $('#signup-form').submit((event) => {
     return
   }
 
-  if (!password1 !== password2) {
+  if (password1 !== password2) {
     $('#password2Status').append('Passwords do not match')
     return
   }
 
   const options = {
-    contentType: 'application/json',
-    data: JSON.stringify({ firstName, lastName, email, password1 }),
-    dataType: 'json',
+    data: { firstName, lastName, email, password1 },
     type: 'POST',
-    url: '/'
+    url: '/login/signup'
   };
 
   $.ajax(options)
     .done(() => {
-      window.location.href = '/'
+      window.location.href = '/home'
     })
     .fail(($xhr) => {
-      Materialize.toast($xhr.responseText, 3000);
       console.log('error happened', $xhr)
     });
-});
-})();
+})
