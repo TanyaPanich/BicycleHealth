@@ -12,8 +12,11 @@ class StravaApiService {
           reject(error)
         }
         else {
-          console.log(data)
-          resolve(data)
+          const info = {
+            bikes: data.bikes,
+            unit: data.measurement_preference
+          }
+          resolve(info)
         }
       })
     })
@@ -27,13 +30,21 @@ class StravaApiService {
       id: stravaId
     }
     return new Promise((resolve, reject) => {
-      strava.athlete.listActivities(stravaConfig, (error, activities, limits) => {
+      strava.athlete.listActivities(stravaConfig, (error, data, limits) => {
         if (error) {
           reject(error)
         }
         else {
-          console.log(activities)
-          resolve(activities)
+          const activities = data.map((activity) => {
+            const info = {
+              name: activity.name,
+              distance: activity.distance,
+              ride_id: activity.id,
+              date: activity.start_date,
+              bike_id: activity.gear_id
+            }
+            resolve(info)
+          })
         }
       })
     })
@@ -45,7 +56,7 @@ class StravaApiService {
       this.getStravaActivity(stravaId, accessToken)
     ])
       .then((results) => {
-
+        results.forEach((result) => console.log('result', result))
       })
   }
 }

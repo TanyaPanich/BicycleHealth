@@ -68,12 +68,14 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
           .catch((err) => {
             console.log('err 1 after collectStravaInformation')
           })
-        return done(null, profile)
+        done(null, profile)
       })
       .catch((err) => {
+        console.log('user not found')
         return teamService.getDefault()
       })
       .then((team) => {
+        console.log('team', team)
         const user = {
           first_name: firstName,
           last_name: lastName,
@@ -83,17 +85,17 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
           access_type: 'strava',
           team_id: team.id
         }
-        return userService.insert(user)
-      })
-      .then((row) => {
-        api.collectStravaInformation(stravaUserId, stravaAccessToken)
+        Promise.all([
+          userService.insert(user),
+          api.collectStravaInformation(stravaUserId, stravaAccessToken)
+        ])
           .then((results) => {
             console.log('success 2 after collectStravaInformation')
+            return done(null, profile)
           })
           .catch((err) => {
             console.log('err 2 after collectStravaInformation')
           })
-        return done(null, profile)
       })
   })
 }))
