@@ -49,7 +49,7 @@ class BikeService {
         throw boom.notFound(`No bicycle found for the strava_gear_id, ${stravaId}`)
       })
       .catch((err) => {
-        console.log('get: err', err)
+        //console.log('get: err', err)
         throw boom.badImplementation(`Error retrieving bicycle with the strava_gear_id, ${stravaId}`)
       })
   }
