@@ -21,6 +21,7 @@ const signup = (req, res, next) => {
 }
 
 const login = (req, res, next) => {
+  console.log("I on login/login")
   res.render('login', {
     title: 'Bicycle health'
   })
@@ -69,7 +70,12 @@ const signupPost = (req, res, next) => {
 }
 
 const loginPost = (req, res, next) => {
+
   console.log("loginPost:", req.body)
+  //res.json({data: 'ok'})
+  // res.render('index', {
+  //   title: 'Bicycle health'
+  // })
   const userService = new UserService()
   return handleResponse(
     'login',
