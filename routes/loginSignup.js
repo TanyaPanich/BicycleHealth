@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const knex = require('../knex')
-const { camelizeKeys, decamelizeKeys } = require('humps')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 const boom = require('boom')
 const jwt = require('jsonwebtoken')
 const uuid = require('uuid')
@@ -35,7 +34,7 @@ const insert = (req, res, next) => {
     }).then((user) => {
       const token = jwt.sign({'email': req.body.email }, process.env.JWT_KEY)
       res.setHeader('Set-Cookie', `token=${token}; Path=\/;.+HttpOnly`)
-      res.send(camelizeKeys(user[0]));
+      res.send(user[0]);
     }).catch(err => {
         next(err)
     })
