@@ -1,11 +1,11 @@
 var GameState = {
   //load the game assets before the game starts
   preload: function() {
-    this.load.image('background', '../public/images/background-gradient.svg')
-    this.load.image('arrow', '../public/images/arrow.png')
-    this.load.image('bike', '../public/images/bike-vector-full.png')
-    this.load.image('wheel', '../public/images/wheel.png')
-    this.load.image('brake', '../public/images/disc-brake-logo.png')
+    this.load.image('background', '../images/background-gradient.svg')
+    this.load.image('arrow', '../images/arrow.png')
+    this.load.image('bike', '../images/bike-vector-full.png')
+    this.load.image('wheel', '../images/wheel.png')
+    this.load.image('brake', '../images/disc-brake-logo.png')
   },
   //executed after everything is loaded
   create: function() {
