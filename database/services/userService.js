@@ -114,6 +114,7 @@ class UserService {
         throw boom.badImplementation(`Error updating user`)
       })
   }
+
 }
 
 module.exports = UserService

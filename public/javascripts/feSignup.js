@@ -32,7 +32,7 @@ $('#signup-form').submit((event) => {
     return
   }
 
-  if (!password1 || password1.length < 8) {
+  if (!password1 || password1.length < 3) {
     $('#password1Status').append('Password must be at least 8 characters long')
     return
   }
@@ -50,7 +50,7 @@ $('#signup-form').submit((event) => {
 
   $.ajax(options)
     .done(() => {
-      window.location.href = '/home'
+      window.location.href = '/'
     })
     .fail(($xhr) => {
       console.log('error happened', $xhr)
