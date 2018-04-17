@@ -12,6 +12,7 @@ exports.up = (knex, Promise) => {
     table.varchar('type', 20).notNullable()
     table.varchar('brand', 255).notNullable().defaultTo('')
     table.varchar('model', 255).notNullable().defaultTo('')
+    table.varchar('strava_gear_id', 60).notNullable().defaultTo('')
     table.integer('distance').notNullable().defaultTo(0)
     table.varchar('distance_unit', 20).notNullable()
     table.uuid('user_id').notNullable()
