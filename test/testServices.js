@@ -7,7 +7,7 @@ const knex = require('../knex')
 const boom = require('boom')
 
 const {
-  defaultTeamId,
+  initializeDefaultTeamId,
   teamsTable,
   usersTable,
   bikesTable,
@@ -20,11 +20,15 @@ const {
 const BikeService = require('../database/services/bikeService')
 const TeamService = require('../database/services/teamService')
 const RepairService = require('../database/services/repairService')
+const UserService = require('../database/services/userService')
 
 const bikeService = new BikeService()
 const repairService = new RepairService()
+const userService = new UserService()
 
 let defaultUserId = null
+let defaultTeamId = null
+
 const roadster = {
   nick_name: 'Roadster',
   brand: 'Trek',
@@ -59,6 +63,7 @@ beforeEach((done) => {
     getDefaultUser()
       .then((id) => {
         defaultUserId = id
+        defaultTeamId = initializeDefaultTeamId()
         done()
       })
   })
@@ -75,6 +80,26 @@ after(() => {
 })
 
 describe('database service check', () => {
+  describe('user table check', () => {
+    it('add Jane Doe', (done) => {
+      const user = {
+        first_name: 'Jane',
+        last_name: 'Doe',
+        email: 'jane.doe@email.com',
+        team_id: defaultTeamId,
+        access_type: 'strava',
+        strava_user_id: 'jane.doe',
+        strava_access_token: 'ABCDEFD'
+      }
+      userService.insert(user)
+        .then((row) => {
+          assert(row.first_name, 'Jane', 'First name of new user is Jane')
+          assert(row.last_name, 'Doe', 'Last name of new user is Doe')
+          assert(row.email, 'jane.doe@email.com', 'Email of new user is jane.doe@email.com')
+          done()
+        })
+    })
+  })
   describe('bike table check', () => {
     it('add roadster', (done) => {
       roadster.user_id = defaultUserId
