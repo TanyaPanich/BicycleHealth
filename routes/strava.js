@@ -100,7 +100,6 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
   })
 }))
 
-
 router.get('/', (req, res, next) => {
   console.log(res.headers)
   res.json({ title: 'I am here'})
