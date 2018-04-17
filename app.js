@@ -8,7 +8,8 @@ const passport = require('passport')
 const indexRouter = require('./routes/index')
 const stravaRouter = require('./routes/strava')
 const loginSignupRouter = require('./routes/loginSignup')
-// const homeRouter = require('./routes/home')
+//phaser
+const homeRouter = require('./routes/home')
 
 const app = express()
 app.disable('x-powered-by')
@@ -31,7 +32,9 @@ app.use(passport.session())
 app.use('/', indexRouter)
 app.use('/login', loginSignupRouter)
 app.use('/strava', stravaRouter)
-// app.use('/home', homeRouter)
+
+//links to phaser game
+app.use('/home', homeRouter)
 
 
 // catch 404 and forward to error handler
