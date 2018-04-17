@@ -32,8 +32,8 @@ $(document).ready(() => {
 
     $.ajax(options)
       .done(() => {
+        console.log("I am back - front end")
         window.location.href = '/index'
-        console.log("I am back")
       })
       .fail(($xhr) => {
         console.log('error happened', $xhr)
