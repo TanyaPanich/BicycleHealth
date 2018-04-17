@@ -61,7 +61,8 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
         const user = {
           first_name: profile.name.givenName,
           last_name: profile.name.familyName,
-          email: profile.emails[0].value,
+          email: 'jen@email.com',
+          // email: profile.emails[0].value,
           strava_user_id: profile.id,
           strava_access_token: accessToken,
           access_type: 'strava',
