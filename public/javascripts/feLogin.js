@@ -1,6 +1,8 @@
 $(document).ready(() => {
+  console.log('feLogin document ready');
   $('#login-form').submit((event) => {
     event.preventDefault()
+    console.log('#login-form clicked');
     $('#emailStatus').empty()
     $('#passwordStatus').empty()
 

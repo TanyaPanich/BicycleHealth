@@ -34,8 +34,8 @@ app.use('/strava', stravaRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  
-  next(boom.notFound())
+console.log('headers', req);
+  //next(boom.notFound())
 })
 
 // error handler

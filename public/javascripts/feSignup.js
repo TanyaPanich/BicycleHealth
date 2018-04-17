@@ -1,6 +1,8 @@
 $(document).ready(() => {
+  console.log('document ready');
   $('#signup-form').submit((event) => {
     event.preventDefault()
+    console.log('#signup-form clicked');
     $('#firstNameStatus').empty()
     $('#lastNameStatus').empty()
     $('#emailStatus').empty()
@@ -50,8 +52,12 @@ $(document).ready(() => {
     };
 
     $.ajax(options)
-      .done(() => {
-        window.location.href = '/'
+      .done((data) => {
+        // window.location.href = '/'
+        console.log('did it come back??', data);
+        if (data.message && data.message === 'Success') {
+          window.location.href = 'http://localhost:3000/login/test'
+        }
       })
       .fail(($xhr) => {
         console.log('error happened', $xhr)
