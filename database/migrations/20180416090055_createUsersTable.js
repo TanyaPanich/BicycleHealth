@@ -14,7 +14,7 @@ exports.up = (knex, Promise) => {
     table.specificType('hashed_password', 'CHAR(60)').defaultTo('')
     table.varchar('strava_user_id', 60).notNullable().defaultTo('')
     table.varchar('strava_access_token', 255).notNullable().defaultTo('')
-    table.varchar('access_type', 20).notNullable()
+    table.varchar('access_type', 20).notNullable().defaultTo('normal')
     table.uuid('team_id').notNullable()
     table.foreign('team_id').references('id').inTable(teamsTable).onDelete('cascade')
     table.timestamps(true, true)
