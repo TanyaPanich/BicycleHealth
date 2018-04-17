@@ -20,13 +20,13 @@ function verifyToken(req, res, next) {
 
 router.get('/', verifyToken, (req, res, next) => {
   console.log('GET: bike page')
-  console.log('decoded', req.token)
-  // const userService = new UserService()
-  // const bikeService = new BikeService()
-  // userService.getByEmail(email)
-  // bikeService.list(userId)
-  // .then
-  //res.render('bike', { title: 'Bicycle health'})
+  console.log('decoded', req.token.email)
+  const userService = new UserService()
+  const bikeService = new BikeService()
+  userService.getByEmail(req.token.email)
+  .then(user => {
+    console.log(user)
+  })
 })
 
 module.exports = router
