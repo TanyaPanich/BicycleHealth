@@ -48,7 +48,7 @@ $(document).ready(() => {
     const options = {
       data: { firstName, lastName, email, password1 },
       type: 'POST',
-      url: '/login/signup'
+      url: '/signup'
     };
 
     $.ajax(options)
@@ -56,7 +56,7 @@ $(document).ready(() => {
         // window.location.href = '/'
         console.log('did it come back??', data);
         if (data.message && data.message === 'Success') {
-          window.location.href = 'http://localhost:3000/login/test'
+          window.location.href = 'http://localhost:3000/home'
         }
       })
       .fail(($xhr) => {

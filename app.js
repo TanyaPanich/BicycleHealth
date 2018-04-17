@@ -7,7 +7,15 @@ const passport = require('passport')
 
 const indexRouter = require('./routes/index')
 const stravaRouter = require('./routes/strava')
-const loginSignupRouter = require('./routes/loginSignup')
+const loginRouter = require('./routes/login')
+const homeRouter = require('./routes/home')
+const signupRouter = require('./routes/signup')
+const bikeRouter = require('./routes/bike')
+const rideRouter = require('./routes/ride')
+const partRouter = require('./routes/part')
+const settingRouter = require('./routes/setting')
+const profileRouter = require('./routes/profile')
+const historyRouter = require('./routes/history')
 
 const app = express()
 app.disable('x-powered-by')
@@ -28,14 +36,21 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/', indexRouter)
-app.use('/login', loginSignupRouter)
+app.use('/login', loginRouter)
+app.use('/signup', signupRouter)
+app.use('/home', homeRouter)
+app.use('/bike', bikeRouter)
+app.use('/part', partRouter)
+app.use('/ride', rideRouter)
+app.use('/profile', profileRouter)
+app.use('/setting', settingRouter)
+app.use('/history', historyRouter)
 app.use('/strava', stravaRouter)
 
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-console.log('headers', req);
-  //next(boom.notFound())
+  next(boom.notFound())
 })
 
 // error handler
