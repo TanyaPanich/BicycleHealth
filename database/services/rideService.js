@@ -39,6 +39,24 @@ class RideService {
       })
   }
 
+  getByStravaId(stravaId) {
+    return knex(ridesTable)
+      .where('strava_ride_id', stravaId)
+      .then((rows) => {
+        if (rows.length === 1) {
+          return rows[0]
+        }
+        if (rows.length > 1) {
+          throw boom.badImplementation(`Too many rides for the strava id, ${stravaId}`)
+        }
+        throw boom.notFound(`No rides found for the strava id, ${stravaId}`)
+      })
+      .catch((err) => {
+        console.log('get: err', err)
+        throw boom.badImplementation(`Error retrieving ride with the strava id, ${stravaId}`)
+      })
+  }
+
   insert(ride) {
     if (!ride.bike_id) {
       throw boom.badRequest('Bike id is required')
@@ -49,6 +67,7 @@ class RideService {
     return knex(ridesTable)
       .insert({
         id: uuid(),
+        name: ride.name,
         strava_ride_id: ride.strava_ride_id,
         bike_id: ride.bike_id,
         rode_at: ride.rode_at,
@@ -77,6 +96,7 @@ class RideService {
     }
     return knex(ridesTable)
       .update({
+        name: ride.name,
         strava_ride_id: ride.strava_ride_id,
         rode_at: ride.rode_at,
         distance: ride.distance,

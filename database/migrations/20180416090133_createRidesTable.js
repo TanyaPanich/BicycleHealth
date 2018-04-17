@@ -7,6 +7,7 @@ const { bikesTable, ridesTable } = require('../utils')
 exports.up = (knex, Promise) => {
   return knex.schema.createTable(ridesTable, (table) => {
     table.uuid('id')
+    table.varchar('name', 255).notNullable().defaultTo('')
     table.varchar('strava_ride_id', 255).notNullable().defaultTo('')
     table.dateTime('rode_at').notNullable().defaultTo(knex.raw('now()'))
     table.integer('distance').notNullable().defaultTo(0)
