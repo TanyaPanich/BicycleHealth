@@ -54,7 +54,7 @@ $(document).ready(() => {
     $.ajax(options)
       .done((data) => {
         // window.location.href = '/'
-        console.log('did it come back??', data);
+        //console.log('did it come back??', data);
         if (data.message && data.message === 'Success') {
           window.location.href = '/home'
         }

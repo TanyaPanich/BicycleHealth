@@ -27,13 +27,14 @@ $(document).ready(() => {
     const options = {
       data: { email, password },
       type: 'POST',
-      url: '/login/login'
+      url: '/login'
     };
 
     $.ajax(options)
-      .done(() => {
-        console.log("I am back - front end")
-        window.location.href = '/index'
+      .done((data) => {
+        if (data.message && data.message === 'Success') {
+          window.location.href = '/home'
+        }
       })
       .fail(($xhr) => {
         console.log('error happened', $xhr)

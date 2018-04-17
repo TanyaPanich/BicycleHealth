@@ -6,34 +6,34 @@ const jwt = require('../utilities/jwtUtil')
 const UserService = require('../database/services/userService')
 
 router.get('/', (req, res, next) => {
-  console.log("I on login/login")
+  console.log('GET: login')
   res.render('login', {
     title: 'Bicycle health'
   })
 })
 
 router.post('/', (req, res, next) => {
-
-  console.log("loginPost:", req.body)
-  //res.json({data: 'ok'})
-  // res.render('index', {
-  //   title: 'Bicycle health'
-  // })
+  //console.log('POST: login', req.body)
   const userService = new UserService()
-  return jwt(
-    'login',
-    req.body.email,
-    res,
-    userService.getByEmail(req.body.email)
-    .then(user => bcrypt.compare(req.body.password, user.hashed_password)
-    .then(match => {
-      console.log("loginPost bcrypt:", match,user)
-      if (!match) throw boom.unauthorized('invalid email or password')
-      res.render('index', { title: 'Bicycle health' })
-    }))
-  ).catch(err => {
-    next(err)
-  })
+  userService.getByEmail(req.body.email)
+    .then(user =>
+      bcrypt.compare(req.body.password, user.hashed_password,
+        (match) => {
+          if (!match) next(boom.unauthorized('invalid email or password'))
+          //res.render('index', { title: 'Bicycle health' })
+          jwt(
+            'login',
+            user.email,
+            res,
+            user
+          )
+         res.json({ message: 'Success' })
+        })
+    )
+    .catch(err => {
+      console.log('err while login', err)
+      next(err)
+    })
 })
 
 module.exports = router
