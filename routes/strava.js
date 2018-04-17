@@ -47,11 +47,29 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
   const userService = new UserService()
   const teamService = new TeamService()
   process.nextTick(() => {
-    // return userService.getByEmail(profile.emails[0].value)
-    // this is for now to force creating new user record.
-    return userService.getByEmail('jen@email.com')
+    const firstName = profile.name.givenName
+    const lastName = profile.name.familyName
+    const email = profile.emails[0].value
+    const stravaUserId = profile.id
+    const stravaAccessToken = accessToken // need to encrypt it using jsonwebtoken
+
+    const statConfig = {
+      access_token: accessToken,
+      id: stravaUserId
+    }
+    const stravaConfig = {
+      access_token: accessToken,
+      per_page: 50,
+      type: 'Ride',
+      id: stravaUserId
+    }
+    // strava.athletes.stats(stravaConfig, (error1, data) => {
+    // })
+    // strava.athlete.listActivities(stravaConfig, (error2, activities, limits) => {
+    // })
+    return userService.getByEmail(profile.emails[0].value)
       .then((row) => {
-        console.log('it cannot be here')
+        console.log('Already exists')
         return done(null, profile)
       })
       .catch((err) => {
@@ -59,12 +77,11 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
       })
       .then((team) => {
         const user = {
-          first_name: profile.name.givenName,
-          last_name: profile.name.familyName,
-          email: 'jen@email.com',
-          // email: profile.emails[0].value,
-          strava_user_id: profile.id,
-          strava_access_token: accessToken,
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          strava_user_id: stravaUserId,
+          strava_access_token: stravaAccessToken,
           access_type: 'strava',
           team_id: team.id
         }
