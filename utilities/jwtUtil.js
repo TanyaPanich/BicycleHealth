@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const boom = require('boom')
 
 function handleResponse(op, email, httpRes, user) {
   const token = jwt.sign({

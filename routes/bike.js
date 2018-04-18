@@ -7,6 +7,7 @@ const BikeService = require('../database/services/bikeService')
 router.get('/', verifyToken, (req, res, next) => {
   console.log('GET: bike page')
   console.log('For user: ', req.token.email)
+  console.log('headers', req.headers)
   const contype = req.headers['content-type']
   console.log('content:', contype)
 
