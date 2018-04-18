@@ -3,60 +3,66 @@
 
 <head>
   <% include ./head %>
-  <link rel='stylesheet' href='/stylesheets/addRide.css'>
+    <link rel='stylesheet' href='/stylesheets/addRide.css'>
 </head>
 
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="add-ride-title">Add Ride</h4>
-    <form id="add-ride-form">
-      <div class="form-group">
-        <label for="date" class="col-form-label-lg">Date</label>
-        <input type="date" class="form-control">
-      </div>
-      <div class="form-group col-form-label-lg">
-        <label for="input-type">Bicycle Used</label>
-        <select id="bike-used" class="form-control">
+      <h4 id="add-ride-title">Add Ride</h4>
+      <form id="add-ride-form">
+        <div class="form-group">
+          <label for="date" class="col-form-label-lg">Date</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group col-form-label-lg">
+          <label for="input-type">Bicycle Used</label>
+          <select id="bike-used" class="form-control">
           <option selected>Choose...</option>
-          <option>...</option>
-          <option>...</option>
-          <option>...</option>
+          <% bikes.forEach(bike => { %>
+            <option><%= bike.nick_name %></option>
+          <% }); %>
         </select>
-      </div>
-      <div class="form-group">
-        <label for="distance" class="col-form-label-lg">Distance</label>
-        <input type="text" class="form-control" placeholder="Miles">
-      </div>
-      <div class="form-group col-form-label-lg">
-        <label for="input-type">Weather Condition</label>
-        <select id="weather-condition" class="form-control">
-          <option selected>Choose...</option>
-          <option>...</option>
-          <option>...</option>
-          <option>...</option>
-        </select>
-      </div>
-      <div class="form-group col-form-label-lg">
-        <label for="input-type">Road Condition</label>
-        <select id="road-condition" class="form-control">
-          <option selected>Choose...</option>
-          <option>...</option>
-          <option>...</option>
-          <option>...</option>
-        </select>
-      </div>
-      <div id="button-ride-done">
-        <button id="done-adding-ride" type="submit" class="btn btn-primary ride-buttons">Done</button>
-      </div>
-      <div id="buttons-ride-add-delete">
-        <button id="add-another-ride" type="submit" class="btn btn-primary ride-buttons" disabled>Add another</button>
-        <button id="delete-ride" type="button" class="btn btn-outline-danger ride-buttons" disabled>Delete</button>
-      </div>
+        </div>
+        <div class="form-group">
+          <label for="distance" class="col-form-label-lg">Distance</label>
+          <input type="text" class="form-control" placeholder="Miles">
+          <p id="distanceStatus"></p>
+        </div>
+        <div class="form-group col-form-label-lg">
+          <label for="input-type">Weather Condition</label>
+          <select id="weather-condition" class="form-control">
+            <option selected>Choose...</option>
+            <option value="sun">Sun</option>
+            <option value="ice">Ice</option>
+            <option value="snow">Snow</option>
+          </select>
+          <p id="weatherStatus"></p>
+        </div>
+        <div class="form-group col-form-label-lg">
+          <label for="input-type">Road Condition</label>
+          <select id="road-condition" class="form-control">
+            <option selected>Choose...</option>
+            <option value="dry">Dry</option>
+            <option value="icy">Icy</option>
+            <option value="gravel">Gravel</option>
+            <option value="wet">Wet</option>
+          </select>
+          <p id="roadStatus"></p>
+        </div>
 
-    </form>
+        <div id="button-ride-done">
+          <button id="addRide" type="button" class="btn btn-primary ride-buttons">Add</button>
+          <button id="updateRide" type="button" class="btn btn-primary ride-buttons">Update</button>
+          <button id="deleteRide" type="button" class="btn btn-primary ride-buttons">Delete</button>
+        </div>
+        <div>
+          <p id="doneStatus"></p>
+        </div>
+      </form>
   </div>
   <!--end of container-->
+  <script src="/javascripts/feRide.js"></script>
 </body>
 
 </html>

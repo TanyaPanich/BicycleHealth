@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const boom = require('boom')
-const jwt = require('../utilities/jwtUtil')
+const { handleResponse } = require('../utilities/jwtUtil')
 const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
 
@@ -40,7 +40,7 @@ router.post('/', (req, res, next) => {
       return userService.insert(user)
     })
     .then((user) => {
-      jwt('signup', user.email, res, user)
+      handleResponse('signup', user.email, res, user)
       res.sendStatus(200)
     })
     .catch((err) => {
