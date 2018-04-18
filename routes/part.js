@@ -54,4 +54,64 @@ router.get('/', verifyToken, (req, res, next) => {
   })
 })
 
+router.post('/', verifyToken, (req, res, next) => {
+  console.log('POST: add PART', req.body)
+  console.log('For user: ', req.token.email)
+
+  const bikeService = new BikeService()
+  const partService = new PartService()
+
+  bikeService.getByName(req.body.bikeName)
+  .then(bike => {
+    console.log('bike id is: ',  bike.id)
+    const newPart = {
+      name: req.body.partName,
+      bike_id: bike.id,
+      brand: req.body.partBrand,
+      model: req.body.partModel,
+      max_life_span: parseInt(req.body.maxLifeSpan),
+      distance: parseInt(req.body.estMileage),
+      unit: 'miles'
+    }
+    console.log('newPart will be inserted now!!! ', newPart)
+    return partService.addIfNotExist(newPart)
+  })
+  .then(result => {
+    console.log('addPart POST success ---->', result)
+    res.status(200).json({ message: 'Success'})
+  })
+  .catch(err => {
+    console.log('addPart POST fails <-----')
+    next(err)
+  })
+})
+
+router.patch('/', verifyToken, (req, res, next) => {
+  console.log('PATCH: edit part', req.body)
+  console.log('For user: ', req.token.email)
+  const bikeService = new BikeService()
+  const bike = {
+    id: req.body.bikeid,
+    nick_name: req.body.nickname,
+    type: req.body.type,
+    brand: req.body.brand,
+    model: req.body.model,
+    strava_gear_id: req.body.strava_gear_id,
+    distance: parseInt(req.body.distance),
+    distance_unit: req.body.distance_unit
+  }
+  console.log('PATCH: bike obj', bike)
+  return bikeService.update(bike)
+  .then(result => {
+    console.log('addBicycle PATCH success', result)
+    //res.status(200)
+    res.status(200).json({ message: 'Success'})
+
+  })
+  .catch(err => {
+    console.log('addBicycle PATCH err', err)
+    next(err)
+  })
+})
+
 module.exports = router

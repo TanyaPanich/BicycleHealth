@@ -39,7 +39,7 @@ router.get('/', verifyToken, (req, res, next) => {
 })
 
 router.post('/', verifyToken, (req, res, next) => {
-  console.log('POST: add-edit bike', req.body)
+  console.log('POST: add bike', req.body)
   console.log('For user: ', req.token.email)
   const userService = new UserService()
   const bikeService = new BikeService()
@@ -71,23 +71,8 @@ router.post('/', verifyToken, (req, res, next) => {
   })
 })
 
-router.delete('/', verifyToken, (req, res, next) => {
-  console.log('DELETE: add-edit bike', req.body)
-  console.log('For user: ', req.token.email)
-  const bikeService = new BikeService()
-  return bikeService.delete(req.body.bikeid)
-  .then(result => {
-    console.log('addBicycle DELETE success', result)
-    res.status(200).json({ message: 'Success'})
-  })
-  .catch(err => {
-    console.log('addBicycle DELETE err', err)
-    next(err)
-  })
-})
-
 router.patch('/', verifyToken, (req, res, next) => {
-  console.log('PATCH: add-edit bike', req.body)
+  console.log('PATCH: edit bike', req.body)
   console.log('For user: ', req.token.email)
   const bikeService = new BikeService()
   const bike = {
@@ -110,6 +95,21 @@ router.patch('/', verifyToken, (req, res, next) => {
   })
   .catch(err => {
     console.log('addBicycle PATCH err', err)
+    next(err)
+  })
+})
+
+router.delete('/', verifyToken, (req, res, next) => {
+  console.log('DELETE: delete bike', req.body)
+  console.log('For user: ', req.token.email)
+  const bikeService = new BikeService()
+  return bikeService.delete(req.body.bikeid)
+  .then(result => {
+    console.log('addBicycle DELETE success', result)
+    res.status(200).json({ message: 'Success'})
+  })
+  .catch(err => {
+    console.log('addBicycle DELETE err', err)
     next(err)
   })
 })

@@ -17,9 +17,30 @@ class PartService {
     return knex(partsTable)
       .where('bike_id', bikeId)
       .catch((err) => {
-        console.log('list: err', err)
+        //console.log('list: err', err)
         throw boom.badImplementation(`Error retrieving parts by bicycle id, ${bikeId}`)
       })
+  }
+
+  addIfNotExist(part) {
+    if (part.name && part.bike_id) {
+      return this.getByName(part.name, part.bike_id)
+        .then((existing) => {
+          return null
+        })
+        .catch((err) => {
+          return this.insert(part)
+        })
+        .then((existing) => {
+          if (!existing) {
+            throw boom.badRequest('Part already exists')
+          }
+          else {
+            return existing
+          }
+        })
+    }
+    throw boom.badRequest('Part name and bike id are required')
   }
 
   get(id) {
@@ -35,8 +56,27 @@ class PartService {
         throw boom.notFound(`No parts found for the id, ${id}`)
       })
       .catch((err) => {
-        console.log('get: err', err)
+        //console.log('get: err', err)
         throw boom.badImplementation(`Error retrieving part with the id, ${id}`)
+      })
+  }
+
+  getByName(name, bikeId) {
+    return knex(partsTable)
+      .where('name', name)
+      .andWhere('bike_id', bikeId)
+      .then((rows) => {
+        if (rows.length === 1) {
+          return rows[0]
+        }
+        if (rows.length > 1) {
+          throw boom.badImplementation(`Too many parts for the name, ${name}`)
+        }
+        throw boom.notFound(`No parts found for the name, ${name}`)
+      })
+      .catch((err) => {
+      //  console.log('get: err', err)
+        throw boom.badImplementation(`Error retrieving part with the name, ${name}`)
       })
   }
 
