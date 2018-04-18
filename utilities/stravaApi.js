@@ -2,11 +2,13 @@ const strava = require('strava-v3')
 const fs = require('fs')
 const path = require('path')
 
+const mileFactor = 0.000625097671511
+
 class StravaApiService {
-  convertActivity(activity) {
+  convertActivity(activity, unit) {
     const info = {
       name: activity.name,
-      distance: activity.distance,
+      distance: (unit === 'feet') ? (activity.distance * mileFactor) : (activity.distance * 0.001),
       ride_id: activity.id,
       date: activity.start_date,
       bike_id: activity.gear_id
@@ -19,13 +21,13 @@ class StravaApiService {
       nick_name: bike.name,
       type: 'road_bike',
       strava_gear_id: bike.id,
-      distance: bike.distance,
+      distance: (unit === 'feet') ? (bike.distance * mileFactor) : (bike.distance * 0.001),
       distance_unit: (unit === 'feet') ? 'mile' : 'km'
     }
     return info
   }
 
-  getStravaInformation(stravaId, accessToken) {
+  getStravaInformation(stravaId, accessToken, unit) {
     const stravaConfig = {
       access_token: accessToken,
       id: stravaId
@@ -36,7 +38,7 @@ class StravaApiService {
           reject(error)
         }
         else {
-          const bikes = data.bikes.map((bike) => this.convertBike(bike, data.measurement_preference))
+          const bikes = data.bikes.map((bike) => this.convertBike(bike, data.measurement_preference || unit))
           resolve({
             bikes: bikes,
             unit: data.measurement_preference
@@ -46,7 +48,7 @@ class StravaApiService {
     })
   }
 
-  getStravaActivity(stravaId, accessToken) {
+  getStravaActivity(stravaId, accessToken, unit = 'feet') {
     const stravaConfig = {
       access_token: accessToken,
       per_page: 50,
@@ -59,21 +61,21 @@ class StravaApiService {
           reject(error)
         }
         else {
-          const activities = data.map((activity) => this.convertActivity(activity))
+          const activities = data.map((activity) => this.convertActivity(activity, unit))
           resolve({ activities: activities })
         }
       })
     })
   }
 
-  collectStravaInformation(stravaId, accessToken) {
+  collectStravaInformation(stravaId, accessToken, unit = 'feet') {
     return Promise.all([
-      this.getStravaInformation(stravaId, accessToken),
-      this.getStravaActivity(stravaId, accessToken)
+      this.getStravaInformation(stravaId, accessToken, unit),
+      this.getStravaActivity(stravaId, accessToken, unit)
     ])
   }
 
-  getStravaInformationInFile(filename) {
+  getStravaInformationInFile(filename, unit) {
     const filePath = path.join(__dirname, '..', 'strava', 'data', filename)
     console.log('filePath', filePath)
     return new Promise((resolve, reject) => {
@@ -83,7 +85,7 @@ class StravaApiService {
         }
         else {
           const json = JSON.parse(data)
-          const bikes = json.bikes.map((bike) => this.convertBike(bike, json.measurement_preference))
+          const bikes = json.bikes.map((bike) => this.convertBike(bike, json.measurement_preference || unit))
           resolve({
             bikes: bikes,
             email: json.email,
@@ -94,7 +96,7 @@ class StravaApiService {
     })
   }
 
-  getStravaActivityInFile(filename) {
+  getStravaActivityInFile(filename, unit) {
     const filePath = path.join(__dirname, '..', 'strava', 'data', filename)
     console.log('filePath', filePath)
     return new Promise((resolve, reject) => {
@@ -103,17 +105,17 @@ class StravaApiService {
           reject(err)
         }
         else {
-          const activities = JSON.parse(data).map((activity) => this.convertActivity(activity))
+          const activities = JSON.parse(data).map((activity) => this.convertActivity(activity, unit))
           resolve({ activities: activities })
         }
       })
     })
   }
 
-  collectStravaInFile() {
+  collectStravaInFile(unit = 'feet') {
     return Promise.all([
-      this.getStravaInformationInFile('athlete.json'),
-      this.getStravaActivityInFile('activities.json')
+      this.getStravaInformationInFile('athlete.json', unit),
+      this.getStravaActivityInFile('activities.json', unit)
     ])
   }
 }
