@@ -25,7 +25,7 @@ router.get('/', verifyToken, (req, res, next) => {
   const bikeService = new BikeService()
   userService.getByEmail(req.token.email)
   .then(user => {
-    console.log(user)
+    console.log(user.id)
   })
 })
 
