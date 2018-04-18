@@ -80,7 +80,7 @@ $(document).ready(() => {
       debugger
       /* eslint-disable */
       switch (event.currentTarget.id) {
-        case 'addBike':
+        case 'addRide':
           requestParams.type = 'POST'
           break
         // case 'updateBike':
