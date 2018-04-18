@@ -26,6 +26,14 @@
           <input id="ride-date" type="date" class="form-control">
           <p id="dateStatus"></p>
         </div>
+        <div class="form-group col-form-label-lg">
+          <label for="input-type">Ride Name</label>
+          <select id="rideName" class="form-control">
+            <option selected>Choose...</option>
+            <option>New</option>
+          </select>
+          <p id="nameStatus"></p>
+        </div>
         <div class="form-group">
           <label for="distance" class="col-form-label-lg">Distance</label>
           <input id="ride-distance" type="text" class="form-control" placeholder="Miles">
@@ -55,6 +63,8 @@
 
         <div id="button-ride-done">
           <button id="addRide" type="button" class="btn btn-primary ride-buttons">Add</button>
+          <button id="updateRide" type="button" class="btn btn-primary ride-buttons">Update</button>
+          <button id="deleteRide" type="button" class="btn btn-primary ride-buttons">Delete</button>
         </div>
         <div>
           <p id="doneStatus"></p>
