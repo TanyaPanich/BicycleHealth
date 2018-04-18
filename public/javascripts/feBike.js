@@ -64,10 +64,14 @@ const addFormSubmitListener = (bikes) => {
         return
       }
       nickname = nicknameSelector
+
       bikeid = bikes[nickname].id
       strava_gear_id = bikes[nickname].strava_gear_id
       distance = bikes[nickname].distance
       distance_unit = bikes[nickname].distance_unit
+      if (event.currentTarget.id === 'updateBike') {
+        nickname = $('#newNickname').val().trim()
+      }
     } else if (nicknameSelector == 'New') {
       if (event.currentTarget.id !== 'addBike') {
         $('#doneStatus').append('This operation is not supported for new bike')
@@ -144,8 +148,10 @@ const addFormSubmitListener = (bikes) => {
         // $('#bikeBrand').val('')
         // $('#model').val('')
         // $('#doneStatus').append(`Bike ${newNickname} successfully added`)
+        debugger
         console.log("about to reload")
-        location.reload()
+        window.location.href = '/bike'
+        // location.reload()
         console.log("reloaded")
       })
       .fail(($xhr) => {

@@ -11,38 +11,59 @@
     <% include ./nav %>
     <h4 id="add-part-title">Add/Edit Bicycle Part</h4>
     <form id="add-part-form">
-      <div class="form-group">
-        <label for="Nickname" class="col-form-label-lg">Nickname</label>
-        <input type="text" class="form-control" placeholder="Nickname">
+      <div class="form-group col-form-label-lg">
+        <label for="input-type">Bicycle Nickname</label>
+        <select id="bicycleNickname" class="form-control">
+          <option selected>Choose...</option>
+          <% bikes.forEach(bike => { %>
+            <option><%= bike.nick_name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group col-form-label-lg">
+        <label for="input-type">Part name</label>
+        <select id="partName" class="form-control">
+          <option selected>Choose...</option>
+          <option>New</option>
+          <!-- <% bikes.forEach(bike => { %>
+            <option><%= bike.part %></option>
+          <% }); %> -->
+        </select>
       </div>
       <div class="form-group">
         <label for="Brand" class="col-form-label-lg">Brand</label>
-        <input type="text" class="form-control" placeholder="Brand">
+        <input id="partBrand" type="text" class="form-control" placeholder="Brand">
       </div>
       <div class="form-group">
         <label for="Model" class="col-form-label-lg">Model</label>
-        <input type="text" class="form-control" placeholder="Model">
+        <input id="partModel" type="text" class="form-control" placeholder="Model">
       </div>
-      <div class="form-group">
-        <label for="minimum-life-span" class="col-form-label-lg">Minimum Life Span</label>
-        <input type="text" class="form-control" placeholder="Miles">
+      <div class="form-group row">
+        <label for="minLifeSpan" class="col-sm-2 col-form-label">Min Life Span</label>
+        <div class="col-sm-6">
+          <input id="minLifeSpan" type="text" class="form-control" placeholder="Miles">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="estimated-mileage" class="col-form-label-lg">Estimated Mileage</label>
-        <input type="text" class="form-control" placeholder="Miles">
+      <div class="form-group row">
+        <label for="estimatedMileage" class="col-sm-2 col-form-label">Estimated Mileage</label>
+        <div class="col-sm-6">
+          <input id="estMileage" type="text" class="form-control" placeholder="Miles">
+        </div>
       </div>
-      
-      <div id="button-part-done">
-        <button id="done-adding-part" type="submit" class="btn btn-primary part-buttons">Done</button>
+
+      <div id="part-done">
+        <button id="addPart" type="button" class="btn btn-primary part-buttons">Add</button>
+        <button id="updatePart" type="button" class="btn btn-primary part-buttons">Update</button>
+        <button id="deletePart" type="button" class="btn btn-primary part-buttons">Delete</button>
       </div>
-      <div id="buttons-part-add-delete">
-        <button id="add-another-part" type="submit" class="btn btn-primary part-buttons" disabled>Add another</button>
-        <button id="delete-part" type="button" class="btn btn-outline-danger part-buttons" disabled>Delete</button>
+      <div>
+        <p id="donePartStatus"></p>
       </div>
 
     </form>
   </div>
   <!--end of container-->
+  <script src="/javascripts/fePart.js"></script>
 </body>
 
 </html>

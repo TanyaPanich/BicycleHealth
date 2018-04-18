@@ -129,7 +129,9 @@ class BikeService {
     if (!bike.id) {
       throw boom.badRequest('Id is required')
     }
+    console.log('updating bike', bike);
     return knex(bikesTable)
+      .where('id', bike.id)
       .update({
         nick_name: bike.nick_name,
         type: bike.type,
@@ -139,9 +141,10 @@ class BikeService {
         distance: bike.distance,
         distance_unit: bike.distance_unit
       })
-      .where('id', bike.id)
+      .returning('*')
       .then((rows) => {
         if (rows.length === 1) {
+          console.log(rows);
           return rows[0]
         }
         if (rows.length > 1) {
@@ -161,6 +164,7 @@ class BikeService {
     }
     return knex(bikesTable)
       .where('id', id)
+      .returning('*')
       .then((rows) => {
         if (rows.length === 1) {
           return rows[0]

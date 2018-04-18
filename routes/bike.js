@@ -88,7 +88,7 @@ router.delete('/', verifyToken, (req, res, next) => {
   return bikeService.delete(req.body.bikeid)
   .then(result => {
     console.log('addBicycle DELETE success', result)
-    res.status(200)
+    res.status(200).json({ message: 'Success'})
   })
   .catch(err => {
     console.log('addBicycle DELETE err', err)
