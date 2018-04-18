@@ -10,6 +10,9 @@ const {
 class BikeService {
   // list bicycle list by user_id
   list(userId) {
+    if (!userId) {
+      throw boom.badRequest('User id is required')
+    }
     return knex(bikesTable)
       .where('user_id', userId)
       .catch((err) => {
@@ -19,6 +22,9 @@ class BikeService {
   }
 
   get(id) {
+    if (!id) {
+      throw boom.badRequest('Id is required')
+    }
     return knex(bikesTable)
       .where('id', id)
       .then((rows) => {
@@ -37,6 +43,9 @@ class BikeService {
   }
 
   getByStravaId(stravaId) {
+    if (!stravaId) {
+      throw boom.badRequest('Strava id is required')
+    }
     return knex(bikesTable)
       .where('strava_gear_id', stravaId)
       .then((rows) => {
@@ -49,12 +58,15 @@ class BikeService {
         throw boom.notFound(`No bicycle found for the strava_gear_id, ${stravaId}`)
       })
       .catch((err) => {
-        //console.log('get: err', err)
+        // console.log('get: err', err)
         throw boom.badImplementation(`Error retrieving bicycle with the strava_gear_id, ${stravaId}`)
       })
   }
 
   getByName(name) {
+    if (!name) {
+      throw boom.badRequest('Nick name is required')
+    }
     return knex(bikesTable)
       .where('nick_name', name)
       .then((rows) => {
@@ -144,6 +156,9 @@ class BikeService {
   }
 
   delete(id) {
+    if (!id) {
+      throw boom.badRequest('Id is required')
+    }
     return knex(bikesTable)
       .where('id', id)
       .then((rows) => {
@@ -162,6 +177,9 @@ class BikeService {
   }
 
   getParts(id) {
+    if (!id) {
+      throw boom.badRequest('Id is required')
+    }
     return knex(bikesTable)
       .select(partsFields)
       .innerJoin(partsTable, `${partsTable}.bike_id`, `${bikesTable}.id`)
@@ -170,6 +188,12 @@ class BikeService {
         console.log('getParts: err', err)
         throw boom.badImplementation(`Error retrieving parts for bicycle with the id, ${id}`)
       })
+  }
+
+  addOrUpdate(bike) {
+    return get(bike.id)
+      .then((existing) => update(bike))
+      .catch(() => insert(bike))
   }
 }
 

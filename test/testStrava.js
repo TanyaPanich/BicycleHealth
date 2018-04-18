@@ -7,8 +7,6 @@ const knex = require('../knex')
 const StravaApiService = require('../utilities/stravaApi')
 const strava = new StravaApiService()
 
-const BikeService = require('../database/services/bikeService')
-const RideService = require('../database/services/rideService')
 const UserService = require('../database/services/userService')
 
 beforeEach((done) => {
@@ -33,8 +31,6 @@ after(() => {
 
 describe('strava API service check', () => {
   it('read strava data from file', (done) => {
-    const bikeService = new BikeService()
-    const rideService = new RideService()
     const userService = new UserService()
 
     strava.collectStravaInFile()
@@ -58,50 +54,38 @@ describe('strava API service check', () => {
       .then((data) => {
         const { bikes, unit, email, activities, user } = data
         if (user) {
+          const array = bikes.map((bike) => strava.findBikeByStravaId(bike.strava_gear_id))
           return Promise.all(
-            bikes.map((bike) => bikeService
-              .getByStravaId(bike.strava_gear_id)
-              .then((bikeInDB) => bikeInDB)
-              .catch((err) => null))
+            bikes.map((bike) => strava.findBikeByStravaId(bike.strava_gear_id))
           )
             .then((results) => {
               data.bikesInDatabase = results
               return data
             })
         }
+        else {
+          return data
+        }
       })
       .then((data) => {
         const { bikes, unit, email, activities, user, bikesInDatabase } = data
-        return Promise.all(
-          bikesInDatabase.map((bike, index) => {
-            if (!bike) {
-              const newBike = bikes[index]
-              newBike.user_id = user.id
-              return bikeService.insert(newBike)
-            }
-            else {
-              return bike
-            }
-          })
-        )
-          .then((what) => {
-            data.bikesInDatabase = what
-            return data
-          })
+        if (user) {
+          return Promise.all(strava.assignBikeToUser(bikes, bikesInDatabase, user.id))
+            .then((what) => {
+              data.bikesInDatabase = what
+              return data
+            })
+            .catch((err) => {
+              return data
+            })
+        }
+        else {
+          return data
+        }
       })
       .then((data) => {
-        const { unit, activities, bikesInDatabase } = data
-        return Promise.all(
-          activities
-            .reduce((acc, activity) => {
-              const foundBikes = bikesInDatabase.filter((bike) => bike.strava_gear_id === activity.bike_id)
-              if (foundBikes.length > 0) {
-                activity.bike_id = foundBikes[0].id
-                acc.push(activity)
-              }
-              return acc
-            }, [])
-        )
+        const { unit, bikes, activities, bikesInDatabase } = data
+        return Promise.all(strava.findActivitiesForBike(activities, bikesInDatabase))
           .then((activityInDB) => {
             data.activityInDB = activityInDB
             return data
@@ -109,20 +93,8 @@ describe('strava API service check', () => {
       })
       .then((data) => {
         const { unit, activityInDB } = data
-        return Promise.all(
-          activityInDB.map((activity) => rideService
-            .getByStravaId(activity.ride_id)
-            .then((inDb) => null)
-            .catch((err) => activity))
-        )
+        return Promise.all(strava.addNewActivities(activityInDB, unit))
           .then((results) => {
-            results.forEach((activity) => {
-              if (activity) {
-                activity.distance_unit = unit
-                activity.strava_ride_id = activity.ride_id
-                rideService.insert(activity)
-              }
-            })
             done()
           })
       })

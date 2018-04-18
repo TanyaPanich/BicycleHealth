@@ -29,6 +29,9 @@ class UserService {
   }
 
   get(id) {
+    if (!id) {
+      throw boom.badRequest('Id is required')
+    }
     return knex(usersTable)
       .where('id', id)
       .then((rows) => {
@@ -114,7 +117,6 @@ class UserService {
         throw boom.badImplementation(`Error updating user`)
       })
   }
-
 }
 
 module.exports = UserService

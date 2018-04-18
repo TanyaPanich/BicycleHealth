@@ -61,47 +61,12 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
 
     return userService.getByEmail(profile.emails[0].value)
       .then((user) => {
-        api.collectStravaInformation(stravaUserId, stravaAccessToken)
+        api.populateDatabase(stravaUserId, stravaAccessToken)
           .then((results) => {
-            console.log('length', results.length)
-            if (results.length === 2) {
-              const { bikes, unit } = results[0]
-              const { activities } = results[1]
-              bikes.forEach((bike) => {
-                // const rides = activities.filter((activity) => activity.bike_id === bike.strava_gear_id)
-                // bikeService.getByStravaId(bike.strava_gear_id)
-                //   .then((found) => {
-                //     rides.forEach((ride) => {
-                //
-                //     })
-                //     return null
-                //   })
-                //   .catch((err) => {
-                //     return bike
-                //   })
-                //   .then((newBike) => {
-                //     if (newBike) {
-                //       newBike.user_id = user.id
-                //       bikeService.insert(newBike)
-                //     }
-                //   })
-              })
-              activities.forEach((activity) => {
-                /*
-                { name: 'Recovery ',
-                  distance: 4073.3,
-                  ride_id: 1448171131,
-                  date: '2018-03-11T17:55:46Z',
-                  bike_id: null },
-
-                */
-              })
-              console.log(bikes, unit, activities)
-            }
-            console.log('success 1 after collectStravaInformation')
+            console.log('success 1 after collectStravaInformation', results)
           })
           .catch((err) => {
-            console.log('err 1 after collectStravaInformation')
+            console.log('err 1 after collectStravaInformation', err)
           })
         return { user: user }
       })
@@ -122,16 +87,17 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
             access_type: 'strava',
             team_id: data.id
           }
-          Promise.all([
-            userService.insert(user),
-            api.collectStravaInformation(stravaUserId, stravaAccessToken)
-          ])
+          userService.insert(user)
+            .then((newUser) => {
+              console.log('user added', newUser)
+              return api.populateDatabase(stravaUserId, stravaAccessToken)
+            })
             .then((results) => {
-              console.log('success 2 after collectStravaInformation')
+              console.log('success 2 after collectStravaInformation', results)
               return done(null, user)
             })
             .catch((err) => {
-              console.log('err 2 after collectStravaInformation')
+              console.log('err 2 after collectStravaInformation', err)
             })
         }
         else {

@@ -13,6 +13,9 @@ const {
 class RideService {
   // list ride list by bike_id
   list(bikeId) {
+    if (!bikeId) {
+      throw boom.badRequest('Bike id is required')
+    }
     return knex(ridesTable)
       .where('bike_id', bikeId)
       .catch((err) => {
@@ -22,6 +25,9 @@ class RideService {
   }
 
   get(id) {
+    if (!id) {
+      throw boom.badRequest('Id is required')
+    }
     return knex(ridesTable)
       .where('id', id)
       .then((rows) => {
@@ -40,6 +46,9 @@ class RideService {
   }
 
   getByStravaId(stravaId) {
+    if (!stravaId) {
+      throw boom.badRequest('Strava id is required')
+    }
     return knex(ridesTable)
       .where('strava_ride_id', stravaId)
       .then((rows) => {
@@ -52,7 +61,7 @@ class RideService {
         throw boom.notFound(`No rides found for the strava id, ${stravaId}`)
       })
       .catch((err) => {
-        //console.log('get: err', err)
+        // console.log('get: err', err)
         throw boom.badImplementation(`Error retrieving ride with the strava id, ${stravaId}`)
       })
   }
@@ -119,6 +128,9 @@ class RideService {
   }
 
   delete(id) {
+    if (!id) {
+      throw boom.badRequest('Id is required')
+    }
     return knex(ridesTable)
       .where('id', id)
       .then((rows) => {
@@ -134,6 +146,12 @@ class RideService {
         console.log('delete: err', err)
         throw boom.badImplementation(`Error deleting ride with the id, ${id}`)
       })
+  }
+
+  addOrUpdate(ride) {
+    return get(ride.id)
+      .then((existing) => update(ride))
+      .catch(() => insert(ride))
   }
 }
 
