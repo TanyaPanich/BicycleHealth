@@ -97,4 +97,12 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
     })
 })
 
+router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
+
+})
+
+router.delete('/', verifyToken, retrieveUser, (req, res, next) => {
+
+})
+
 module.exports = router

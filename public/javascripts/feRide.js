@@ -80,7 +80,6 @@ $(document).ready(() => {
         return
       }
 
-      debugger
       let name = ''
       let rideId = ''
       if (rideName === 'New') {
@@ -101,7 +100,6 @@ $(document).ready(() => {
         },
         url: '/ride'
       }
-      debugger
       /* eslint-disable */
       switch (event.currentTarget.id) {
         case 'addRide':
@@ -151,7 +149,6 @@ $(document).ready(() => {
             'Content-Type': 'application/json; charset=utf-8'
           },
           success: (data) => {
-            debugger
             console.log('data success', data)
             if (data.rides) {
               data.rides.forEach((ride, index) => {
