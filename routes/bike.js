@@ -61,7 +61,9 @@ router.post('/', verifyToken, (req, res, next) => {
   })
   .then(result => {
     console.log('addBicycle POST success', result)
-    res.status(200)
+    //res.status(200)
+    res.status(200).json({ message: 'Success'})
+
   })
   .catch(err => {
     console.log('addBicycle POST err', err)
@@ -102,7 +104,9 @@ router.patch('/', verifyToken, (req, res, next) => {
   return bikeService.update(bike)
   .then(result => {
     console.log('addBicycle PATCH success', result)
-    res.status(200)
+    //res.status(200)
+    res.status(200).json({ message: 'Success'})
+
   })
   .catch(err => {
     console.log('addBicycle PATCH err', err)

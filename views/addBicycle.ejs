@@ -10,7 +10,7 @@
   <div class="container">
     <% include ./nav %>
     <h4 id="add-bike-title">Add/Edit Bicycle</h4>
-    <form id="add-bike-form">
+    <form id="addBikeForm">
       <div class="form-group col-form-label-lg">
         <label for="input-type">Nickname</label>
         <select id="nickname" class="form-control">
@@ -26,7 +26,7 @@
         <input id="newNickname" type="text" class="form-control" placeholder="Type a nickname">
         <p id="newNicknameStatus"></p>
       </div>
-      <div class="form-group col-form-label-lg">
+      <div id="typeDiv" class="form-group col-form-label-lg">
         <label for="input-type">Type</label>
         <select id="type" class="form-control">
           <option selected>Choose...</option>
@@ -47,7 +47,7 @@
         <p id="modelStatus"></p>
       </div>
 
-      <div id="button-bike-done">
+      <div id="bikeButtonsDiv">
         <button id="addBike" type="button" class="btn btn-primary bike-buttons">Add</button>
         <button id="updateBike" type="button" class="btn btn-primary bike-buttons">Update</button>
         <button id="deleteBike" type="button" class="btn btn-primary bike-buttons">Delete</button>
