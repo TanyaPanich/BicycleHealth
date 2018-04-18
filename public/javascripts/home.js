@@ -68,7 +68,7 @@ var GameState = {
       lifespan: 15000
     }
     this.start(this.handlebars, 'input', this.handlebars)
-    this.healthGlow(this.handlebars)
+    // this.healthGlow(this.handlebars)
 
     //load seat
     this.seat = this.game.add.sprite(this.game.world.centerX - 104, this.game.world.centerY - 150, 'Seat')
@@ -80,7 +80,7 @@ var GameState = {
       lifespan: 15000
     }
     this.start(this.seat, 'input', this.seat)
-    this.healthGlow(this.seat)
+    // this.healthGlow(this.seat)
 
     //load chain
     this.chain = this.game.add.sprite(this.game.world.centerX - 124, this.game.world.centerY + 84, 'Chain')
@@ -92,7 +92,7 @@ var GameState = {
       lifespan: 15000
     }
     this.start(this.chain, 'input', this.chain)
-    this.healthGlow(this.chain)
+    // this.healthGlow(this.chain)
 
     //load pedal
     this.pedal = this.game.add.sprite(this.game.world.centerX - 6, this.game.world.centerY + 144, 'Pedal')
@@ -168,13 +168,13 @@ var GameState = {
     this.getBikeStats()
   },
 
-  healthGlow: function(part) {
-    console.log(part);
-    shadow = game.add.sprite(game.world.centerX, game.world.centerY, part.key);
-    shadow.anchor.set(0.5);
-    shadow.tint = '#46ff13';
-    shadow.alpha = 0.5;
-  },
+  // healthGlow: function(part) {
+  //   console.log(part);
+  //   shadow = game.add.sprite(game.world.centerX, game.world.centerY, part.key);
+  //   shadow.anchor.set(0.5);
+  //   shadow.tint = '#46ff13';
+  //   shadow.alpha = 0.5;
+  // },
 
   getBikeStats: function() {
 
