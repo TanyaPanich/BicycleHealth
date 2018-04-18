@@ -9,6 +9,10 @@ label {
   margin-bottom: 0;
 }
 
+div.form-group.row {
+  flex-wrap: nowrap;
+}
+
 #add-ride-title {
   text-align: center;
   margin: 1rem 2rem;
