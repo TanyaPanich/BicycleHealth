@@ -13,42 +13,54 @@
     <form id="add-bike-form">
       <div class="form-group col-form-label-lg">
         <label for="input-type">Nickname</label>
-        <select id="type-of-bike" class="form-control">
+        <select id="nickname" class="form-control">
           <option selected>Choose...</option>
-          <option>...</option>
-          <option>...</option>
-          <option>...</option>
+          <option>New</option>
+          <% bikes.forEach(bike => { %>
+            <option><%= bike.nick_name %></option>
+          <% }); %>
         </select>
+      </div>
+      <div class="form-group">
+        <label for="new-nickname" class="col-form-label-lg">New Nickname</label>
+        <input id="newNickname" type="text" class="form-control" placeholder="Type a nickname">
+        <p id="newNicknameStatus"></p>
       </div>
       <div class="form-group col-form-label-lg">
         <label for="input-type">Type</label>
-        <select id="type-of-bike" class="form-control">
+        <select id="type" class="form-control">
           <option selected>Choose...</option>
-          <option>...</option>
-          <option>...</option>
-          <option>...</option>
+          <option>road_bike</option>
+          <option>mountain_bike</option>
+          <option>city_bike</option>
         </select>
+        <p id="typeStatus"></p>
       </div>
       <div class="form-group">
-        <label for="Brand" class="col-form-label-lg">Brand</label>
-        <input type="text" class="form-control" placeholder="Brand">
+        <label for="bikeBrand" class="col-form-label-lg">Brand</label>
+        <input id="bikeBrand" type="text" class="form-control" placeholder="Brand">
+        <p id="brandStatus"></p>
       </div>
       <div class="form-group">
         <label for="model" class="col-form-label-lg">Model</label>
-        <input type="text" class="form-control" placeholder="Model">
+        <input id="model" type="text" class="form-control" placeholder="Model">
+        <p id="modelStatus"></p>
       </div>
-      
+
       <div id="button-bike-done">
-        <button id="done-adding-bike" type="submit" class="btn btn-primary bike-buttons">Done</button>
+        <button id="addBike" type="button" class="btn btn-primary bike-buttons">Add</button>
+        <button id="updateBike" type="button" class="btn btn-primary bike-buttons">Update</button>
+        <button id="deleteBike" type="button" class="btn btn-primary bike-buttons">Delete</button>
       </div>
-      <div id="buttons-bike-add-delete">
-        <button id="add-another-bike" type="submit" class="btn btn-primary bike-buttons" disabled>Add another</button>
-        <button id="delete-bike" type="button" class="btn btn-outline-danger bike-buttons" disabled>Delete</button>
+      <div id="status">
+        <p id="doneStatus"></p>
       </div>
 
     </form>
   </div>
   <!--end of container-->
+  <script src="/javascripts/feBike.js"></script>
+
 </body>
 
 </html>
