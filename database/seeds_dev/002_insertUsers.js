@@ -3,9 +3,9 @@ const { usersTable, initializeDefaultTeamId } = require('../utils')
 
 exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
-  const userUuid1 = uuid()
-  const userUuid2 = uuid()
-  const userUuid3 = uuid()
+  const userUuid1 = '82588266-1f7a-493e-bd2b-c7d3a8fa5184'
+  const userUuid2 = 'bc7d4a5f-eed8-4bec-a185-48b513cce112'
+  const userUuid3 = '6d33b693-6852-4efa-b28f-925d621aa453'
   const defaultTeamId = initializeDefaultTeamId()
   return knex(usersTable).del()
     .then(() => {
