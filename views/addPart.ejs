@@ -9,8 +9,8 @@
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="add-part-title">Add/Edit Bicycle Part</h4>
-    <form id="add-part-form">
+    <h4 id="addPartTitle">Add/Edit Bicycle Part</h4>
+    <form id="addPartForm">
       <div class="form-group col-form-label-lg">
         <label for="input-type">Bicycle Nickname</label>
         <select id="bicycleNickname" class="form-control">
@@ -19,39 +19,47 @@
             <option><%= bike.nick_name %></option>
           <% }); %>
         </select>
+        <p id="bikeNameStatus"></p>
       </div>
       <div class="form-group col-form-label-lg">
         <label for="input-type">Part name</label>
         <select id="partName" class="form-control">
           <option selected>Choose...</option>
-          <option>New</option>
-          <!-- <% bikes.forEach(bike => { %>
-            <option><%= bike.part %></option>
-          <% }); %> -->
+          <option>Frame</option>
+          <option>Wheel</option>
+          <option>Brake</option>
+          <option>Seat</option>
+          <option>Chain</option>
+          <option>Pedal</option>
+          <option>Handlebars</option>
+          <option>Chainring</option>
         </select>
+        <p id="partNameStatus"></p>
       </div>
       <div class="form-group">
         <label for="Brand" class="col-form-label-lg">Brand</label>
         <input id="partBrand" type="text" class="form-control" placeholder="Brand">
+        <p id="partBrandStatus"></p>
       </div>
       <div class="form-group">
         <label for="Model" class="col-form-label-lg">Model</label>
         <input id="partModel" type="text" class="form-control" placeholder="Model">
+        <p id="partModelStatus"></p>
       </div>
       <div class="form-group row">
-        <label for="minLifeSpan" class="col-sm-2 col-form-label">Min Life Span</label>
+        <label for="maxLifeSpan" class="col-sm-2 col-form-label">Max Life Span</label>
         <div class="col-sm-6">
-          <input id="minLifeSpan" type="text" class="form-control" placeholder="Miles">
+          <input id="maxLifeSpan" type="number" class="form-control" placeholder="Miles">
         </div>
       </div>
       <div class="form-group row">
         <label for="estimatedMileage" class="col-sm-2 col-form-label">Estimated Mileage</label>
         <div class="col-sm-6">
-          <input id="estMileage" type="text" class="form-control" placeholder="Miles">
+          <input id="estMileage" type="number" class="form-control" placeholder="Miles">
         </div>
       </div>
 
-      <div id="part-done">
+      <div id="partButtonsDiv">
         <button id="addPart" type="button" class="btn btn-primary part-buttons">Add</button>
         <button id="updatePart" type="button" class="btn btn-primary part-buttons">Update</button>
         <button id="deletePart" type="button" class="btn btn-primary part-buttons">Delete</button>

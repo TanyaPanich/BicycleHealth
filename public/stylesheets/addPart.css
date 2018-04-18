@@ -1,4 +1,4 @@
-#add-part-form {
+#addPartForm {
   margin: 2rem;
 }
 .col-form-label-lg {
@@ -9,15 +9,48 @@ label {
   margin-bottom: 0;
 }
 
-#add-part-title {
+#addPartTitle {
   text-align: center;
   margin: 1rem 2rem;
+}
+
+.form-group {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 div.form-group.row {
   flex-wrap: nowrap;
 }
 
+.form-control {
+  color: blue;
+}
+
+#partButtonsDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+#addPart {
+  flex: 1;
+}
+
+#updatePart {
+  flex: 1;
+}
+
+#deletePart {
+  flex: 1;
+}
+
+#bikeNameStatus, #partNameStatus, #partBrandStatus, #partModelStatus {
+  color: red;
+}
+
+#donePartStatus {
+  color: green;
+}
 .part-buttons {
   margin: 0.5rem;
 }
