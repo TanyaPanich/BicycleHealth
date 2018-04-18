@@ -33,7 +33,6 @@ $(document).ready(() => {
     $.ajax(options)
       .done((data) => {
         // Assume good
-
         console.log('dataaa', data)
         window.location.href = '/home'
       })

@@ -53,12 +53,10 @@ $(document).ready(() => {
 
     $.ajax(options)
       .done((data) => {
-        if (data.message && data.message === 'Success') {
-          window.location.href = '/home'
-        }
+        window.location.href = '/home'
       })
       .fail(($xhr) => {
-        console.log('error happened', $xhr)
+        $('#password2Status').append('Frontend error to signup')
       });
   })
 })

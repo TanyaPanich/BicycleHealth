@@ -26,6 +26,11 @@ router.get('/', verifyToken, (req, res, next) => {
   userService.getByEmail(req.token.email)
   .then(user => {
     console.log(user.id)
+    return user.id
+  })
+  .then(id => {
+    const bikes = bikeService.list(id)
+    console.log(bikes)
   })
 })
 

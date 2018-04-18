@@ -13,7 +13,6 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  //console.log('POST: res.headers', res.headers)
   const userService = new UserService()
   userService.getByEmail(req.body.email)
     .then(user =>
