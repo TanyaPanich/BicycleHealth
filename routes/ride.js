@@ -46,14 +46,10 @@ router.get('/for/:bikeId', verifyToken, retrieveUser, (req, res, next) => {
   rideService.list(req.params.bikeId)
     .then((list) => {
       console.log('returning json')
-      const rides = {}
-      for (ride of list) {
-        rides[ride.name] = ride
-      }
-      res.json({ rides: rides })
+      res.json({ rides: list })
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err)
       next(err)
     })
 })
@@ -65,6 +61,7 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
   const conditionService = new ConditionService()
 
   const ride = {
+    name: req.body.name,
     bike_id: req.body.bikeid,
     rode_at: new Date(req.body.date),
     distance: parseInt(req.body.distance, 10),

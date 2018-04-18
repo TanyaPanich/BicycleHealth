@@ -26,6 +26,8 @@ $(document).ready(() => {
       $('#distanceStatus').empty()
       $('#weatherStatus').empty()
       $('#roadStatus').empty()
+      $('#nameStatus').empty()
+      $('#newNameStatus').empty()
 
       let bikename = ''
       let bikeid = ''
@@ -44,6 +46,8 @@ $(document).ready(() => {
       const distance = $('#ride-distance').val().trim()
       const weather = $('#weather-condition').val().trim()
       const road = $('#road-condition').val().trim()
+      const rideName = $('#ride-name').val().trim()
+      const newRideName = $('#new-ride-name').val().trim()
       //
       // console.log('bikename:', bikename)
       // console.log('date:', date)
@@ -53,6 +57,14 @@ $(document).ready(() => {
 
       if (!date) {
         $('#dateStatus').append('Please select a date')
+        return
+      }
+      if (!rideName || rideName === 'Choose...') {
+        $('#nameStatus').append('Please select a Ride or New')
+        return
+      }
+      if (rideName === 'New' && !newRideName) {
+        $('#newNameStatus').append('Please enter ride name')
         return
       }
       if (!distance) {
@@ -68,9 +80,20 @@ $(document).ready(() => {
         return
       }
 
+      debugger
+      let name = ''
+      let rideId = ''
+      if (rideName === 'New') {
+        name = newRideName
+      }
+      else {
+        name = rideName
+      }
+
       let requestParams = {
         data: {
           bikeid,
+          name,
           date,
           distance,
           weather,
@@ -84,12 +107,12 @@ $(document).ready(() => {
         case 'addRide':
           requestParams.type = 'POST'
           break
-        // case 'updateBike':
-        //   requestParams.type = 'PATCH'
-        //   break
-        // case 'deleteBike':
-        //   requestParams.type = 'DELETE'
-        //   break
+        case 'updateBike':
+          requestParams.type = 'PATCH'
+          break
+        case 'deleteBike':
+          requestParams.type = 'DELETE'
+          break
         default:
           $('#doneStatus').append('Unsupported operation')
           return
@@ -128,7 +151,13 @@ $(document).ready(() => {
             'Content-Type': 'application/json; charset=utf-8'
           },
           success: (data) => {
+            debugger
             console.log('data success', data)
+            if (data.rides) {
+              data.rides.forEach((ride, index) => {
+                $('#ride-name').append(`<option data-id="${ride.id}">${ride.name}</option>`)
+              })
+            }
           },
           error: (err) => {
             console.log('err', err)
