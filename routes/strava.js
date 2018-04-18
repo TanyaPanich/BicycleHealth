@@ -4,7 +4,7 @@ const passport = require('passport')
 const util = require('util')
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const path = require('path')
-const jwt = require('../utilities/jwtUtil')
+const { handleResponse } = require('../utilities/jwtUtil')
 const UserService = require('../database/services/userService')
 const TeamService = require('../database/services/teamService')
 const BikeService = require('../database/services/bikeService')
@@ -129,7 +129,7 @@ router.get('/oauth', passport.authenticate('strava', { scope: ['public'] }),
 //   which, in this example, will redirect the user to the home page.
 router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect: '/' }),
   (req, res) => {
-    jwt('strava', req.user.email, res, req.user)
+    handleResponse('strava', req.user.email, res, req.user)
     res.render('index', { title: 'Bicycle health' })
   })
 

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const boom = require('boom')
-const jwt = require('../utilities/jwtUtil')
+const { handleResponse } = require('../utilities/jwtUtil')
 const UserService = require('../database/services/userService')
 
 router.get('/', (req, res, next) => {
@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
       bcrypt.compare(req.body.password, user.hashed_password)
         .then(match => {
           if (match) {
-            jwt('login', user.email, res, user)
+            handleResponse('login', user.email, res, user)
             res.sendStatus(200)
           }
           else {

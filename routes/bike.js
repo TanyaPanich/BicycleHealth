@@ -1,22 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const jwt = require('jsonwebtoken')
+const { verifyToken } = require('../utilities/jwtUtil')
 const UserService = require('../database/services/userService')
 const BikeService = require('../database/services/bikeService')
 
-function verifyToken(req, res, next) {
-    if(!req.cookies.token) {
-      return next(boom.unauthorized())
-    }
-    const token = req.cookies.token
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-      if (err) {
-        return next(boom.unauthorized())
-      }
-    req.token = decoded
-    next()
-  })
-}
 router.get('/', verifyToken, (req, res, next) => {
   console.log('GET: bike page')
   console.log('For user: ', req.token.email)
