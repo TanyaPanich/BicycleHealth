@@ -41,7 +41,7 @@ router.post('/', (req, res, next) => {
     })
     .then((user) => {
       jwt('signup', user.email, res, user)
-      //res.json({ message: 'Success' })
+      res.sendStatus(200)
     })
     .catch((err) => {
       console.log('backend err while signing up', err)

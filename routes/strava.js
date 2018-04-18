@@ -68,33 +68,33 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
               const { bikes, unit } = results[0]
               const { activities } = results[1]
               bikes.forEach((bike) => {
-                const rides = activities.filter((activity) => activity.bike_id === bike.strava_gear_id)
-                bikeService.getByStravaId(bike.strava_gear_id)
-                  .then((found) => {
-                    rides.forEach((ride) => {
-
-                    })
-                    return null
-                  })
-                  .catch((err) => {
-                    return bike
-                  })
-                  .then((newBike) => {
-                    if (newBike) {
-                      newBike.user_id = user.id
-                      bikeService.insert(newBike)
-                    }
-                  })
+                // const rides = activities.filter((activity) => activity.bike_id === bike.strava_gear_id)
+                // bikeService.getByStravaId(bike.strava_gear_id)
+                //   .then((found) => {
+                //     rides.forEach((ride) => {
+                //
+                //     })
+                //     return null
+                //   })
+                //   .catch((err) => {
+                //     return bike
+                //   })
+                //   .then((newBike) => {
+                //     if (newBike) {
+                //       newBike.user_id = user.id
+                //       bikeService.insert(newBike)
+                //     }
+                //   })
               })
               activities.forEach((activity) => {
-/*
-{ name: 'Recovery ',
-  distance: 4073.3,
-  ride_id: 1448171131,
-  date: '2018-03-11T17:55:46Z',
-  bike_id: null },
+                /*
+                { name: 'Recovery ',
+                  distance: 4073.3,
+                  ride_id: 1448171131,
+                  date: '2018-03-11T17:55:46Z',
+                  bike_id: null },
 
-*/
+                */
               })
               console.log(bikes, unit, activities)
             }
@@ -120,7 +120,7 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
             strava_user_id: stravaUserId,
             strava_access_token: stravaAccessToken,
             access_type: 'strava',
-            team_id: data.team.id
+            team_id: data.id
           }
           Promise.all([
             userService.insert(user),

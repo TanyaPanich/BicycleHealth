@@ -17,13 +17,15 @@ router.post('/', (req, res, next) => {
   userService.getByEmail(req.body.email)
     .then(user =>
       bcrypt.compare(req.body.password, user.hashed_password)
-      .then(match => {
-        if(match) {
-          jwt('login', user.email, res, user)
-        } else {
-          next(boom.unauthorized('invalid email or password'))
-        }
-      })
+        .then(match => {
+          if (match) {
+            jwt('login', user.email, res, user)
+            res.sendStatus(200)
+          }
+          else {
+            next(boom.unauthorized('invalid email or password'))
+          }
+        })
     )
     .catch(err => {
       next(boom.unauthorized('invalid email or password'))

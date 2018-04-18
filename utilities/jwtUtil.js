@@ -5,7 +5,6 @@ function handleResponse(op, email, httpRes, user) {
     'email': email
   }, process.env.SECRET_KEY)
   httpRes.setHeader('Set-Cookie', `token=${token};`)
-  httpRes.sendStatus(200)
 }
 
 module.exports = handleResponse
