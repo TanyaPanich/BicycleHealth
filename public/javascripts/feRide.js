@@ -19,121 +19,93 @@ $(document).ready(() => {
 
   function addFormSubmitListener(bikes) {
     $('.ride-buttons').click((event) => {
-      console.log("event:", event)
       event.preventDefault()
-      $('#newNicknameStatus').empty()
-      $('#typeStatus').empty()
-      $('#brandStatus').empty()
-      $('#modelStatus').empty()
-      $('#road-condition').empty()
+      $('#dateStatus').empty()
+      $('#bikeStatus').empty()
+      $('#distanceStatus').empty()
+      $('#weatherStatus').empty()
+      $('#roadStatus').empty()
 
-      let nickname = ''
+      let bikename = ''
       let bikeid = ''
-      let strava_gear_id = ''
-      let distance = ''
-      let distance_unit = ''
 
-      const nicknameSelector = $('#nickname').val()
-      if (nicknameSelector in bikes) {
-        if (event.currentTarget.id === 'addBike') {
-          $('#doneStatus').append('This operation is not supported for existing bike')
-          return
-        }
-        nickname = nicknameSelector
-
-        bikeid = bikes[nickname].id
-        strava_gear_id = bikes[nickname].strava_gear_id
-        distance = bikes[nickname].distance
-        distance_unit = bikes[nickname].distance_unit
-        if (event.currentTarget.id === 'updateBike') {
-          nickname = $('#newNickname').val().trim()
-        }
-      } else if (nicknameSelector == 'New') {
-        if (event.currentTarget.id !== 'addBike') {
-          $('#doneStatus').append('This operation is not supported for new bike')
-          return
-        }
-        nickname = $('#newNickname').val().trim()
-      } else {
-        $('#newNicknameStatus').append('Please select valid nickname option')
+      const bikeSelector = $('#bike-used').val()
+      if (bikeSelector in bikes) {
+        bikename = bikeSelector
+        bikeid = bikes[bikename].id
+      }
+      if (!bikename) {
+        $('#bikeStatus').append('A bicycle must be selected')
         return
       }
 
-      const type = $('#type').val().trim()
-      const brand = $('#bikeBrand').val().trim()
-      const model = $('#model').val().trim()
+      const date = $('#ride-date').val().trim()
+      const distance = $('#ride-distance').val().trim()
+      const weather = $('#weather-condition').val().trim()
+      const road = $('#road-condition').val().trim()
+      //
+      // console.log('bikename:', bikename)
+      // console.log('date:', date)
+      // console.log('distance:', distance)
+      // console.log('weather:', weather)
+      // console.log('road:', road)
 
-      console.log("nickname:", nickname)
-      console.log("type:", type)
-      console.log("brand:", brand)
-      console.log("model:", model)
-
-      if (!nickname) {
-        $('#newNicknameStatus').append('Nickname must not be blank')
+      if (!date) {
+        $('#dateStatus').append('Please select a date')
         return
       }
-
-      if (!type || type === 'Choose...') {
-        $('#typeStatus').append('Please choose a type')
+      if (!distance) {
+        $('#distanceStatus').append('Please enter the distance')
         return
       }
-
-      if (!brand) {
-        $('#brandStatus').append('Brand must not be blank')
+      if (!weather || weather === 'Choose...') {
+        $('#weatherStatus').append('Please choose a weather condition')
         return
       }
-
-      if (!model) {
-        $('#modelStatus').append('Model must not be blank')
+      if (!road || road === 'Choose...') {
+        $('#roadStatus').append('Please choose a road condition')
         return
       }
 
       let requestParams = {
         data: {
-          nickname,
-          type,
-          brand,
-          model,
           bikeid,
-          strava_gear_id,
+          date,
           distance,
-          distance_unit
+          weather,
+          road
         },
-        url: '/bike'
+        url: '/ride'
       }
+      debugger
+      /* eslint-disable */
       switch (event.currentTarget.id) {
         case 'addBike':
           requestParams.type = 'POST'
           break
-        case 'updateBike':
-          requestParams.type = 'PATCH'
-          break
-        case 'deleteBike':
-          requestParams.type = 'DELETE'
-          break
+        // case 'updateBike':
+        //   requestParams.type = 'PATCH'
+        //   break
+        // case 'deleteBike':
+        //   requestParams.type = 'DELETE'
+        //   break
         default:
           $('#doneStatus').append('Unsupported operation')
           return
       }
+      /* eslint-enable */
 
       $.ajax(requestParams)
         .done((data) => {
-          // $('#nickname').val('Choose...')
-          // $('#newNickname').val('')
-          // $('#type').val('Choose...')
-          // $('#bikeBrand').val('')
-          // $('#model').val('')
-          // $('#doneStatus').append(`Bike ${newNickname} successfully added`)
-          debugger
-          console.log("about to reload")
-          window.location.href = '/bike'
+          console.log('about to reload')
+          window.location.href = '/ride'
           // location.reload()
-          console.log("reloaded")
+          console.log('reloaded')
         })
         .fail(($xhr) => {
-          console.log("failed", $xhr)
-          $('#doneStatus').append(`Error adding a bike`)
-        });
+          console.log('failed', $xhr)
+          $('#doneStatus').append(`Error adding a ride`)
+        })
     })
   }
 })
