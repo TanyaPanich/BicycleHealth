@@ -31,7 +31,7 @@ after(() => {
   knex.destroy()
 })
 
-describe('database service check', () => {
+describe('strava API service check', () => {
   it('read strava data from file', (done) => {
     const bikeService = new BikeService()
     const rideService = new RideService()
@@ -91,37 +91,40 @@ describe('database service check', () => {
       })
       .then((data) => {
         const { unit, activities, bikesInDatabase } = data
-        console.log(bikesInDatabase, unit)
-
         return Promise.all(
-          activities.map((activity) => rideService
-            .getByStravaId(bike.strava_gear_id)
-            .then((bikeInDB) => bikeInDB)
-            .catch((err) => null))
+          activities
+            .reduce((acc, activity) => {
+              const foundBikes = bikesInDatabase.filter((bike) => bike.strava_gear_id === activity.bike_id)
+              if (foundBikes.length > 0) {
+                activity.bike_id = foundBikes[0].id
+                acc.push(activity)
+              }
+              return acc
+            }, [])
         )
-          .then((results) => {
-            data.bikesInDatabase = results
+          .then((activityInDB) => {
+            data.activityInDB = activityInDB
             return data
           })
-
-
+      })
+      .then((data) => {
+        const { unit, activityInDB } = data
+        return Promise.all(
+          activityInDB.map((activity) => rideService
+            .getByStravaId(activity.ride_id)
+            .then((inDb) => null)
+            .catch((err) => activity))
+        )
+          .then((results) => {
+            results.forEach((activity) => {
+              if (activity) {
+                activity.distance_unit = unit
+                activity.strava_ride_id = activity.ride_id
+                rideService.insert(activity)
+              }
+            })
+            done()
+          })
       })
   })
 })
-
-
-/*
-return bikeService.getByStravaId(bike.strava_gear_id)
-  .then((record) => {
-    return record
-  })
-  .catch((err) => {
-    bike.user_id = user.id
-    return bikeService.insert(bike)
-  })
-  .then((existing) => {
-    console.log(existing)
-  })
-const rides = activities.filter((activity) => activity.bike_id === bike.strava_gear_id)
-console.log(rides)
-*/

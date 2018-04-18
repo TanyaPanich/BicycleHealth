@@ -52,7 +52,7 @@ class RideService {
         throw boom.notFound(`No rides found for the strava id, ${stravaId}`)
       })
       .catch((err) => {
-        console.log('get: err', err)
+        //console.log('get: err', err)
         throw boom.badImplementation(`Error retrieving ride with the strava id, ${stravaId}`)
       })
   }
