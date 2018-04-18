@@ -50,14 +50,19 @@ app.use('/strava', stravaRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  console.log('ressss', res.headers)
   next(boom.notFound())
 })
 
 // error handler
 app.use((err, req, res, next) => {
-  console.log("errrrrrr:", err)
-  res.status(err.output.statusCode || 500)
+  if (err.output) {
+    res.status(err.output.statusCode || 500)
+    res.json(err.output.payload)
+  }
+  else {
+    res.status(err.statusCode || 500)
+    res.json(err)
+  }
 })
 
 module.exports = app

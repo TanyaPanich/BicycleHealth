@@ -36,6 +36,42 @@ class BikeService {
       })
   }
 
+  getByStravaId(stravaId) {
+    return knex(bikesTable)
+      .where('strava_gear_id', stravaId)
+      .then((rows) => {
+        if (rows.length === 1) {
+          return rows[0]
+        }
+        if (rows.length > 1) {
+          throw boom.badImplementation(`Too many bicycles for the strava_gear_id, ${stravaId}`)
+        }
+        throw boom.notFound(`No bicycle found for the strava_gear_id, ${stravaId}`)
+      })
+      .catch((err) => {
+        //console.log('get: err', err)
+        throw boom.badImplementation(`Error retrieving bicycle with the strava_gear_id, ${stravaId}`)
+      })
+  }
+
+  getByName(name) {
+    return knex(bikesTable)
+      .where('nick_name', name)
+      .then((rows) => {
+        if (rows.length === 1) {
+          return rows[0]
+        }
+        if (rows.length > 1) {
+          throw boom.badImplementation(`Too many bicycles for the name, ${name}`)
+        }
+        throw boom.notFound(`No bicycle found for the name, ${name}`)
+      })
+      .catch((err) => {
+        console.log('get: err', err)
+        throw boom.badImplementation(`Error retrieving bicycle by the name, ${name}`)
+      })
+  }
+
   insert(bike) {
     if (!bike.nick_name) {
       throw boom.badRequest('Nick name is required')
@@ -56,6 +92,7 @@ class BikeService {
         type: bike.type,
         brand: bike.brand,
         model: bike.model,
+        strava_gear_id: bike.strava_gear_id,
         distance: bike.distance,
         distance_unit: bike.distance_unit,
         user_id: bike.user_id
@@ -86,6 +123,7 @@ class BikeService {
         type: bike.type,
         brand: bike.brand,
         model: bike.model,
+        strava_gear_id: bike.strava_gear_id,
         distance: bike.distance,
         distance_unit: bike.distance_unit
       })
