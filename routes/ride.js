@@ -27,12 +27,33 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
       else {
         console.log('returning html')
         res.render('addRide', {
-          title: 'Bicycle health',
+          title: 'Bicycle Health',
           bikes: list
         })
       }
     })
     .catch((err) => {
+      next(err)
+    })
+})
+
+router.get('/for/:bikeId', verifyToken, retrieveUser, (req, res, next) => {
+  console.log('GET: ride for bike')
+  console.log('For user: ', req.token.email)
+  console.log('For params: ', req.params)
+  // console.log('headers', req.headers)
+  const rideService = new RideService()
+  rideService.list(req.params.bikeId)
+    .then((list) => {
+      console.log('returning json')
+      const rides = {}
+      for (ride of list) {
+        rides[ride.name] = ride
+      }
+      res.json({ rides: rides })
+    })
+    .catch((err) => {
+      console.log(err);
       next(err)
     })
 })

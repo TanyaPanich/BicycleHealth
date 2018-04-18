@@ -11,6 +11,7 @@ $(document).ready(() => {
     success: (data) => {
       console.log('data success', data)
       addFormSubmitListener(data.bikes)
+      addBikeSelectListener(data.bikes)
     },
     error: (err) => {
       console.log('err', err)
@@ -106,6 +107,37 @@ $(document).ready(() => {
           console.log('failed', $xhr)
           $('#doneStatus').append(`Error adding a ride`)
         })
+    })
+  }
+
+  function addBikeSelectListener(bikes) {
+    $('#bike-used').change(() => {
+      const bikename = $('#bike-used').val()
+      console.log('bikename', bikename)
+      let bikeid = null
+      if (bikename in bikes) {
+        bikeid = bikes[bikename].id
+        console.log('bikename', bikename, 'is in bikes')
+        console.log('bikeid', bikeid)
+        $.ajax({
+          url: `/ride/for/${bikeid}`,
+          type: 'GET',
+          dataType: 'json',
+          headers: {
+            Accept: 'application/json; charset=utf-8',
+            'Content-Type': 'application/json; charset=utf-8'
+          },
+          success: (data) => {
+            console.log('data success', data)
+          },
+          error: (err) => {
+            console.log('err', err)
+          }
+        })
+      }
+      else {
+        $('#bikeStatus').append('A bicycle must be selected')
+      }
     })
   }
 })
