@@ -8,7 +8,7 @@ const UserService = require('../database/services/userService')
 router.get('/', (req, res, next) => {
   console.log('GET: login')
   res.render('login', {
-    title: 'Bicycle health'
+    title: 'Bicycle Health'
   })
 })
 

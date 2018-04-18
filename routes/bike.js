@@ -17,6 +17,7 @@ function verifyToken(req, res, next) {
     next()
   })
 }
+
 router.get('/', verifyToken, (req, res, next) => {
   console.log('GET: bike page')
   console.log('For user: ', req.token.email)
@@ -39,7 +40,7 @@ router.get('/', verifyToken, (req, res, next) => {
     } else {
       console.log('returnign html')
     res.render('addBicycle', {
-      title: 'Bicycle health',
+      title: 'Bicycle Health',
       bikes: bikes
     })
    }
@@ -88,7 +89,7 @@ router.delete('/', verifyToken, (req, res, next) => {
   return bikeService.delete(req.body.bikeid)
   .then(result => {
     console.log('addBicycle DELETE success', result)
-    res.status(200).json({ message: 'Success'})
+    res.status(200)
   })
   .catch(err => {
     console.log('addBicycle DELETE err', err)

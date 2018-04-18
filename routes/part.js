@@ -43,7 +43,7 @@ router.get('/', verifyToken, (req, res, next) => {
     } else {
       console.log('returnign html')
       res.render('addPart', {
-      title: 'Bicycle health',
+      title: 'Bicycle Health',
       bikes: bikes
     })
    }

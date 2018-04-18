@@ -130,7 +130,7 @@ router.get('/oauth', passport.authenticate('strava', { scope: ['public'] }),
 router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect: '/' }),
   (req, res) => {
     jwt('strava', req.user.email, res, req.user)
-    res.render('index', { title: 'Bicycle health' })
+    res.render('index', { title: 'Bicycle Health' })
   })
 
 module.exports = router

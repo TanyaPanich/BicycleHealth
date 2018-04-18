@@ -15,9 +15,9 @@
         <label for="input-type">Default Bicycle</label>
         <select id="nickname-of-bike" class="form-control">
           <option selected>Choose...</option>
-          <option>...</option>
-          <option>...</option>
-          <option>...</option>
+          <% bikes.forEach(bike => { %>
+            <option><%= bike.nick_name %></option>
+          <% }); %>
         </select>
       </div>
       <div id="km-miles-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">

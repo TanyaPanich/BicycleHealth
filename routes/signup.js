@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
   console.log('GET: signup')
   try {
     res.render('signup', {
-      title: 'Bicycle health'
+      title: 'Bicycle Health'
     })
   }
   catch (err) {
