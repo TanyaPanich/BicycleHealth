@@ -1,4 +1,4 @@
-#add-bike-form {
+#addBikeForm {
   margin: 2rem;
 }
 
@@ -10,31 +10,38 @@ label {
   margin-bottom: 0;
 }
 
+.form-control {
+  color: blue;
+}
+
 #add-bike-title {
   text-align: center;
   margin: 1rem 2rem;
 }
 
-#done-adding-bike {
-  width: 10rem;
+#typeDiv {
+  margin-bottom: 0;
 }
 
-#button-bike-done {
+#bikeButtonsDiv {
   display: flex;
   justify-content: space-around;
 }
 
-#buttons-bike-add-delete {
-  display: flex;
-  justify-content: space-around;
-}
-
-#add-another-bike {
+#addBike {
   flex: 1;
 }
 
-#delete-bike {
+#updateBike {
   flex: 1;
+}
+
+#deleteBike {
+  flex: 1;
+}
+
+#doneStatus, #newNicknameStatus, #typeStatus, #brandStatus, #modelStatus {
+  color: red;
 }
 
 .bike-buttons {
