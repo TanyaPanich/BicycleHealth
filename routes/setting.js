@@ -97,8 +97,6 @@ router.delete('/', verifyToken, (req, res, next) => {
   })
 })
 
--router.get('/', (req, res, next) => {
--  res.render('settings', { title: 'Bicycle health' })
 router.patch('/', verifyToken, (req, res, next) => {
   console.log('PATCH: add-edit bike', req.body)
   console.log('For user: ', req.token.email)
@@ -124,5 +122,6 @@ router.patch('/', verifyToken, (req, res, next) => {
     next(err)
   })
  })
+
 
  module.exports = router
