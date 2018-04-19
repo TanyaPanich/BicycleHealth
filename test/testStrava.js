@@ -38,6 +38,10 @@ describe('strava API service check', () => {
         if (results.length === 2) {
           const { bikes, unit, email } = results[0]
           const { activities } = results[1]
+          assert.isNotNull(bikes, 'Bicycle list is not null')
+          assert.isNotNull(unit, 'Unit exists')
+          assert.isNotNull(email, 'Email exists')
+          assert.isNotNull(activities, 'Activity list is not null')
           return { bikes, unit, email, activities }
         }
       })
@@ -54,16 +58,18 @@ describe('strava API service check', () => {
       .then((data) => {
         const { bikes, unit, email, activities, user } = data
         if (user) {
-          const array = bikes.map((bike) => strava.findBikeByStravaId(bike.strava_gear_id))
+          // const array = bikes.map((bike) => strava.findBikeByStravaId(bike.strava_gear_id))
           return Promise.all(
             bikes.map((bike) => strava.findBikeByStravaId(bike.strava_gear_id))
           )
             .then((results) => {
+              assert(bikes.length === results.length, 'Bicycle should already exist in the database')
               data.bikesInDatabase = results
               return data
             })
         }
         else {
+          assert.isNull(data.user, 'Unable to find user')
           return data
         }
       })
