@@ -1,6 +1,7 @@
 const express = require('express')
 const strava = require('strava-v3')
 const passport = require('passport')
+const boom = require('boom')
 const util = require('util')
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const path = require('path')
