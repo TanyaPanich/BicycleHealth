@@ -198,16 +198,16 @@ $(document).ready(() => {
         const distance = $('#ride-name').find(':selected').data('distance')
         const dateString = $('#ride-name').find(':selected').data('date')
         const date = new Date(dateString)
-        const month = (date.getMonth() + 1).toString().padStart(2, '0')
-        const day = (date.getDate()).toString().padStart(2, '0')
         const weather = $('#ride-name').find(':selected').data('weather')
         const road = $('#ride-name').find(':selected').data('road')
-        $('#ride-date').val(`${date.getFullYear()}-${month}-${day}`)
+        $('#ride-date').val(`${convertDateToString(date)}`)
         $('#ride-distance').val(distance)
         $('#weather-condition').val(weather)
         $('#road-condition').val(road)
       }
       else {
+        const date = new Date()
+        $('#ride-date').val(`${convertDateToString(date)}`)
         $('#addRide').prop('disabled', false )
         $('#updateRide').prop('disabled', true )
         $('#deleteRide').prop('disabled', true )
@@ -216,5 +216,11 @@ $(document).ready(() => {
         $('#weather-condition').prop('disabled', false )
       }
     })
+  }
+
+  function convertDateToString(date) {
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = (date.getDate()).toString().padStart(2, '0')
+    return `${date.getFullYear()}-${month}-${day}`
   }
 })
