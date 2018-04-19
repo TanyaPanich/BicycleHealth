@@ -65,11 +65,8 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
         api.populateDatabase(stravaUserId, stravaAccessToken)
           .then((results) => {
             console.log('success 1 after collectStravaInformation', results)
+            return { user: user }
           })
-          .catch((err) => {
-            console.log('err 1 after collectStravaInformation', err)
-          })
-        return { user: user }
       })
       .catch((err) => {
         return teamService.getDefault()
