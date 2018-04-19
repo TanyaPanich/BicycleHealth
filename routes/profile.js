@@ -4,34 +4,13 @@ const { APP_TITLE } = require('../utilities/uiUtil')
 const bcrypt = require('bcrypt')
 const boom = require('boom')
 const jwt = require('jsonwebtoken')
-const { handleResponse } = require('../utilities/jwtUtil')
+const { handleResponse, verifyToken } = require('../utilities/jwtUtil')
 const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
-const { APP_TITLE } = require('../utilities/uiUtil')
-
-//grey out email -- not changeable
-//prepopulate all other fields
-
-function verifyToken(req, res, next) {
-  // console.log('verifyToken', req.cookies)
-  if (!req.cookies.token) {
-    return next(boom.unauthorized())
-  }
-  const token = req.cookies.token
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      next(boom.unauthorized())
-    } else {
-      req.token = decoded
-      next()
-    }
-
-  })
-}
 
 router.get('/', verifyToken, (req, res, next) => {
-  console.log(req.token.email);
-  console.log(req);
+  console.log(req.token.email)
+  console.log(req)
   res.render('profile', {
     title: APP_TITLE
   })
