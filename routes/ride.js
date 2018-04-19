@@ -81,7 +81,7 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
     .then((added) => added)
     .catch((err) => null)
     .then((added) => {
-      if (added)
+      if (added) {
       // need to add distance to all the parts
         Promise.all([
           conditionService.insert({
