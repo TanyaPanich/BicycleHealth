@@ -111,9 +111,10 @@ class RideService {
         distance: ride.distance,
         distance_unit: ride.distance_unit
       })
+      .returning('*')
       .where('id', ride.id)
       .then((rows) => {
-        if (rows.length === 0) {
+        if (rows.length === 1) {
           return rows[0]
         }
         if (rows.length > 1) {

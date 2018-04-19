@@ -3,6 +3,7 @@ const router = express.Router()
 
 const { verifyToken } = require('../utilities/jwtUtil')
 const { retrieveUser } = require('../utilities/dbUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const BikeService = require('../database/services/bikeService')
 const RideService = require('../database/services/rideService')
 const ConditionService = require('../database/services/conditionService')
@@ -27,7 +28,7 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
       else {
         console.log('returning html')
         res.render('addRide', {
-          title: 'Bicycle Health',
+          title: APP_TITLE,
           bikes: list
         })
       }
@@ -82,6 +83,7 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
     .catch((err) => null)
     .then((added) => {
       if (added) {
+      // need to add distance to all the parts
         Promise.all([
           conditionService.insert({
             ride_id: added.id,
@@ -112,6 +114,7 @@ router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
   console.log(req.body)
   const rideService = new RideService()
   if (req.body.rideId) {
+    // need to update distance in all the parts
     const ride = {
       id: req.body.rideId,
       name: req.body.name,
@@ -138,13 +141,13 @@ router.delete('/', verifyToken, retrieveUser, (req, res, next) => {
   console.log(req.body)
   const rideService = new RideService()
   if (req.body.rideId) {
+    // need to update distance in all the parts
     rideService.delete(req.body.rideId)
       .then((deleted) => {
-        console.log('deleted', deleted)
         res.status(200).json({ message: 'OK'})
       })
       .catch((err) => {
-        console.log('err', err)
+        // console.log('err', err)
         next(err)
       })
   }

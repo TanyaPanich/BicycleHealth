@@ -6,18 +6,19 @@ const {
   bikesTable,
   partsTable,
   repairsTable,
-  repairsFields
+  repairsFields,
+  shortRepairsFields
 } = require('../utils')
 
 class RepairService {
   // list repair list by bike_id
   listAll(bikeId) {
     return knex(bikesTable)
-      .select(repairsFields)
+      .select(shortRepairsFields)
       .innerJoin(repairsTable, `${repairsTable}.bike_id`, `${bikesTable}.id`)
       .innerJoin(partsTable, `${repairsTable}.part_id`, `${partsTable}.id`)
       .where(`${bikesTable}.id`, bikeId)
-      .orderBy(`${repairsTable}.created_at`, 'desc')
+      .orderBy(`repair_date`, 'desc')
       .catch((err) => {
         console.log('list: err', err)
         throw boom.badImplementation(`Error retrieving repairs by bicycle id, ${bikeId}`)

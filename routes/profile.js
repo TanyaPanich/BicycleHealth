@@ -5,6 +5,7 @@ const boom = require('boom')
 const { handleResponse } = require('../utilities/jwtUtil')
 const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
+const { APP_TITLE } = require('../utilities/uiUtil')
 
 //grey out email -- not changeable
 //prepopulate all other fields
@@ -25,7 +26,7 @@ function verifyToken(req, res, next) {
 
 
 router.get('/', (req, res, next) => {
-  res.render('profile', { title: 'Bicycle Health' })
+  res.render('profile', { title: APP_TITLE })
 })
 
 

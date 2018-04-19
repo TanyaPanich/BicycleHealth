@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const UserService = require('../database/services/userService')
 const BikeService = require('../database/services/bikeService')
 const PartService = require('../database/services/partService')
@@ -63,7 +64,7 @@ router.get('/', verifyToken, (req, res, next) => {
       } else {
         console.log('returnign html')
         res.render('addPart', {
-          title: 'Bicycle Health',
+          title: APP_TITLE,
           bikes: bikes
         })
       }

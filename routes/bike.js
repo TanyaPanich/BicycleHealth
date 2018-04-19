@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { verifyToken } = require('../utilities/jwtUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const UserService = require('../database/services/userService')
 const BikeService = require('../database/services/bikeService')
 
@@ -27,7 +28,7 @@ router.get('/', verifyToken, (req, res, next) => {
     } else {
       console.log('returnign html')
     res.render('addBicycle', {
-      title: 'Bicycle health',
+      title: APP_TITLE,
       bikes: bikes
     })
    }
@@ -39,7 +40,7 @@ router.get('/', verifyToken, (req, res, next) => {
 })
 
 router.post('/', verifyToken, (req, res, next) => {
-  console.log('POST: add bike', req.body)
+  console.log('POST: add-edit bike', req.body)
   console.log('For user: ', req.token.email)
   const userService = new UserService()
   const bikeService = new BikeService()
@@ -71,8 +72,23 @@ router.post('/', verifyToken, (req, res, next) => {
   })
 })
 
+router.delete('/', verifyToken, (req, res, next) => {
+  console.log('DELETE: delete bike', req.body)
+  console.log('For user: ', req.token.email)
+  const bikeService = new BikeService()
+  return bikeService.delete(req.body.bikeid)
+  .then(result => {
+    console.log('Bicycle DELETE success', result)
+    res.status(200).json({ message: 'Success'})
+  })
+  .catch(err => {
+    console.log('Bicycle DELETE err', err)
+    next(err)
+  })
+})
+
 router.patch('/', verifyToken, (req, res, next) => {
-  console.log('PATCH: edit bike', req.body)
+  console.log('PATCH: add-edit bike', req.body)
   console.log('For user: ', req.token.email)
   const bikeService = new BikeService()
   const bike = {
@@ -95,21 +111,6 @@ router.patch('/', verifyToken, (req, res, next) => {
   })
   .catch(err => {
     console.log('addBicycle PATCH err', err)
-    next(err)
-  })
-})
-
-router.delete('/', verifyToken, (req, res, next) => {
-  console.log('DELETE: delete bike', req.body)
-  console.log('For user: ', req.token.email)
-  const bikeService = new BikeService()
-  return bikeService.delete(req.body.bikeid)
-  .then(result => {
-    console.log('Bicycle DELETE success', result)
-    res.status(200).json({ message: 'Success'})
-  })
-  .catch(err => {
-    console.log('Bicycle DELETE err', err)
     next(err)
   })
 })
