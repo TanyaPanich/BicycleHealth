@@ -87,11 +87,13 @@ $(document).ready(() => {
       }
       else {
         name = rideName
+        rideId = $('#ride-name').find(':selected').data('id')
       }
 
       let requestParams = {
         data: {
           bikeid,
+          rideId,
           name,
           date,
           distance,
@@ -152,8 +154,11 @@ $(document).ready(() => {
             console.log('data success', data)
             if (data.rides) {
               data.rides.forEach((ride, index) => {
-                $('#ride-name').append(`<option data-id="${ride.id}">${ride.name}</option>`)
+                $('#ride-name').append(`<option data-id="${ride.id}" data-name="${ride.name}"
+                data-distance="${ride.distance}" data-date="${ride.rode_at}"
+                >${ride.name}</option>`)
               })
+              addRideSelectListener()
             }
           },
           error: (err) => {
@@ -164,6 +169,21 @@ $(document).ready(() => {
       else {
         $('#bikeStatus').append('A bicycle must be selected')
       }
+    })
+  }
+
+  function addRideSelectListener() {
+    $('#ride-name').change(() => {
+      const name = $('#ride-name').find(':selected').data('name')
+      const distance = $('#ride-name').find(':selected').data('distance')
+      const dateString = $('#ride-name').find(':selected').data('date')
+      const date = new Date(dateString)
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const day = (date.getDate()).toString().padStart(2, '0')
+      $('#ride-date').val(`${date.getFullYear()}-${month}-${day}`)
+      $('#ride-distance').val(distance)
+      // const weather = $('#weather-condition').val().trim()
+      // const road = $('#road-condition').val().trim()
     })
   }
 })
