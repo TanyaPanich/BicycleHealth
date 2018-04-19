@@ -189,6 +189,12 @@ $(document).ready(() => {
     $('#ride-name').change(() => {
       const name = $('#ride-name').val().trim()
       if (name !== 'New') {
+        $('#addRide').prop('disabled', true )
+        $('#updateRide').prop('disabled', false )
+        $('#deleteRide').prop('disabled', false )
+        $('#new-ride-name').prop('disabled', true )
+        $('#road-condition').prop('disabled', true )
+        $('#weather-condition').prop('disabled', true )
         const distance = $('#ride-name').find(':selected').data('distance')
         const dateString = $('#ride-name').find(':selected').data('date')
         const date = new Date(dateString)
@@ -200,6 +206,14 @@ $(document).ready(() => {
         $('#ride-distance').val(distance)
         $('#weather-condition').val(weather)
         $('#road-condition').val(road)
+      }
+      else {
+        $('#addRide').prop('disabled', false )
+        $('#updateRide').prop('disabled', true )
+        $('#deleteRide').prop('disabled', true )
+        $('#new-ride-name').prop('disabled', false )
+        $('#road-condition').prop('disabled', false )
+        $('#weather-condition').prop('disabled', false )
       }
     })
   }
