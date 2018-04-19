@@ -199,10 +199,10 @@ describe('database migration check', () => {
             defaultValue: '\'\'::character varying'
           },
           distance: {
-            type: 'integer',
+            type: 'real',
             maxLength: null,
             nullable: false,
-            defaultValue: '0'
+            defaultValue: `'0'::real`
           },
           distance_unit: {
             type: 'character varying',
@@ -277,16 +277,16 @@ describe('database migration check', () => {
             defaultValue: '\'\'::character varying'
           },
           max_life_span: {
-            type: 'integer',
+            type: 'real',
             maxLength: null,
             nullable: false,
-            defaultValue: '100'
+            defaultValue: `'100'::real`
           },
           distance: {
-            type: 'integer',
+            type: 'real',
             maxLength: null,
             nullable: false,
-            defaultValue: '0'
+            defaultValue: `'0'::real`
           },
           unit: {
             type: 'character varying',
@@ -343,10 +343,10 @@ describe('database migration check', () => {
             defaultValue: 'now()'
           },
           distance: {
-            type: 'integer',
+            type: 'real',
             maxLength: null,
             nullable: false,
-            defaultValue: '0'
+            defaultValue: `'0'::real`
           },
           distance_unit: {
             type: 'character varying',
@@ -511,9 +511,11 @@ describe('database seed check', () => {
   describe('users table', () => {
     it('two users in the table', (done) => {
       knex(usersTable).then((rows) => {
-        assert.equal(rows.length, 2, 'There are 2 users')
-        assert.equal(rows[0].first_name, 'Jane', `The first name of the first user is 'Jane'`)
-        assert.equal(rows[1].first_name, 'John', `The first name of the first user is 'John'`)
+        assert.equal(rows.length, 4, 'There are 4 users')
+        assert.equal(rows[0].first_name, 'Jane', `The first name of user is 'Jane'`)
+        assert.equal(rows[1].first_name, 'John', `The first name of user is 'John'`)
+        assert.equal(rows[2].first_name, 'Pascal', `The first name of user is 'Pascal'`)
+        assert.equal(rows[3].first_name, 'Jane', `The first name of user is 'Jane'`)
         done()
       }).catch((err) => {
         done(err)
