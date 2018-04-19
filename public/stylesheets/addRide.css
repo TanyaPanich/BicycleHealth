@@ -9,34 +9,43 @@ label {
   margin-bottom: 0;
 }
 
+#addRideTitle {
+  text-align: center;
+  margin: 1rem 2rem -1rem 2rem;
+}
+
+.form-group {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
 div.form-group.row {
   flex-wrap: nowrap;
 }
 
-#add-ride-title {
-  text-align: center;
-  margin: 1rem 2rem;
+.form-control {
+  color: blue;
 }
 
-#done-adding-ride {
-  width: 10rem;
+#smallFields {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-#button-ride-done {
+#rideButtonsDiv {
   display: flex;
   justify-content: space-around;
 }
 
-#buttons-ride-add-delete {
-  display: flex;
-  justify-content: space-around;
-}
-
-#add-another-ride {
+#addRide {
   flex: 1;
 }
 
-#delete-ride {
+#updateRide {
+  flex: 1;
+}
+
+#deleteRide {
   flex: 1;
 }
 

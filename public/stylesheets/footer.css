@@ -3,14 +3,27 @@
   padding: 0;
   background-color: #343a40;
 }
+a {
+   margin-top: 0;
+   margin-bottom: 0;
+}
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.py-4 {
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.7rem !important;
+}
 
 @media(min-width:1000px) {
   #footerLeft {
-    margin-left: 0;
+    margin-left: 1rem;
     padding-left: 0;
   }
   #footerRight {
-    margin-right: 0;
+    margin-right: 1rem;
     padding-right: 0;
   }
 }
