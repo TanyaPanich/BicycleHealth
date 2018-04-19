@@ -101,12 +101,14 @@ $(document).ready(() => {
 
       let name = ''
       let rideId = ''
+      let oldDistance = '0'
       if (rideName === 'New') {
         name = newRideName
       }
       else {
         name = rideName
         rideId = $('#ride-name').find(':selected').data('id')
+        oldDistance = $('#ride-name').find(':selected').data('old-distance')
       }
 
       let requestParams = {
@@ -116,6 +118,7 @@ $(document).ready(() => {
           name,
           date,
           distance,
+          oldDistance,
           weather,
           road
         },
@@ -165,7 +168,8 @@ $(document).ready(() => {
                 if (roads.length > 0) {
                   road = roads[0].condition
                 }
-                $('#ride-name').append(`<option data-id="${ride.id}" data-name="${ride.name}"
+                $('#ride-name').append(`<option data-id="${ride.id}"
+                data-name="${ride.name}" data-old-distance="${ride.distance}"
                 data-distance="${ride.distance}" data-date="${ride.rode_at}"
                 data-weather="${weather}" data-road="${road}"
                 >${ride.name}</option>`)

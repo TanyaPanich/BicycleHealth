@@ -81,7 +81,8 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
     .then((added) => added)
     .catch((err) => null)
     .then((added) => {
-      if (added) {
+      if (added)
+      // need to add distance to all the parts
         Promise.all([
           conditionService.insert({
             ride_id: added.id,
@@ -112,6 +113,7 @@ router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
   console.log(req.body)
   const rideService = new RideService()
   if (req.body.rideId) {
+    // need to update distance in all the parts
     const ride = {
       id: req.body.rideId,
       name: req.body.name,
@@ -122,7 +124,6 @@ router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
     }
     rideService.update(ride)
       .then((updated) => {
-        console.log('updated', updated)
         res.status(200).json({ message: 'OK'})
       })
       .catch((err) => {
@@ -139,6 +140,7 @@ router.delete('/', verifyToken, retrieveUser, (req, res, next) => {
   console.log(req.body)
   const rideService = new RideService()
   if (req.body.rideId) {
+    // need to update distance in all the parts
     rideService.delete(req.body.rideId)
       .then((deleted) => {
         res.status(200).json({ message: 'OK'})
