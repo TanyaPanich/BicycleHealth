@@ -1,62 +1,171 @@
 $(document).ready(() => {
-  console.log('document ready')
-  $('#signup-form').submit((event) => {
-    event.preventDefault()
-    console.log('#signup-form clicked')
-    $('#firstNameStatus').empty()
-    $('#lastNameStatus').empty()
-    $('#emailStatus').empty()
-    $('#password1Status').empty()
-    $('#password2Status').empty()
+  console.log('FE document profile ready')
+  setButtons(false, false)
+  $.ajax({
+    url: '/profile',
+    type: 'GET',
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: (data) => {
+      console.log('data success', data)
+      addFormSubmitListener(data.profiles)
+      // addNicknameSelectListener(data.profiles)
+    },
 
-    const firstName = $('#firstName').val().trim()
-    const lastName = $('#lastName').val().trim()
-    const email = $('#email').val().trim()
-    const password1 = $('#password1').val()
-    const password2 = $('#password2').val()
-
-    if (!firstName) {
-      $('#firstNameStatus').append('First name must not be blank')
-      return
+    error: (err) => {
+      console.log('err', err)
     }
-
-    if (!lastName) {
-      $('#lastNameStatus').append('Last name must not be blank')
-      return
-    }
-
-    if (!email) {
-      $('#emailStatus').append('Email must not be blank')
-      return
-    }
-
-    if (email.indexOf('@') < 0) {
-      $('#emailStatus').append('Email must be valid')
-      return
-    }
-
-    if (!password1 || password1.length < 3) {
-      $('#password1Status').append('Password must be at least 8 characters long')
-      return
-    }
-
-    if (password1 !== password2) {
-      $('#password2Status').append('Passwords do not match')
-      return
-    }
-
-    const options = {
-      data: { firstName, lastName, password1 },
-      type: 'POST',
-      url: '/signup'
-    };
-
-    $.ajax(options)
-      .done((data) => {
-        window.location.href = '/home'
-      })
-      .fail(($xhr) => {
-        $('#password2Status').append('Frontend error to change profile')
-      });
   })
 })
+
+// const addNicknameSelectListener = (profiles) => {
+//   $('#nickname').change(function() {
+//     const value = $(this).val()
+//     console.log('value', value)
+//     if (value in profiles) {
+//       console.log('value', value, 'is in profiles')
+//       setButtons(false, true)
+//       updateInputFields(profiles[value])
+//       $('#newNickname').val('')
+//     } else if (['New', 'Choose...'].includes(value)) {
+//       console.log('value', value, 'is new or unset')
+//       setButtons(value === "New", false)
+//       updateInputFields()
+//     } else {
+//       console.log('invalid value', value)
+//     }
+//   })
+// }
+
+const addFormSubmitListener = (profiles) => {
+  $('#edit-profile').click((event) => {
+    console.log("event:", event)
+    event.preventDefault()
+    $('#firstName').empty()
+    $('#lastName').empty()
+    $('#profilePassword1').empty()
+    $('#profilePassword2').empty()
+    $('#doneStatus').empty()
+
+    const nicknameSelector = $('#nickname').val()
+    if (nicknameSelector in users) {
+      if (event.currentTarget.id === 'addprofile') {
+        $('#doneStatus').append('This operation is not supported for existing profile')
+        return
+      }
+      nickname = nicknameSelector
+
+      profileid = profiles[nickname].id
+      strava_gear_id = profiles[nickname].strava_gear_id
+      distance = profiles[nickname].distance
+      distance_unit = profiles[nickname].distance_unit
+      if (event.currentTarget.id === 'updateprofile') {
+        nickname = $('#newNickname').val().trim()
+      }
+    } else if (nicknameSelector == 'New') {
+      if (event.currentTarget.id !== 'addprofile') {
+        $('#doneStatus').append('This operation is not supported for new profile')
+        return
+      }
+      nickname = $('#newNickname').val().trim()
+    } else {
+      $('#newNicknameStatus').append('Please select valid nickname option')
+      return
+    }
+
+    const type = $('#type').val().trim()
+    const brand = $('#profileBrand').val().trim()
+    const model = $('#model').val().trim()
+
+    console.log("nickname:", nickname)
+    console.log("type:", type)
+    console.log("brand:", brand)
+    console.log("model:", model)
+
+    if (!nickname) {
+      $('#newNicknameStatus').append('Nickname must not be blank')
+      return
+    }
+
+    if (!type || type === 'Choose...') {
+      $('#typeStatus').append('Please choose a type')
+      return
+    }
+
+    if (!brand) {
+      $('#brandStatus').append('Brand must not be blank')
+      return
+    }
+
+    if (!model) {
+      $('#modelStatus').append('Model must not be blank')
+      return
+    }
+
+    let requestParams = {
+      data: {
+        nickname,
+        type,
+        brand,
+        model,
+        profileid,
+        strava_gear_id,
+        distance,
+        distance_unit
+      },
+      url: '/profile'
+    }
+    switch (event.currentTarget.id) {
+      case 'addprofile':
+        requestParams.type = 'POST'
+        break
+      case 'updateprofile':
+        requestParams.type = 'PATCH'
+        break
+      case 'deleteprofile':
+        requestParams.type = 'DELETE'
+        break
+      default:
+        $('#doneStatus').append('Unsupported operation')
+        return
+    }
+
+    $.ajax(requestParams)
+      .done((data) => {
+        // $('#nickname').val('Choose...')
+        // $('#newNickname').val('')
+        // $('#type').val('Choose...')
+        // $('#profileBrand').val('')
+        // $('#model').val('')
+        // $('#doneStatus').append(`profile ${newNickname} successfully added`)
+
+        console.log("about to reload")
+        window.location.href = '/profile'
+        // location.reload()
+        console.log("reloaded")
+      })
+      .fail(($xhr) => {
+        console.log("failed", $xhr)
+        $('#doneStatus').append(`Error adding a profile`)
+      });
+  })
+}
+
+const setButtons = (add, edit) => {
+  $('#newNickname').prop('disabled', !add)
+  $('#addprofile').prop('disabled', !add)
+  $('#updateprofile').prop('disabled', !edit)
+  $('#deleteprofile').prop('disabled', !edit)
+}
+
+const updateInputFields = (profile) => {
+  if (profile) {
+    $('#type').val(profile.type)
+    $('#profileBrand').val(profile.brand)
+    $('#model').val(profile.model)
+  } else {
+    $('#type').val('Choose...')
+    $('#profileBrand').val('')
+    $('#model').val('')
+  }
+}

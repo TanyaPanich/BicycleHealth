@@ -12,11 +12,8 @@ $(document).ready(() => {
       addFormSubmitListener(data.bikes)
       addNicknameSelectListener(data.bikes)
     },
-    //   $('#server-status').text(data.status)
-    // },
     error: (err) => {
       console.log('err', err)
-      // $('#server-status').text(err.responseJSON.status)
     }
   })
 })
@@ -164,7 +161,7 @@ const setButtons = (add, edit) => {
   $('#newNickname').prop('disabled', !add)
   $('#addBike').prop('disabled', !add)
   $('#updateBike').prop('disabled', !edit)
-  $('#deleteBike').prop('disabled', !edit)  
+  $('#deleteBike').prop('disabled', !edit)
 }
 
 const updateInputFields = (bike) => {

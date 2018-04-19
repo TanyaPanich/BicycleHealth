@@ -11,7 +11,7 @@ label {
 
 #addPartTitle {
   text-align: center;
-  margin: 1rem 2rem;
+  margin: 1rem 2rem -1rem 2rem;
 }
 
 .form-group {
@@ -48,9 +48,6 @@ div.form-group.row {
   color: red;
 }
 
-#donePartStatus {
-  color: green;
-}
 .part-buttons {
   margin: 0.5rem;
 }
