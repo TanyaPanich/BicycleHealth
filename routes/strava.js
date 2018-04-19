@@ -139,6 +139,7 @@ router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect:
       else {
         console.log('html', html)
         console.log('RESPONSE: ', res)
+        res.send(html)
       }
     })
     // res.redirect('/home')
