@@ -151,6 +151,7 @@ class PartService {
     return knex(partsTable)
       .del()
       .where('id', id)
+      .returning('*')
       .then((rows) => {
         if (rows.length === 1) {
           return rows[0]
