@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { APP_TITLE } = require('../utilities/uiUtil')
 const bcrypt = require('bcrypt')
 const boom = require('boom')
 const jwt = require('jsonwebtoken')

@@ -15,8 +15,8 @@ class RepairService {
   listAll(bikeId) {
     return knex(bikesTable)
       .select(shortRepairsFields)
-      .innerJoin(repairsTable, `${repairsTable}.bike_id`, `${bikesTable}.id`)
-      .innerJoin(partsTable, `${repairsTable}.part_id`, `${partsTable}.id`)
+      .leftJoin(repairsTable, `${repairsTable}.bike_id`, `${bikesTable}.id`)
+      .leftJoin(partsTable, `${repairsTable}.part_id`, `${partsTable}.id`)
       .where(`${bikesTable}.id`, bikeId)
       .orderBy(`repair_date`, 'desc')
       .catch((err) => {

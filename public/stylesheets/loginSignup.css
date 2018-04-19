@@ -1,19 +1,24 @@
 #motto {
   text-align: center;
-  margin: 1rem 2rem;
+  margin: 0.5rem 2rem;
 }
+
 #login-options {
-  height: 400px;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
 
 .login-opt {
-  margin: 2rem 5rem;
+  margin: 1rem 5rem;
   flex: 1;
   font-size: 1.5rem;
   padding-top: 1rem;
 
+}
+
+#strava-button {
+  margin-bottom: 3rem;
 }
 
 @media(min-width:1000px) {
