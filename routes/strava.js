@@ -65,7 +65,7 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
       .then((user) => {
         api.populateDatabase(stravaUserId, stravaAccessToken)
           .then((results) => {
-            console.log('success 1 after collectStravaInformation', results)
+            console.log('success 1 after collectStravaInformation')
           })
         return { user: user }
       })
@@ -73,7 +73,7 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
         return teamService.getDefault()
       })
       .then((data) => {
-        console.log('see data', data);
+        console.log('see data', data)
         if (data && data.user) {
           done(null, data.user)
         }
@@ -118,6 +118,7 @@ router.get('/', (req, res, next) => {
 //   will redirect the user back to this application at /strava/oauth/callback
 router.get('/oauth', passport.authenticate('strava', { scope: ['public'] }),
   (req, res) => {
+    console.log('oauth - should not be here')
     // The request will be redirected to Strava for authentication, so this
     // function will not be called.
   })
