@@ -153,9 +153,22 @@ $(document).ready(() => {
           success: (data) => {
             console.log('data success', data)
             if (data.rides) {
-              data.rides.forEach((ride, index) => {
+              data.rides.forEach((ele, index) => {
+                const ride = ele.ride
+                const conditions = ele.condition
+                const weathers = conditions.filter((cond) => cond.type === 'weather')
+                let weather = ''
+                if (weathers.length > 0) {
+                  weather = weathers[0].condition
+                }
+                let road = ''
+                const roads = conditions.filter((cond) => cond.type === 'road')
+                if (roads.length > 0) {
+                  road = roads[0].condition
+                }
                 $('#ride-name').append(`<option data-id="${ride.id}" data-name="${ride.name}"
                 data-distance="${ride.distance}" data-date="${ride.rode_at}"
+                data-weather="${weather}" data-road="${road}"
                 >${ride.name}</option>`)
               })
               addRideSelectListener()
@@ -174,16 +187,20 @@ $(document).ready(() => {
 
   function addRideSelectListener() {
     $('#ride-name').change(() => {
-      const name = $('#ride-name').find(':selected').data('name')
-      const distance = $('#ride-name').find(':selected').data('distance')
-      const dateString = $('#ride-name').find(':selected').data('date')
-      const date = new Date(dateString)
-      const month = (date.getMonth() + 1).toString().padStart(2, '0')
-      const day = (date.getDate()).toString().padStart(2, '0')
-      $('#ride-date').val(`${date.getFullYear()}-${month}-${day}`)
-      $('#ride-distance').val(distance)
-      // const weather = $('#weather-condition').val().trim()
-      // const road = $('#road-condition').val().trim()
+      const name = $('#ride-name').val().trim()
+      if (name !== 'New') {
+        const distance = $('#ride-name').find(':selected').data('distance')
+        const dateString = $('#ride-name').find(':selected').data('date')
+        const date = new Date(dateString)
+        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+        const day = (date.getDate()).toString().padStart(2, '0')
+        const weather = $('#ride-name').find(':selected').data('weather')
+        const road = $('#ride-name').find(':selected').data('road')
+        $('#ride-date').val(`${date.getFullYear()}-${month}-${day}`)
+        $('#ride-distance').val(distance)
+        $('#weather-condition').val(weather)
+        $('#road-condition').val(road)
+      }
     })
   }
 })

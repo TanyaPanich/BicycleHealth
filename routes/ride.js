@@ -39,14 +39,24 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
 
 router.get('/for/:bikeId', verifyToken, retrieveUser, (req, res, next) => {
   console.log('GET: ride for bike')
-  console.log('For user: ', req.token.email)
   console.log('For params: ', req.params)
   // console.log('headers', req.headers)
   const rideService = new RideService()
+  const conditionService = new ConditionService()
   rideService.list(req.params.bikeId)
     .then((list) => {
-      console.log('returning json')
-      res.json({ rides: list })
+      Promise.all(list.map((ride) => conditionService.list(ride.id)))
+        .then((results) => {
+          return list.map((ride, index) => {
+            return {
+              ride: ride,
+              condition: results[index]
+            }
+          })
+        })
+        .then((results) => {
+          res.json({ rides: results })
+        })
     })
     .catch((err) => {
       console.log(err)
