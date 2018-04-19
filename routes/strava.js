@@ -100,7 +100,7 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
             })
         }
         else {
-          done(boom.unAuthenticated(), null)
+          done(boom.unauthorized(), null)
         }
       })
   })
