@@ -73,16 +73,16 @@ router.post('/', verifyToken, (req, res, next) => {
 })
 
 router.delete('/', verifyToken, (req, res, next) => {
-  console.log('DELETE: add-edit bike', req.body)
+  console.log('DELETE: delete bike', req.body)
   console.log('For user: ', req.token.email)
   const bikeService = new BikeService()
   return bikeService.delete(req.body.bikeid)
   .then(result => {
-    console.log('addBicycle DELETE success', result)
+    console.log('Bicycle DELETE success', result)
     res.status(200).json({ message: 'Success'})
   })
   .catch(err => {
-    console.log('addBicycle DELETE err', err)
+    console.log('Bicycle DELETE err', err)
     next(err)
   })
 })

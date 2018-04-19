@@ -72,6 +72,7 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
   const conditionService = new ConditionService()
 
   const ride = {
+    name: req.body.name,
     bike_id: req.body.bikeid,
     rode_at: new Date(req.body.date),
     distance: parseInt(req.body.distance, 10),
