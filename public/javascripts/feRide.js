@@ -31,6 +31,23 @@ $(document).ready(() => {
 
       let bikename = ''
       let bikeid = ''
+      let method = 'GET'
+      /* eslint-disable */
+      switch (event.currentTarget.id) {
+        case 'addRide':
+          method = 'POST'
+          break
+        case 'updateRide':
+          method = 'PATCH'
+          break
+        case 'deleteRide':
+          method = 'DELETE'
+          break
+        default:
+          $('#doneStatus').append('Unsupported operation')
+          return
+      }
+      /* eslint-enable */
 
       const bikeSelector = $('#bike-used').val()
       if (bikeSelector in bikes) {
@@ -59,9 +76,11 @@ $(document).ready(() => {
         $('#dateStatus').append('Please select a date')
         return
       }
-      if (!rideName || rideName === 'Choose...') {
-        $('#nameStatus').append('Please select a Ride or New')
-        return
+      if (method === 'POST') {
+        if (!rideName || rideName === 'Choose...') {
+          $('#nameStatus').append('Please select a Ride or New')
+          return
+        }
       }
       if (rideName === 'New' && !newRideName) {
         $('#newNameStatus').append('Please enter ride name')
@@ -102,29 +121,10 @@ $(document).ready(() => {
         },
         url: '/ride'
       }
-      /* eslint-disable */
-      switch (event.currentTarget.id) {
-        case 'addRide':
-          requestParams.type = 'POST'
-          break
-        case 'updateBike':
-          requestParams.type = 'PATCH'
-          break
-        case 'deleteBike':
-          requestParams.type = 'DELETE'
-          break
-        default:
-          $('#doneStatus').append('Unsupported operation')
-          return
-      }
-      /* eslint-enable */
-
+      requestParams.type = method
       $.ajax(requestParams)
         .done((data) => {
-          console.log('about to reload')
           window.location.href = '/ride'
-          // location.reload()
-          console.log('reloaded')
         })
         .fail(($xhr) => {
           console.log('failed', $xhr)
@@ -136,12 +136,11 @@ $(document).ready(() => {
   function addBikeSelectListener(bikes) {
     $('#bike-used').change(() => {
       const bikename = $('#bike-used').val()
-      console.log('bikename', bikename)
       let bikeid = null
       if (bikename in bikes) {
         bikeid = bikes[bikename].id
-        console.log('bikename', bikename, 'is in bikes')
-        console.log('bikeid', bikeid)
+        // console.log('bikename', bikename, 'is in bikes')
+        // console.log('bikeid', bikeid)
         $.ajax({
           url: `/ride/for/${bikeid}`,
           type: 'GET',

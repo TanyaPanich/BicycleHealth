@@ -132,7 +132,9 @@ class RideService {
       throw boom.badRequest('Id is required')
     }
     return knex(ridesTable)
+      .del()
       .where('id', id)
+      .returning('*')
       .then((rows) => {
         if (rows.length === 1) {
           return rows[0]

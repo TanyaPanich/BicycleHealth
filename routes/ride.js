@@ -108,11 +108,49 @@ router.post('/', verifyToken, retrieveUser, (req, res, next) => {
 })
 
 router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
-
+  console.log('PATCH: ride page')
+  console.log(req.body)
+  const rideService = new RideService()
+  if (req.body.rideId) {
+    const ride = {
+      id: req.body.rideId,
+      name: req.body.name,
+      bike_id: req.body.bikeid,
+      rode_at: new Date(req.body.date),
+      distance: parseInt(req.body.distance, 10),
+      distance_unit: 'mile'
+    }
+    rideService.update(ride)
+      .then((updated) => {
+        res.status(200).json({ message: 'OK'})
+      })
+      .catch((err) => {
+        next(err)
+      })
+  }
+  else {
+    next(boom.badRequest('Ride Id is missing'))
+  }
 })
 
 router.delete('/', verifyToken, retrieveUser, (req, res, next) => {
-
+  console.log('DELETE: ride page')
+  console.log(req.body)
+  const rideService = new RideService()
+  if (req.body.rideId) {
+    rideService.delete(req.body.rideId)
+      .then((deleted) => {
+        console.log('deleted', deleted)
+        res.status(200).json({ message: 'OK'})
+      })
+      .catch((err) => {
+        console.log('err', err)
+        next(err)
+      })
+  }
+  else {
+    next(boom.badRequest('Ride Id is missing'))
+  }
 })
 
 module.exports = router
