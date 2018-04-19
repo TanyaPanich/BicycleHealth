@@ -2,7 +2,9 @@
   text-align: center;
   margin: 1rem 2rem;
 }
-
+#no-history {
+  text-align: center;
+}
 .jumbotron {
   margin-bottom: 0.5rem;
   width: 100%;
