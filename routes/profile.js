@@ -7,8 +7,9 @@ const { handleResponse, verifyToken } = require('../utilities/jwtUtil')
 const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
 
-//grey out email -- not changeable
-//prepopulate all other fields
+// grey out email -- not changeable
+// prepopulate all other fields
+// check for passport when connected via oauth
 
 router.get('/', (req, res, next) => {
   res.render('profile', { title: APP_TITLE })

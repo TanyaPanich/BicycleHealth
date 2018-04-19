@@ -3,7 +3,9 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const methodOverride = require('method-override')
 const passport = require('passport')
+const session = require('express-session')
 
 const indexRouter = require('./routes/index')
 const stravaRouter = require('./routes/strava')
@@ -30,6 +32,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(methodOverride())
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true
+
+}))
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize())
