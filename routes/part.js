@@ -135,4 +135,18 @@ router.patch('/', verifyToken, (req, res, next) => {
     })
 })
 
+router.delete('/', verifyToken, (req, res, next) => {
+  console.log('DELETE: delete part', req.body)
+  const partService = new PartService()
+  return partService.delete(req.body.partId)
+  .then(result => {
+    console.log('Part DELETE success', result)
+    res.status(200).json({ message: 'Success'})
+  })
+  .catch(err => {
+    console.log('Part DELETE err', err)
+    next(err)
+  })
+})
+
 module.exports = router

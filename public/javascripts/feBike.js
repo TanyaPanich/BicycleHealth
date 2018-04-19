@@ -1,5 +1,6 @@
 $(document).ready(() => {
   console.log('FE document bike ready')
+  setButtons(false, false)
   $.ajax({
     url: '/bike',
     type: 'GET',
@@ -26,15 +27,13 @@ const addNicknameSelectListener = (bikes) => {
     console.log('value', value)
     if (value in bikes) {
       console.log('value', value, 'is in bikes')
+      setButtons(false, true)
+      updateInputFields(bikes[value])
       $('#newNickname').val('')
-      $('#type').val(bikes[value].type)
-      $('#bikeBrand').val(bikes[value].brand)
-      $('#model').val(bikes[value].model)
     } else if (['New', 'Choose...'].includes(value)) {
       console.log('value', value, 'is new or unset')
-      $('#type').val('Choose...')
-      $('#bikeBrand').val('')
-      $('#model').val('')
+      setButtons(value === "New", false)
+      updateInputFields()
     } else {
       console.log('invalid value', value)
     }
@@ -159,4 +158,23 @@ const addFormSubmitListener = (bikes) => {
         $('#doneStatus').append(`Error adding a bike`)
       });
   })
+}
+
+const setButtons = (add, edit) => {
+  $('#newNickname').prop('disabled', !add)
+  $('#addBike').prop('disabled', !add)
+  $('#updateBike').prop('disabled', !edit)
+  $('#deleteBike').prop('disabled', !edit)  
+}
+
+const updateInputFields = (bike) => {
+  if (bike) {
+    $('#type').val(bike.type)
+    $('#bikeBrand').val(bike.brand)
+    $('#model').val(bike.model)
+  } else {
+    $('#type').val('Choose...')
+    $('#bikeBrand').val('')
+    $('#model').val('')
+  }
 }
