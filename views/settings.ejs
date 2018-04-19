@@ -3,37 +3,37 @@
 
 <head>
   <% include ./head %>
-  <link rel='stylesheet' href='/stylesheets/settings.css'>
+    <link rel='stylesheet' href='/stylesheets/settings.css'>
 </head>
 
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="settings-title">Settings</h4>
-    <form id="settings-form">
-      <div class="form-group col-form-label-lg">
-        <label for="input-type">Default Bicycle</label>
-        <select id="nickname-of-bike" class="form-control">
+      <h4 id="settings-title">Settings</h4>
+      <form id="settings-form">
+        <div class="form-group">
+          <label for="input-type" class="col-form-label">Default Bicycle</label>
+          <select id="nickname-of-bike" class="form-control">
           <option selected>Choose...</option>
           <% bikes.forEach(bike => { %>
             <option><%= bike.nick_name %></option>
           <% }); %>
         </select>
-      </div>
-      <div id="km-miles-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
+        </div>
+        <div id="km-miles-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
           <input type="radio" name="options" id="miles" autocomplete="off" checked> Miles
         </label>
-        <label class="btn btn-secondary">
+          <label class="btn btn-secondary">
           <input type="radio" name="options" id="km" autocomplete="off"> Kilometers
         </label>
-      </div>
+        </div>
 
-      <div id="buttons-settings">
-        <button id="edit-settings" type="submit" class="btn btn-primary settings-buttons">Choose Default</button>
-      </div>
+        <div id="buttons-settings">
+          <button id="edit-settings" type="submit" class="btn btn-primary settings-buttons">Choose Default</button>
+        </div>
 
-    </form>
+      </form>
   </div>
   <!--end of container-->
 </body>
