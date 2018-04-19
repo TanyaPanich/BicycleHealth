@@ -1,6 +1,7 @@
 const express = require('express')
 const strava = require('strava-v3')
 const passport = require('passport')
+const boom = require('boom')
 const util = require('util')
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const path = require('path')
@@ -65,11 +66,8 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
         api.populateDatabase(stravaUserId, stravaAccessToken)
           .then((results) => {
             console.log('success 1 after collectStravaInformation', results)
+            return { user: user }
           })
-          .catch((err) => {
-            console.log('err 1 after collectStravaInformation', err)
-          })
-        return { user: user }
       })
       .catch((err) => {
         return teamService.getDefault()
@@ -102,7 +100,7 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
             })
         }
         else {
-          done(boom.unAuthenticated(), null)
+          done(boom.unauthorized(), null)
         }
       })
   })
