@@ -36,8 +36,6 @@ const addFormSubmitListener = (bikes) => {
     localStorage.setItem('favBike', JSON.stringify(bikeName))
     console.log("Default Bike:", bikeName)
 
-
-
     //let status = $('#donePartStatus')
     //
     // $.ajax(requestParams)
@@ -59,6 +57,7 @@ const addFormSubmitListener = (bikes) => {
     //     })
     //     $('#donePartStatus').append(`Part already exists`)
     //   });
+
   })
 
 }
