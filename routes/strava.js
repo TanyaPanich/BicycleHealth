@@ -73,6 +73,7 @@ passport.use(new StravaStrategy(strategyConfig, (accessToken, refreshToken, prof
         return teamService.getDefault()
       })
       .then((data) => {
+        console.log('see data', data);
         if (data && data.user) {
           done(null, data.user)
         }
@@ -128,6 +129,7 @@ router.get('/oauth', passport.authenticate('strava', { scope: ['public'] }),
 //   which, in this example, will redirect the user to the home page.
 router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect: '/' }),
   (req, res) => {
+    console.log('callback', req.user)
     handleResponse('strava', req.user.email, res, req.user)
     res.render('index', { title: APP_TITLE })
   })
