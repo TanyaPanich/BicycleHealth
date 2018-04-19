@@ -1,5 +1,6 @@
 $(document).ready(() => {
   console.log('FE document Part ready')
+  setButtons(false, false)
   $.ajax({
     url: '/part',
     type: 'GET',
@@ -8,13 +9,20 @@ $(document).ready(() => {
     success: (data) => {
       console.log('data success', data)
       addFormSubmitListener(data.bikes)
-      // addNicknameSelectListener(data.bikes)
+      addPartNameSelectListener(data.bikes)
+      addBikeNameSelectListener(data.bikes)
     },
     error: (err) => {
       console.log('err', err)
     }
   })
 })
+
+const setButtons = (add, edit) => {
+  $('#addPart').prop('disabled', !add)
+  $('#updatePart').prop('disabled', !edit)
+  $('#deletePart').prop('disabled', !edit)
+}
 
 const addFormSubmitListener = (bikes) => {
   $('.part-buttons').click((event) => {
@@ -36,15 +44,15 @@ const addFormSubmitListener = (bikes) => {
 
     // const bikeNameSelector = $('#bicycleNickname').val()
     // if (bikeNameSelector in bikes) {
-      // if (event.currentTarget.id === 'addBike') {
-      //   $('#doneStatus').append('This operation is not supported for existing bike')
-      //   return
-      // }
-      // nickname = nicknameSelector
-      // bikeid = bikes[nickname].id
-      // strava_gear_id = bikes[nickname].strava_gear_id
-      // distance = bikes[nickname].distance
-      // distance_unit = bikes[nickname].distance_unit
+    // if (event.currentTarget.id === 'addBike') {
+    //   $('#doneStatus').append('This operation is not supported for existing bike')
+    //   return
+    // }
+    // nickname = nicknameSelector
+    // bikeid = bikes[nickname].id
+    // strava_gear_id = bikes[nickname].strava_gear_id
+    // distance = bikes[nickname].distance
+    // distance_unit = bikes[nickname].distance_unit
 
     // } else if (nicknameSelector == 'New') {
     //   if (event.currentTarget.id !== 'addBike') {
@@ -126,18 +134,22 @@ const addFormSubmitListener = (bikes) => {
         $('#partModel').empty()
         $('#maxLifeSpan').empty()
         $('#estMileage').empty()
-        $('#donePartStatus').css({'color': 'green'})
-      fadeInOut($('#donePartStatus').append(data.message))
+        $('#donePartStatus').css({
+          'color': 'green'
+        })
+        fadeInOut($('#donePartStatus').append(data.message))
       })
       .fail(($xhr) => {
-        $('#donePartStatus').css({'color': 'red'})
+        $('#donePartStatus').css({
+          'color': 'red'
+        })
         $('#donePartStatus').append(`Part already exists`)
       });
   })
 
 }
 
-function fadeInOut(p){
+function fadeInOut(p) {
   $(p).fadeIn(500, () => {
     setTimeout(() => {
       $(p).fadeOut(500)
@@ -150,18 +162,64 @@ function fadeInOut(p){
 //     console.log('value', value)
 //     if (value in bikes) {
 //       console.log('value', value, 'is in bikes')
-      // $('#newNickname').val('')
-      // $('#type').val(bikes[value].type)
-      // $('#bikeBrand').val(bikes[value].brand)
-      // $('#model').val(bikes[value].model)
-      //>>>>>>>>>>>>> I STOPPED HERE!!!
-    // } else if (['Choose...'].includes(value)) {
-    //   console.log('value', value, 'is new or unset')
-    //   $('#type').val('Choose...')
-    //   $('#partName').val('')
-    //   $('#model').val('')
-    // } else {
-    //   console.log('invalid value', value)
+// $('#newNickname').val('')
+// $('#type').val(bikes[value].type)
+// $('#bikeBrand').val(bikes[value].brand)
+// $('#model').val(bikes[value].model)
+//>>>>>>>>>>>>> I STOPPED HERE!!!
+// } else if (['Choose...'].includes(value)) {
+//   console.log('value', value, 'is new or unset')
+//   $('#type').val('Choose...')
+//   $('#partName').val('')
+//   $('#model').val('')
+// } else {
+//   console.log('invalid value', value)
 //      }
 //   })
 // }
+
+const addPartNameSelectListener = (bikes) => {
+  $('#partName').change(function() {
+    updateForm(bikes, $('#bicycleNickname').val(), $(this).val())
+  })
+}
+const addBikeNameSelectListener = (bikes) => {
+  $('#bicycleNickname').change(function() {
+    updateForm(bikes, $(this).val(), $('#partName').val())
+  })
+}
+
+const updateForm = (bikes, bikeName, partName) => {
+  console.log('bikeName', bikeName)
+  console.log('partName', partName)
+  if (bikeName === "Choose..." || partName == 'Choose...') {
+    setButtons(false, false)
+    updateInputFields()
+    return
+  }
+
+  const bikeParts = bikes[bikeName].parts
+  if (partName in bikeParts) {
+    const part = bikeParts[partName]
+    setButtons(false, true)
+    updateInputFields(part)
+  } else {
+    // this is new part.
+    setButtons(true, false)
+    updateInputFields()
+  }
+}
+
+const updateInputFields = (part) => {
+  if (part) {
+    $('#partBrand').val(part.brand)
+    $('#partModel').val(part.model)
+    $('#maxLifeSpan').val(part.max_life_span)
+    $('#estMileage').val(part.distance)
+  } else {
+    $('#partBrand').val('')
+    $('#partModel').val('')
+    $('#maxLifeSpan').val('')
+    $('#estMileage').val('')
+  }
+}

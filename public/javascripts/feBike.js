@@ -148,7 +148,7 @@ const addFormSubmitListener = (bikes) => {
         // $('#bikeBrand').val('')
         // $('#model').val('')
         // $('#doneStatus').append(`Bike ${newNickname} successfully added`)
-        
+
         console.log("about to reload")
         window.location.href = '/bike'
         // location.reload()
