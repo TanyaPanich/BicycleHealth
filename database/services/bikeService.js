@@ -163,6 +163,7 @@ class BikeService {
       throw boom.badRequest('Id is required')
     }
     return knex(bikesTable)
+      .del()
       .where('id', id)
       .returning('*')
       .then((rows) => {

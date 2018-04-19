@@ -96,6 +96,7 @@ class ConditionService {
 
   delete(id) {
     return knex(conditionsTable)
+      .del()
       .where('id', id)
       .then((rows) => {
         if (rows.length === 1) {

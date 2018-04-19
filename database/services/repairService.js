@@ -116,6 +116,7 @@ class RepairService {
 
   delete(id) {
     return knex(repairsTable)
+      .del()
       .where('id', id)
       .then((rows) => {
         if (rows.length === 1) {

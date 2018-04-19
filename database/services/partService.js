@@ -148,6 +148,7 @@ class PartService {
 
   delete(id) {
     return knex(partsTable)
+      .del()
       .where('id', id)
       .then((rows) => {
         if (rows.length === 1) {
