@@ -3,16 +3,53 @@
 
 <head>
   <% include ./head %>
-  <link rel='stylesheet' href='/stylesheets/history.css'>
+    <link rel='stylesheet' href='/stylesheets/history.css'>
 </head>
 
 <body>
   <div class="container">
     <% include ./nav %>
-    <h4 id="history-title">Repair History</h4>
-    <div id="repair-history" class="jumbotron">
-      <p id="repairs"></p>
-    </div>
+      <h4 id="history-title">Repair History</h4>
+      <div id="repair-history">
+        <% repairs.forEach(data => { %>
+          <h5>
+            <%= data.bike_name %>
+          </h5>
+
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Name</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.history.forEach((hist) => { %>
+                <tr>
+                  <th scope="row">
+                    <%= hist.repair_date %>
+                  </th>
+                  <td>
+                    <%= hist.part_name %>
+                  </td>
+                  <td>
+                    <%= hist.part_brand %>
+                  </td>
+                  <td>
+                    <%= hist.part_model %>
+                  </td>
+                  <td>
+                    <%= hist.repair_type %>
+                  </td>
+                </tr>
+                <% }); %>
+            </tbody>
+          </table>
+          <% }); %>
+      </div>
   </div>
   <!--end of container-->
 </body>

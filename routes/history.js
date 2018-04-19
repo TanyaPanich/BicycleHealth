@@ -14,30 +14,35 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
   console.log('content:', contype)
   const bikeService = new BikeService()
   const repairService = new RepairService()
-  console.log(req.user.id)
   bikeService.list(req.user.id)
     .then((bikeList) => {
-      console.log(bikeList)
       return Promise.all(bikeList.map((bike) => repairService.listAll(bike.id)))
     })
     .then((repairs) => {
-      console.log(repairs)
-      // if (contype && contype.indexOf('application/json') === 0) {
-      //   console.log('returning json')
-      //   const bikesByName = {}
-      //   for (bike of list) {
-      //     bikesByName[bike.nick_name] = bike
-      //   }
-      //   res.json({ bikes: bikesByName })
-      // }
-      // else {
-      //   console.log('returning html')
-      //   res.render('history', {
-      //     title: 'Bicycle Health',
-      //     bikes: list
-      //   })
-      // }
-      res.json({message: 'OK'})
+      return repairs.map((repair, index) => {
+        return repair.reduce((acc, element) => {
+          if (acc.bike_name) {
+            acc.history.push(element)
+          }
+          else {
+            acc.bike_name = element.bike_nick_name
+            acc.history = []
+            acc.history.push(element)
+          }
+          return acc
+        }, {})
+      })
+    })
+    .then((repairs) => {
+      if (contype && contype.indexOf('application/json') === 0) {
+        res.json({ history: repairs })
+      }
+      else {
+        res.render('history', {
+          title: 'Bicycle Health',
+          repairs: repairs
+        })
+      }
     })
     .catch((err) => {
       console.log('err', err)
