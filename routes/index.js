@@ -7,4 +7,10 @@ router.get('/', (req, res, next) => {
   res.render('loginSignup', { title: 'Bicycle Health' })
 })
 
+router.delete('/', (req, res, next) => {
+  console.log("LOGOUT -----> BYE")
+ res.setHeader('Set-Cookie', `token=;`)
+ res.status(200).send(true)
+})
+
 module.exports = router
