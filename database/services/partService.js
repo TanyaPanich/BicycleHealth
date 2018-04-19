@@ -122,6 +122,7 @@ class PartService {
       throw boom.badRequest('Id is required')
     }
     return knex(partsTable)
+      .where('id', part.id)
       .update({
         name: part.name,
         brand: part.brand,
@@ -130,7 +131,7 @@ class PartService {
         distance: part.distance,
         unit: part.unit
       })
-      .where('id', part.id)
+      .returning('*')
       .then((rows) => {
         if (rows.length === 1) {
           return rows[0]
