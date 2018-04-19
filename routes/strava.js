@@ -132,8 +132,16 @@ router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect:
   (req, res) => {
     console.log('callback', req.user)
     handleResponse('strava', req.user.email, res, req.user)
-    // res.render('index', { title: APP_TITLE })
-    res.redirect('/home')
+    res.render('index', { title: APP_TITLE }, (err, html) => {
+      if (err) {
+        console.log('err after render', err)
+      }
+      else {
+        console.log('html', html)
+        console.log('RESPONSE: ', res)
+      }
+    })
+    // res.redirect('/home')
   })
 
 module.exports = router
