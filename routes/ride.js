@@ -122,6 +122,7 @@ router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
     }
     rideService.update(ride)
       .then((updated) => {
+        console.log('updated', updated)
         res.status(200).json({ message: 'OK'})
       })
       .catch((err) => {
@@ -140,11 +141,10 @@ router.delete('/', verifyToken, retrieveUser, (req, res, next) => {
   if (req.body.rideId) {
     rideService.delete(req.body.rideId)
       .then((deleted) => {
-        console.log('deleted', deleted)
         res.status(200).json({ message: 'OK'})
       })
       .catch((err) => {
-        console.log('err', err)
+        // console.log('err', err)
         next(err)
       })
   }
