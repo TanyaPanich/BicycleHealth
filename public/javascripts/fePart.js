@@ -98,8 +98,12 @@ const addFormSubmitListener = (bikes) => {
       return
     }
 
+    const bikeParts = bikes[bikeName].parts
+    let partId = partName in bikeParts ? bikeParts[partName].id : ''
+
     let requestParams = {
       data: {
+        partId,
         bikeName,
         partName,
         partBrand,
@@ -128,16 +132,15 @@ const addFormSubmitListener = (bikes) => {
     $.ajax(requestParams)
       .done((data) => {
         console.log('dataaaaa', data)
-        $('#bicycleNickname').val('Choose...')
-        $('#partName').val('Choose...')
-        $('#partBrand').empty()
-        $('#partModel').empty()
-        $('#maxLifeSpan').empty()
-        $('#estMileage').empty()
-        $('#donePartStatus').css({
-          'color': 'green'
-        })
-        fadeInOut($('#donePartStatus').append(data.message))
+        window.location.href = '/part'
+
+        // $('#bicycleNickname').val('Choose...')
+        // $('#partName').val('Choose...')
+        // updateInputFields()
+        // $('#donePartStatus').css({
+        //   'color': 'green'
+        // })
+        // fadeInOut($('#donePartStatus').append(data.message))
       })
       .fail(($xhr) => {
         $('#donePartStatus').css({

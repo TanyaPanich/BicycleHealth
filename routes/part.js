@@ -77,7 +77,6 @@ router.get('/', verifyToken, (req, res, next) => {
 router.post('/', verifyToken, (req, res, next) => {
   console.log('POST: add PART', req.body)
   console.log('For user: ', req.token.email)
-
   const bikeService = new BikeService()
   const partService = new PartService()
 
@@ -111,29 +110,27 @@ router.post('/', verifyToken, (req, res, next) => {
 router.patch('/', verifyToken, (req, res, next) => {
   console.log('PATCH: edit part', req.body)
   console.log('For user: ', req.token.email)
-  const bikeService = new BikeService()
-  const bike = {
-    id: req.body.bikeid,
-    nick_name: req.body.nickname,
-    type: req.body.type,
-    brand: req.body.brand,
-    model: req.body.model,
-    strava_gear_id: req.body.strava_gear_id,
-    distance: parseInt(req.body.distance),
-    distance_unit: req.body.distance_unit
+  const partService = new PartService()
+  const part = {
+    id: req.body.partId,
+    name: req.body.partName,
+    brand: req.body.partBrand,
+    model: req.body.partModel,
+    max_life_span: parseInt(req.body.maxLifeSpan),
+    distance: parseInt(req.body.estMileage),
+    unit: 'miles'
   }
-  console.log('PATCH: bike obj', bike)
-  return bikeService.update(bike)
+  console.log('PATCH: part obj', part)
+  return partService.update(part)
     .then(result => {
-      console.log('addBicycle PATCH success', result)
+      console.log('addPart PATCH success', result)
       //res.status(200)
       res.status(200).json({
         message: 'Success'
       })
-
     })
     .catch(err => {
-      console.log('addBicycle PATCH err', err)
+      console.log('addPart PATCH err', err)
       next(err)
     })
 })
