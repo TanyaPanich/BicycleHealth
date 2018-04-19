@@ -3,12 +3,13 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const boom = require('boom')
 const { handleResponse } = require('../utilities/jwtUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const UserService = require('../database/services/userService')
 
 router.get('/', (req, res, next) => {
   console.log('GET: login')
   res.render('login', {
-    title: 'Bicycle Health'
+    title: APP_TITLE
   })
 })
 

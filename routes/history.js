@@ -3,6 +3,7 @@ const router = express.Router()
 
 const { verifyToken } = require('../utilities/jwtUtil')
 const { retrieveUser } = require('../utilities/dbUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const BikeService = require('../database/services/bikeService')
 const RepairService = require('../database/services/repairService')
 
@@ -39,7 +40,7 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
       }
       else {
         res.render('history', {
-          title: 'Bicycle Health',
+          title: APP_TITLE,
           repairs: repairs
         })
       }

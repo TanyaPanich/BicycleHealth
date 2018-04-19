@@ -3,6 +3,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const boom = require('boom')
 const { handleResponse } = require('../utilities/jwtUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
 
@@ -10,7 +11,7 @@ router.get('/', (req, res, next) => {
   console.log('GET: signup')
   try {
     res.render('signup', {
-      title: 'Bicycle Health'
+      title: APP_TITLE
     })
   }
   catch (err) {

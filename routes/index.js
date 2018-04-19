@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const { APP_TITLE } = require('../utilities/uiUtil')
 
 /* GET login and signup page. */
 router.get('/', (req, res, next) => {
   console.log('GET: index - login and signup')
-  res.render('loginSignup', { title: 'Bicycle Health' })
+  res.render('loginSignup', { title: APP_TITLE })
 })
 
 router.delete('/', (req, res, next) => {

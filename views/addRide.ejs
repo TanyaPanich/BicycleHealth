@@ -12,7 +12,7 @@
       <h4 id="add-ride-title">Add Ride</h4>
       <form id="add-ride-form">
         <div class="form-group">
-          <label for="input-type">Bicycle Used</label>
+          <label for="input-type" class="col-form-label">Bicycle Used</label>
           <select id="bike-used" class="form-control">
             <option selected>Choose...</option>
             <% bikes.forEach(bike => { %>
@@ -22,12 +22,12 @@
           <p id="bikeStatus"></p>
         </div>
         <div class="form-group">
-          <label for="date">Date</label>
+          <label for="date" class="col-form-label">Date</label>
           <input id="ride-date" type="date" class="form-control">
           <p id="dateStatus"></p>
         </div>
         <div class="form-group">
-          <label for="input-type">Ride Name</label>
+          <label for="input-type" class="col-form-label">Ride Name</label>
           <select id="ride-name" class="form-control">
             <option selected>Choose...</option>
             <option>New</option>
@@ -35,12 +35,12 @@
           <p id="nameStatus"></p>
         </div>
         <div class="form-group">
-          <label for="new-name">New Name</label>
+          <label for="new-name" class="col-form-label">New Name</label>
           <input id="new-ride-name" type="text" class="form-control" placeholder="Type a Name">
           <p id="newNameStatus"></p>
         </div>
         <div class="form-group">
-          <label for="distance">Distance</label>
+          <label for="distance" class="col-form-label">Distance</label>
           <input id="ride-distance" type="text" class="form-control" placeholder="Miles">
           <p id="distanceStatus"></p>
         </div>

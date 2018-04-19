@@ -5,6 +5,7 @@ const util = require('util')
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const path = require('path')
 const { handleResponse } = require('../utilities/jwtUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const UserService = require('../database/services/userService')
 const TeamService = require('../database/services/teamService')
 const BikeService = require('../database/services/bikeService')
@@ -130,7 +131,7 @@ router.get('/oauth', passport.authenticate('strava', { scope: ['public'] }),
 router.get('/oauth/callback', passport.authenticate('strava', { failureRedirect: '/' }),
   (req, res) => {
     handleResponse('strava', req.user.email, res, req.user)
-    res.render('index', { title: 'Bicycle health' })
+    res.render('index', { title: APP_TITLE })
   })
 
 module.exports = router

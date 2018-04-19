@@ -3,6 +3,7 @@ const router = express.Router()
 
 const { verifyToken } = require('../utilities/jwtUtil')
 const { retrieveUser } = require('../utilities/dbUtil')
+const { APP_TITLE } = require('../utilities/uiUtil')
 const BikeService = require('../database/services/bikeService')
 const RideService = require('../database/services/rideService')
 const ConditionService = require('../database/services/conditionService')
@@ -27,7 +28,7 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
       else {
         console.log('returning html')
         res.render('addRide', {
-          title: 'Bicycle Health',
+          title: APP_TITLE,
           bikes: list
         })
       }
