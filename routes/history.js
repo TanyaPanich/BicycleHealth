@@ -10,7 +10,7 @@ const RepairService = require('../database/services/repairService')
 router.get('/', verifyToken, retrieveUser, (req, res, next) => {
   console.log('GET: history page')
   console.log('For user: ', req.token.email)
-  // console.log('headers', req.headers)
+  console.log('headers', req.headers)
   const contype = req.headers['content-type']
   console.log('content:', contype)
   const bikeService = new BikeService()
