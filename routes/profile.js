@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const boom = require('boom')
+const jwt = require('jsonwebtoken')
 const { handleResponse } = require('../utilities/jwtUtil')
 const TeamService = require('../database/services/teamService')
 const UserService = require('../database/services/userService')
@@ -11,54 +12,82 @@ const { APP_TITLE } = require('../utilities/uiUtil')
 //prepopulate all other fields
 
 function verifyToken(req, res, next) {
+  // console.log('verifyToken', req.cookies)
   if (!req.cookies.token) {
     return next(boom.unauthorized())
   }
   const token = req.cookies.token
   jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
     if (err) {
-      return next(boom.unauthorized())
+      next(boom.unauthorized())
+    } else {
+      req.token = decoded
+      next()
     }
-    req.token = decoded
-    next()
+
   })
 }
 
-
-router.get('/', (req, res, next) => {
-  res.render('profile', { title: APP_TITLE })
+router.get('/', verifyToken, (req, res, next) => {
+  console.log(req.token.email);
+  console.log(req);
+  res.render('profile', {
+    title: APP_TITLE
+  })
 })
 
-
 router.patch('/', verifyToken, (req, res, next) => {
-  console.log('PATCH: profile', req.body)
+  console.log('PATCH: ride page')
+  console.log(req.body)
 
-  const teamService = new TeamService()
-  const userService = new UserService()
-  teamService.getDefault()
-    .then(teamId => {
-      const inputUser = {
-        first_name: req.body.firstName,
-        last_name: req.body.lastName,
-        email: req.body.email,
-        hashed_password: bcrypt.hashSync(req.body.password1, 8),
-        access_type: 'normal',
-        team_id: teamId.id
-      }
-      console.log('team_id', inputUser.team_id)
-      // return inputUser
-    })
-    .then((user) => {
-      return userService.update(user)
-    })
-    .then((user) => {
-      handleResponse('profile', user.email, res, user)
-      res.sendStatus(200)
-    })
-    .catch((err) => {
-      console.log('backend err while signing up', err)
-      next(err)
-    })
+  // const userService = new UserService()
+  // const bikeService = new BikeService()
+  // const partService = new PartService()
+  // const rideService = new RideService()
+  //
+  // userService.getByEmail(req.token.email)
+  //   .then(user => bikeService.list(user.id))
+  //   .then(bikes => {
+  //     if (contype && contype.indexOf('application/json') === 0) {
+  //       console.log('returnign json')
+  //       let bikesByName = {}
+  //       let bikeNamesById = {}
+  //       let promisedParts = []
+  //       for (bike of bikes) {
+  //         bikesByName[bike.nick_name] = bike
+  //         bikesByName[bike.nick_name].parts = {}
+  //         bikeNamesById[bike.id] = bike.nick_name
+  //         promisedParts.push(partService.list(bike.id))
+  //       }
+  //       Promise.all(promisedParts).then(allBikesParts => {
+  //         for (oneBikeParts of allBikesParts) {
+  //           if (oneBikeParts.length > 0) {
+  //             let partsByName = {}
+  //             let bikeName = bikeNamesById[oneBikeParts[0].bike_id]
+  //             for (part of oneBikeParts) {
+  //               partsByName[part.name] = part
+  //             }
+  //             bikesByName[bikeName].parts = partsByName
+  //           }
+  //         }
+  //         console.log('addPart GET bikes success', bikesByName)
+  //         //console.log('bikesByName[bike1].parts', bikesByName.bike1.parts)
+  //         res.json({
+  //           bikes: bikesByName
+  //         })
+  //       })
+  //     } else {
+  //       console.log('returnign html')
+  //       res.render('addPart', {
+  //         title: APP_TITLE,
+  //         bikes: bikes
+  //       })
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.log('changeProfile GET err', err)
+  //     next(err)
+  //   })
 })
 
 module.exports = router
