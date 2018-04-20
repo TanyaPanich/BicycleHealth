@@ -22,33 +22,33 @@ router.get('/', verifyToken, (req, res, next) => {
 
   userService.getByEmail(req.token.email)
     .then(user => console.log(user))
-    .then(user => {
-        let promisedParts = []
-        Promise.all(promisedParts).then(allBikesParts => {
-          for (oneBikeParts of allBikesParts) {
-            if (oneBikeParts.length > 0) {
-              let partsByName = {}
-              let bikeName = bikeNamesById[oneBikeParts[0].bike_id]
-              for (part of oneBikeParts) {
-                partsByName[part.name] = part
-              }
-              bikesByName[bikeName].parts = partsByName
-            }
-          }
-          console.log('addPart GET bikes success', bikesByName)
-          //console.log('bikesByName[bike1].parts', bikesByName.bike1.parts)
-          res.json({
-            bikes: bikesByName
-          })
-        })
-      } else {
-        console.log('returnign html')
-        res.render('addPart', {
-          title: APP_TITLE,
-          bikes: bikes
-        })
-      }
-    })
+    // .then(user => {
+    //     let promisedParts = []
+    //     Promise.all(promisedParts).then(allBikesParts => {
+    //       for (oneBikeParts of allBikesParts) {
+    //         if (oneBikeParts.length > 0) {
+    //           let partsByName = {}
+    //           let bikeName = bikeNamesById[oneBikeParts[0].bike_id]
+    //           for (part of oneBikeParts) {
+    //             partsByName[part.name] = part
+    //           }
+    //           bikesByName[bikeName].parts = partsByName
+    //         }
+    //       }
+    //       console.log('addPart GET bikes success', bikesByName)
+    //       //console.log('bikesByName[bike1].parts', bikesByName.bike1.parts)
+    //       res.json({
+    //         bikes: bikesByName
+    //       })
+    //     })
+    //   } else {
+    //     console.log('returnign html')
+    //     res.render('addPart', {
+    //       title: APP_TITLE,
+    //       bikes: bikes
+    //     })
+    //   }
+    // })
     .catch(err => {
       console.log('changeProfile GET err', err)
       next(err)
