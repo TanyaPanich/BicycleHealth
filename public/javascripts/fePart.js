@@ -166,6 +166,7 @@ const updateForm = (bikes, bikeName, partName) => {
   console.log('bikeName', bikeName)
   console.log('partName', partName)
   if (bikeName === "Choose..." || partName == 'Choose...') {
+    $('#partNameStatus').empty()
     setButtons(false, false)
     updateInputFields()
     return

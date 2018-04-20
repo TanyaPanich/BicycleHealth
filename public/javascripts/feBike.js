@@ -66,7 +66,7 @@ const addFormSubmitListener = (bikes) => {
       distance = bikes[nickname].distance
       distance_unit = bikes[nickname].distance_unit
       if (event.currentTarget.id === 'updateBike') {
-        nickname = $('#newNickname').val().trim()
+        nickname = $('#nickname').val().trim()
       }
     } else if (nicknameSelector == 'New') {
       // if (event.currentTarget.id !== 'addBike') {
