@@ -55,10 +55,10 @@ const addFormSubmitListener = (bikes) => {
 
     const nicknameSelector = $('#nickname').val()
     if (nicknameSelector in bikes) {
-      if (event.currentTarget.id === 'addBike') {
-        $('#doneStatus').append('This operation is not supported for existing bike')
-        return
-      }
+      // if (event.currentTarget.id === 'addBike') {
+      //   $('#doneStatus').append('This operation is not supported for existing bike')
+      //   return
+      // }
       nickname = nicknameSelector
 
       bikeid = bikes[nickname].id
@@ -69,10 +69,10 @@ const addFormSubmitListener = (bikes) => {
         nickname = $('#newNickname').val().trim()
       }
     } else if (nicknameSelector == 'New') {
-      if (event.currentTarget.id !== 'addBike') {
-        $('#doneStatus').append('This operation is not supported for new bike')
-        return
-      }
+      // if (event.currentTarget.id !== 'addBike') {
+      //   $('#doneStatus').append('This operation is not supported for new bike')
+      //   return
+      // }
       nickname = $('#newNickname').val().trim()
     } else {
       $('#newNicknameStatus').append('Please select valid nickname option')
@@ -89,21 +89,25 @@ const addFormSubmitListener = (bikes) => {
     console.log("model:", model)
 
     if (!nickname) {
+      $('#newNicknameStatus').css('display', 'inline')
       $('#newNicknameStatus').append('Nickname must not be blank')
       return
     }
 
     if (!type || type === 'Choose...') {
+      $('#typeStatus').css('display', 'inline')
       $('#typeStatus').append('Please choose a type')
       return
     }
 
     if (!brand) {
+      $('#brandStatus').css('display', 'inline')
       $('#brandStatus').append('Brand must not be blank')
       return
     }
 
     if (!model) {
+      $('#modelStatus').css('display', 'inline')
       $('#modelStatus').append('Model must not be blank')
       return
     }
@@ -131,28 +135,14 @@ const addFormSubmitListener = (bikes) => {
       case 'deleteBike':
         requestParams.type = 'DELETE'
         break
-      default:
-        $('#doneStatus').append('Unsupported operation')
-        return
     }
 
     $.ajax(requestParams)
       .done((data) => {
-        // $('#nickname').val('Choose...')
-        // $('#newNickname').val('')
-        // $('#type').val('Choose...')
-        // $('#bikeBrand').val('')
-        // $('#model').val('')
-        // $('#doneStatus').append(`Bike ${newNickname} successfully added`)
-
-        console.log("about to reload")
         window.location.href = '/bike'
-        // location.reload()
-        console.log("reloaded")
       })
       .fail(($xhr) => {
-        console.log("failed", $xhr)
-        $('#doneStatus').append(`Error adding a bike`)
+        console.log('Error adding a bike')
       });
   })
 }

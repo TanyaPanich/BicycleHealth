@@ -43,18 +43,19 @@ $(document).ready(() => {
         case 'deleteRide':
           method = 'DELETE'
           break
-        default:
-          $('#doneStatus').append('Unsupported operation')
-          return
+        // default:
+        //   $('#doneStatus').append('Unsupported operation')
+        //   return
       }
-      /* eslint-enable */
 
+      /* eslint-enable */
       const bikeSelector = $('#bike-used').val()
       if (bikeSelector in bikes) {
         bikename = bikeSelector
         bikeid = bikes[bikename].id
       }
       if (!bikename) {
+        $('#bikeStatus').css('display', 'inline')
         $('#bikeStatus').append('A bicycle must be selected')
         return
       }
@@ -73,28 +74,34 @@ $(document).ready(() => {
       // console.log('road:', road)
 
       if (!date) {
+        $('#dateStatus').css('display', 'inline')
         $('#dateStatus').append('Please select a date')
         return
       }
       if (method === 'POST') {
         if (!rideName || rideName === 'Choose...') {
+          $('#nameStatus').css('display', 'inline')
           $('#nameStatus').append('Please select a Ride or New')
           return
         }
       }
       if (rideName === 'New' && !newRideName) {
+        $('#newNameStatus').css('display', 'inline')
         $('#newNameStatus').append('Please enter ride name')
         return
       }
       if (!distance) {
+        $('#distanceStatus').css('display', 'inline')
         $('#distanceStatus').append('Please enter the distance')
         return
       }
       if (!weather || weather === 'Choose...') {
+        $('#weatherStatus').css('display', 'inline')
         $('#weatherStatus').append('Please choose a weather condition')
         return
       }
       if (!road || road === 'Choose...') {
+        $('#roadStatus').css('display', 'inline')
         $('#roadStatus').append('Please choose a road condition')
         return
       }
@@ -130,8 +137,7 @@ $(document).ready(() => {
           window.location.href = '/ride'
         })
         .fail(($xhr) => {
-          console.log('failed', $xhr)
-          $('#doneStatus').append(`Error adding a ride`)
+          console.log('Error adding a ride')
         })
     })
   }
