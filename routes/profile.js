@@ -23,17 +23,7 @@ router.get('/', verifyToken, (req, res, next) => {
   userService.getByEmail(req.token.email)
     .then(user => console.log(user))
     .then(user => {
-      if (contype && contype.indexOf('application/json') === 0) {
-        console.log('returnign json')
-        let bikesByName = {}
-        let bikeNamesById = {}
         let promisedParts = []
-        for (bike of bikes) {
-          bikesByName[bike.nick_name] = bike
-          bikesByName[bike.nick_name].parts = {}
-          bikeNamesById[bike.id] = bike.nick_name
-          promisedParts.push(partService.list(bike.id))
-        }
         Promise.all(promisedParts).then(allBikesParts => {
           for (oneBikeParts of allBikesParts) {
             if (oneBikeParts.length > 0) {
