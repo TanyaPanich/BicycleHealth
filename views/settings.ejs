@@ -20,15 +20,27 @@
           <% }); %>
         </select>
         </div>
-        <div id="km-miles-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="miles" autocomplete="off" checked> Miles
-        </label>
-          <label class="btn btn-secondary">
-          <input type="radio" name="options" id="km" autocomplete="off"> Kilometers
-        </label>
-        </div>
 
+        <div class="form-group row">
+          <div id="km-miles-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="col-sm-2 col-form-label"> Units: </label>
+            <div>
+              <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="miles"  checked> Miles
+              </label>
+            </div>
+            <div>
+              <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="km" > Kilometers
+              </label>
+            </div>
+            <div>
+              <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="parsec" > Pc
+              </label>
+            </div>
+          </div>
+        </div>
         <div id="buttons-settings">
           <button id="edit-settings" type="submit" class="btn btn-primary settings-buttons">Choose Default</button>
         </div>
