@@ -89,19 +89,26 @@ const addFormSubmitListener = (bikes) => {
       },
       url: '/part'
     }
-    switch (event.currentTarget.id) {
-      case 'addPart':
-        requestParams.type = 'POST'
-        break
-      case 'updatePart':
-        requestParams.type = 'PATCH'
-        break
-      case 'deletePart':
-        requestParams.type = 'DELETE'
-        break
-      default:
-        $('#donePartStatus').append('Unsupported operation')
-        return
+    if(partName === 'Wheel' && event.currentTarget.id === 'deletePart') {
+      event.preventDefault()
+      $('#partNameStatus').css('display', 'inline')
+      $('#partNameStatus').append('Really?! How you gonna ride without wheel?')
+      return
+    } else {
+      switch (event.currentTarget.id) {
+        case 'addPart':
+          requestParams.type = 'POST'
+          break
+        case 'updatePart':
+          requestParams.type = 'PATCH'
+          break
+        case 'deletePart':
+          requestParams.type = 'DELETE'
+          break
+        default:
+          $('#donePartStatus').append('Unsupported operation')
+          return
+      }
     }
     //let status = $('#donePartStatus')
 
