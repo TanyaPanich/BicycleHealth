@@ -187,7 +187,7 @@ var GameState = {
     // //write new stats to db
     let parts = parent.document.getElementById('partHealth')
     console.log(parts)
-    $(parts).html(`Displaying: <b>${partObj.name}</b> <br> Distance since ${partObj.name} changed: ${partObj.distance} mi. <br> Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}<br> Or, roughly ${(partObj.lifespan - partObj.distance) / (.0125)} chains.`)
+    $(parts).html(`Displaying: <b>${partObj.name}</b> <br> Distance since ${partObj.name} changed: ${partObj.distance} mi. <br> Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}<br> Or, roughly ${(partObj.lifespan - partObj.distance) / (.125)} furlongs.`)
   },
 
   fixBikeStats: function() {
