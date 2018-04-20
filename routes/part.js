@@ -2,23 +2,11 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const { APP_TITLE } = require('../utilities/uiUtil')
+const { verifyToken } = require('../utilities/jwtUtil')
 const UserService = require('../database/services/userService')
 const BikeService = require('../database/services/bikeService')
 const PartService = require('../database/services/partService')
 
-function verifyToken(req, res, next) {
-  if (!req.cookies.token) {
-    return next(boom.unauthorized())
-  }
-  const token = req.cookies.token
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return next(boom.unauthorized())
-    }
-    req.token = decoded
-    next()
-  })
-}
 router.get('/', verifyToken, (req, res, next) => {
   console.log('GET: part page')
   console.log('For user: ', req.token.email)
