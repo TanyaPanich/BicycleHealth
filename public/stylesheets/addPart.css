@@ -1,6 +1,7 @@
 #addPartForm {
   margin: 2rem;
 }
+
 .col-form-label-lg {
   padding-top: 0;
 }
@@ -45,6 +46,7 @@ div.form-group.row {
 }
 
 #bikeNameStatus, #partNameStatus, #partBrandStatus, #partModelStatus {
+  display: none;
   color: red;
 }
 

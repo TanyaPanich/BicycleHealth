@@ -49,6 +49,11 @@ div.form-group.row {
   flex: 1;
 }
 
+#bikeStatus, #dateStatus, #nameStatus, #newNameStatus, #distanceStatus, #weatherStatus, #roadStatus {
+  display: none;
+  color: red;
+}
+
 .ride-buttons {
   margin: 0.5rem;
 }

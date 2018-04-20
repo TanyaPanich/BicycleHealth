@@ -8,6 +8,8 @@ $(document).ready(() => {
     contentType: "application/json; charset=utf-8",
     success: (data) => {
       console.log('data success', data)
+      const partOpt = $('partName')
+      console.log('partOpt', partOpt)
       addFormSubmitListener(data.bikes)
       addPartNameSelectListener(data.bikes)
       addBikeNameSelectListener(data.bikes)
@@ -34,38 +36,8 @@ const addFormSubmitListener = (bikes) => {
     $('#partModelStatus').empty()
     $('#donePartStatus').empty()
 
-    // let bikeName = ''
-    // let partName = ''
-    // let partBrand = ''
-    // let distance = ''
-    // let partModel = ''
-    // let minLifeSpan
-    // let estMileage
-
-    // const bikeNameSelector = $('#bicycleNickname').val()
-    // if (bikeNameSelector in bikes) {
-    // if (event.currentTarget.id === 'addBike') {
-    //   $('#doneStatus').append('This operation is not supported for existing bike')
-    //   return
-    // }
-    // nickname = nicknameSelector
-    // bikeid = bikes[nickname].id
-    // strava_gear_id = bikes[nickname].strava_gear_id
-    // distance = bikes[nickname].distance
-    // distance_unit = bikes[nickname].distance_unit
-
-    // } else if (nicknameSelector == 'New') {
-    //   if (event.currentTarget.id !== 'addBike') {
-    //     $('#doneStatus').append('This operation is not supported for new bike')
-    //     return
-    //   }
-    //   nickname = $('#newNickname').val().trim()
-    // } else {
-    //   $('#newNicknameStatus').append('Please select valid nickname option')
-    //   return
-    // }
     const bikeName = $('#bicycleNickname').val()
-    const partName = $('#partName').val()
+    const partName = $('#partName').val().split(" ")[0]
     const partBrand = $('#partBrand').val().trim()
     const partModel = $('#partModel').val().trim()
     const maxLifeSpan = $('#maxLifeSpan').val().trim()
@@ -79,21 +51,25 @@ const addFormSubmitListener = (bikes) => {
     console.log("estMileage:", estMileage)
 
     if (!bikeName) {
+      $('#bikeNameStatus').css('display', 'inline')
       $('#bikeNameStatus').append('Please choose from a list...')
       return
     }
 
     if (!partName || partName === 'Choose...') {
+      $('#partNameStatus').css('display', 'inline')
       $('#partNameStatus').append('Please choose from a list...')
       return
     }
 
     if (!partBrand) {
+      $('#partBrandStatus').css('display', 'inline')
       $('#partBrandStatus').append('Brand must not be blank')
       return
     }
 
     if (!partModel) {
+      $('#partModelStatus').css('display', 'inline')
       $('#partModelStatus').append('Model must not be blank')
       return
     }
@@ -133,53 +109,19 @@ const addFormSubmitListener = (bikes) => {
       .done((data) => {
         console.log('dataaaaa', data)
         window.location.href = '/part'
-
-        // $('#bicycleNickname').val('Choose...')
-        // $('#partName').val('Choose...')
-        // updateInputFields()
-        // $('#donePartStatus').css({
-        //   'color': 'green'
-        // })
-        // fadeInOut($('#donePartStatus').append(data.message))
       })
       .fail(($xhr) => {
-        $('#donePartStatus').css({
-          'color': 'red'
-        })
-        $('#donePartStatus').append(`Part already exists`)
+        console.log('Error getting data')
+
+        // $('#donePartStatus').css({
+        //   'color': 'red'
+        // })
+        // $('#donePartStatus').append(`Part already exists`)
       });
   })
 
 }
 
-function fadeInOut(p) {
-  $(p).fadeIn(500, () => {
-    setTimeout(() => {
-      $(p).fadeOut(500)
-    }, 3000)
-  })
-}
-// const addNicknameSelectListener = (bikes) => {
-//   $('#bicycleNickname').change(function() {
-//     const value = $(this).val()
-//     console.log('value', value)
-//     if (value in bikes) {
-//       console.log('value', value, 'is in bikes')
-// $('#newNickname').val('')
-// $('#type').val(bikes[value].type)
-// $('#bikeBrand').val(bikes[value].brand)
-// $('#model').val(bikes[value].model)
-//>>>>>>>>>>>>> I STOPPED HERE!!!
-// } else if (['Choose...'].includes(value)) {
-//   console.log('value', value, 'is new or unset')
-//   $('#type').val('Choose...')
-//   $('#partName').val('')
-//   $('#model').val('')
-// } else {
-//   console.log('invalid value', value)
-//      }
-//   })
-// }
 
 const addPartNameSelectListener = (bikes) => {
   $('#partName').change(function() {
@@ -189,10 +131,33 @@ const addPartNameSelectListener = (bikes) => {
 const addBikeNameSelectListener = (bikes) => {
   $('#bicycleNickname').change(function() {
     updateForm(bikes, $(this).val(), $('#partName').val())
+    updatePartSelector(bikes, $(this).val())
+  })
+}
+const updatePartSelector = (bikes, bikeName) => {
+  const bikeSelected = bikeName in bikes
+  console.log("bikeSelected:", bikeSelected)
+  $('#partName').prop('disabled', !bikeSelected)
+  if (!bikeSelected) {
+    return
+  }
+  $('#partName option').each((index, element) => {
+    const partName = element.innerText.split(" ")[0]
+    if (partName === "Choose...") {
+      return
+    }
+    const bikeParts = bikes[bikeName].parts
+    if (partName in bikeParts) {
+      element.innerText = partName + " \u2714"
+    } else {
+      element.innerText = partName
+    }
+    console.log("option:", element.innerText)
   })
 }
 
 const updateForm = (bikes, bikeName, partName) => {
+  partName = partName.split(" ")[0]
   console.log('bikeName', bikeName)
   console.log('partName', partName)
   if (bikeName === "Choose..." || partName == 'Choose...') {
@@ -226,3 +191,7 @@ const updateInputFields = (part) => {
     $('#estMileage').val('')
   }
 }
+
+// console.log('lalalalal', bikeParts)
+// $('#partName').append(`<option
+// >${bikeParts}</option>`)
