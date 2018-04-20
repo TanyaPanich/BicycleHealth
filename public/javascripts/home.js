@@ -12,9 +12,11 @@ var GameState = {
     this.load.image('Handlebars', '../images/handlebars.png')
     this.load.image('Chainring', '../images/chainring.png')
   },
+
   //executed after everything is loaded
   create: function() {
 
+    //sets world defaults
     console.log('hello strava');
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
     this.scale.pageAlignHorizontally = true
@@ -184,14 +186,14 @@ var GameState = {
     console.log(partObj.distance)
     console.log(partObj.lifespan)
     console.log(partObj.name)
-    // //write new stats to db
+    //writes stats to html below phaser iframe
     let parts = parent.document.getElementById('partHealth')
     console.log(parts)
-    $(parts).html(`Displaying: <b>${partObj.name}</b> <br> Distance since ${partObj.name} changed: ${partObj.distance} mi. <br> Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}<br> Or, roughly ${(partObj.lifespan - partObj.distance) / (.0125)} chains.`)
+    $(parts).html(`Displaying: <b>${partObj.name}</b> <br> Distance since ${partObj.name} changed: ${partObj.distance} mi. <br> Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}<br> Or, roughly ${(partObj.lifespan - partObj.distance) / (.125)} furlongs.`)
   },
 
+  //resets the stats on a part in phaser, shows it below phaser iframe
   fixBikeStats: function() {
-
     let partObj = JSON.parse(localStorage.getItem('partObj'))
 
     partObj.distance = 0
@@ -202,7 +204,7 @@ var GameState = {
     console.log(partObj.lifespan)
     console.log(partObj.name)
 
-    // //write new stats to db
+    // shows it below phaser iframe
     let parts = parent.document.getElementById('partHealth')
     console.log(parts)
     $(parts).html(`Displaying: <b>${partObj.name}</b> <br> Distance since ${partObj.name} changed: ${partObj.distance} mi. <br> Suggested Distance until next swap: ${partObj.lifespan - partObj.distance}`)
@@ -214,6 +216,7 @@ var GameState = {
   //   distLabel.destroy()
   // },
 
+  //adds click events to buttons
   start: function(btn, string, activePart) {
     btn.inputEnabled = true;
     btn.input.pixelPerfectClick = true;
@@ -224,7 +227,10 @@ var GameState = {
 
 };
 
+
+//inits game size and engine.
 let game = new Phaser.Game(800, 800, Phaser.AUTO)
 
+//adds gamestates and starts game
 game.state.add('GameState', GameState)
 game.state.start('GameState')

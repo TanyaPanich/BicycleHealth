@@ -111,7 +111,6 @@ const addFormSubmitListener = (bikes) => {
       }
     }
     //let status = $('#donePartStatus')
-
     $.ajax(requestParams)
       .done((data) => {
         console.log('dataaaaa', data)
@@ -119,7 +118,6 @@ const addFormSubmitListener = (bikes) => {
       })
       .fail(($xhr) => {
         console.log('Error getting data')
-
         // $('#donePartStatus').css({
         //   'color': 'red'
         // })
