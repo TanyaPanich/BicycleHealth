@@ -25,8 +25,10 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
       if(repairs) {
         return repairs.map((repair, index) => {
           return repair.reduce((acc, element) => {
-            console.log(element)
-            element.repair_date = convertDateToString(element.repair_date)
+            console.log('element--->', element)
+            if(element.repair_date !== null) {
+              element.repair_date = convertDateToString(element.repair_date)
+            }
             if (acc.bike_name) {
               acc.history.push(element)
             }
@@ -69,6 +71,7 @@ router.get('/', verifyToken, retrieveUser, (req, res, next) => {
 })
 
 function convertDateToString(date) {
+  console.log('dataaaaeeeee', date)
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const day = (date.getDate()).toString().padStart(2, '0')
   return `${date.getFullYear()}-${month}-${day}`
