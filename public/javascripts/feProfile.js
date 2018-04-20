@@ -20,8 +20,27 @@ $(document).ready(() => {
   })
 })
 
-const addFormSubmitListener = (profiles) => {
+const addFormSubmitListener = (data) => {
+  console.log(data);
   $('#edit-profile').click((event) => {
+    event.preventDefault()
+    console.log('button clicked');
+    $.ajax({
+      url: '/profile',
+      type: 'PATCH',
+      dataType: "json",
+      headers: {
+        Accept: 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      success: (data) => {
+        console.log('data success', data)
+      },
+      error: (err) => {
+        console.log('err', err)
+      }
+    })
+
     console.log("event:", event)
     event.preventDefault()
 

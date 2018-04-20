@@ -21,98 +21,58 @@ router.get('/', verifyToken, (req, res, next) => {
   const contype = req.headers['content-type']
 
   userService.getByEmail(req.token.email)
-    .then(user => console.log(user))
-    // .then(user => {
-    //     let promisedParts = []
-    //     Promise.all(promisedParts).then(allBikesParts => {
-    //       for (oneBikeParts of allBikesParts) {
-    //         if (oneBikeParts.length > 0) {
-    //           let partsByName = {}
-    //           let bikeName = bikeNamesById[oneBikeParts[0].bike_id]
-    //           for (part of oneBikeParts) {
-    //             partsByName[part.name] = part
-    //           }
-    //           bikesByName[bikeName].parts = partsByName
-    //         }
-    //       }
-    //       console.log('addPart GET bikes success', bikesByName)
-    //       //console.log('bikesByName[bike1].parts', bikesByName.bike1.parts)
-    //       res.json({
-    //         bikes: bikesByName
-    //       })
-    //     })
-    //   } else {
-    //     console.log('returnign html')
-    //     res.render('addPart', {
-    //       title: APP_TITLE,
-    //       bikes: bikes
-    //     })
-    //   }
-    // })
+    .then(user => {
+      console.log(user)
+      return user
+    })
+    .then(user => {
+      console.log('returnign html')
+      // res.json(user)
+      res.render('profile', {
+        title: APP_TITLE,
+        user: user
+      })
+    })
+
     .catch(err => {
       console.log('changeProfile GET err', err)
       next(err)
     })
-
-  res.render('profile', {
-    title: APP_TITLE
-  })
 })
 
-router.patch('/', verifyToken, (req, res, next) => {
+router.patch('/', verifyToken, retrieveUser, (req, res, next) => {
+  console.log('PATCH: profile page!!!!!!!')
+  console.log(req.body)
+  const userService = new UserService()
 
+  if (req.body.userId) {
+    // need to update distance in all the parts
+    const user = {
+      id: uuid(),
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      hashed_password: user.hashed_password,
+      strava_user_id: user.strava_user_id,
+      strava_access_token: user.strava_access_token,
+      access_type: user.access_type,
+      team_id: user.team_id
+    }
+    console.log("user", user);
+    return userService.update(user)
+      .then(result => {
+        console.log('profile PATCH success', result)
+        //res.status(200)
+        res.status(200).json({
+          message: 'Success'
+        })
+      })
+      .catch(err => {
+        console.log('profile PATCH err', err)
+        next(err)
+      })
+  }
 })
+
 
 module.exports = router
-
-
-// console.log('PATCH: ride page')
-// console.log(user.email)
-// const userService = new UserService()
-// const bikeService = new BikeService()
-// const partService = new PartService()
-// const rideService = new RideService()
-//
-// userService.getByEmail(req.token.email)
-//   .then(user => bikeService.list(user.id))
-//   .then(bikes => {
-//     if (contype && contype.indexOf('application/json') === 0) {
-//       console.log('returnign json')
-//       let bikesByName = {}
-//       let bikeNamesById = {}
-//       let promisedParts = []
-//       for (bike of bikes) {
-//         bikesByName[bike.nick_name] = bike
-//         bikesByName[bike.nick_name].parts = {}
-//         bikeNamesById[bike.id] = bike.nick_name
-//         promisedParts.push(partService.list(bike.id))
-//       }
-//       Promise.all(promisedParts).then(allBikesParts => {
-//         for (oneBikeParts of allBikesParts) {
-//           if (oneBikeParts.length > 0) {
-//             let partsByName = {}
-//             let bikeName = bikeNamesById[oneBikeParts[0].bike_id]
-//             for (part of oneBikeParts) {
-//               partsByName[part.name] = part
-//             }
-//             bikesByName[bikeName].parts = partsByName
-//           }
-//         }
-//         console.log('addPart GET bikes success', bikesByName)
-//         //console.log('bikesByName[bike1].parts', bikesByName.bike1.parts)
-//         res.json({
-//           bikes: bikesByName
-//         })
-//       })
-//     } else {
-//       console.log('returnign html')
-//       res.render('addPart', {
-//         title: APP_TITLE,
-//         bikes: bikes
-//       })
-//     }
-//   })
-//   .catch(err => {
-//     console.log('changeProfile GET err', err)
-//     next(err)
-//   })
